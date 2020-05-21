@@ -16,8 +16,13 @@
   </resultMap> -->
 
 	<select id="boardList" parameterType="Board" resultType="Board">
-		select * from board
+		select * from board where b_type=1
 	
+	</select>
+	
+	<select id="noticeList" resultType="Board">
+		select * from board where b_type=0
+
 	</select>
 
 

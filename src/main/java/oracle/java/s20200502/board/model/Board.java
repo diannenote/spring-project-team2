@@ -1,18 +1,17 @@
 package oracle.java.s20200502.board.model;
 
-import java.util.Date;
+
 
 public class Board {
 	private int b_num;
 	private int m_num;
 	private String b_title;
 	private String b_content;
-	private Date b_regDate;
+	private String b_regDate;
 	private int b_hit;
 	private int b_likeCnt;
 	private int b_replyCnt;
 	private int b_type;
-	
 	public int getB_num() {
 		return b_num;
 	}
@@ -37,10 +36,10 @@ public class Board {
 	public void setB_content(String b_content) {
 		this.b_content = b_content;
 	}
-	public Date getB_regDate() {
+	public String getB_regDate() {
 		return b_regDate;
 	}
-	public void setB_regDate(Date b_regDate) {
+	public void setB_regDate(String b_regDate) {
 		this.b_regDate = b_regDate;
 	}
 	public int getB_hit() {
@@ -67,5 +66,7 @@ public class Board {
 	public void setB_type(int b_type) {
 		this.b_type = b_type;
 	}
-
+	
+	
+	
 }

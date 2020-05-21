@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import oracle.java.s20200502.board.model.Board;
 import oracle.java.s20200502.board.service.BoardService;
@@ -27,12 +28,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping("noticeList")
-	public String  noticeBoard (Board board, Model model) {
+	@ResponseBody
+	public List<Board> noticeBoard (Board board) {
 		System.out.println("noticeBoard Controller start");
 		List<Board> noticeList = boardService.noticeList(board);
-		model.addAttribute("noticeList", noticeList);
 		
-		return "board/boardList";
+		return noticeList;
 	}
 	
 
