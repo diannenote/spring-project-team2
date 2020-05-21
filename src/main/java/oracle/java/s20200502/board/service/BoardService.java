@@ -7,8 +7,6 @@ import oracle.java.s20200502.board.model.Board;
 public interface BoardService {
 
 	List<Board> boardList(Board board);
-
-	
-	
+	List<Board> noticeList(Board board);
 
 }

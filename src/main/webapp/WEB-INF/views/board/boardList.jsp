@@ -11,6 +11,34 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
  
 
+<style>
+.board-con1 > ul {
+	list-style-type: none;
+	text-align: center;
+	
+}
+
+.board-con1 > ul li {
+	display: inline;
+	background: #e0e0e0;
+	padding: 20px;
+	
+	
+}
+
+.board-con1 > ul a:hover {
+	background: #3498DB;
+	
+}
+
+.board-con1 ul a{
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+ 
+  
+}
+</style>
 </head>
 
 <body>
@@ -18,9 +46,13 @@
 	
 	<div id="board-wrap">
 		<div class="board-con1">
-			<h2 >자유게시판</h2>
 			
-				
+				<ul>
+					<li>
+						<a href="noticeList">공지사항</a> 
+						<a href="boardList">스터디그룹</a>
+					</li>
+				</ul>
 		</div>
 		<div class="board-con2">
 		
