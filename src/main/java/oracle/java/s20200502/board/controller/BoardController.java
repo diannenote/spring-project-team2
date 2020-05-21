@@ -26,7 +26,7 @@ public class BoardController {
 		return "board/boardList";
 	}
 	
-	@RequestMapping("noticeBoard")
+	@RequestMapping("noticeList")
 	public String  noticeBoard (Board board, Model model) {
 		System.out.println("noticeBoard Controller start");
 		List<Board> noticeList = boardService.noticeList(board);
