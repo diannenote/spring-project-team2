@@ -36,5 +36,14 @@ public class BoardController {
 		return noticeList;
 	}
 	
+	@RequestMapping("studyBoardList")
+	@ResponseBody
+	public  List<Board> studyBoardList (Board board) {
+		System.out.println("studyBoardList Controller Start");
+		List<Board> studyBoardList = boardService.studyBoardList(board);
+		
+		return studyBoardList;
+	}
+	
 
 }

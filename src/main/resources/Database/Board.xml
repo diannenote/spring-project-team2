@@ -24,6 +24,10 @@
 		select * from board where b_type=0
 
 	</select>
+	
+	<select id="studyBoardList" resultType="Board">
+		select * from board where b_type=1
+	</select>
 
 
 

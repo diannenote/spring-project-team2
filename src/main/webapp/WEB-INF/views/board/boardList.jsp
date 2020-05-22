@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ include file="../header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -65,7 +66,7 @@ var contextPath='${pageContext.request.contextPath}';
 				for(var i = 0; i < data.length; i++) {
 					content += "<tr>";
 					content += 		"<td>" + data[i].b_num + "</td>";
-					content += 		"<td>" + data[i].b_title + "</td>";
+					content+= 		"<td>" + data[i].b_title + "</td>";
 					content += 		"<td>" + "관리자 "+ "</td>";
 					content += 		"<td>" + data[i].b_regDate + "</td>";
 					content += 		"<td>" + data[i].b_hit + "</td>";
@@ -73,6 +74,28 @@ var contextPath='${pageContext.request.contextPath}';
 					content += "</tr>";
 				}
 				$("#board-list").html(content);
+			}
+		})
+	}
+	
+	function getStudyBoardList() {
+		$.ajax({
+			url: contextPath + "/studyBoardList",
+			success:function(data) {
+				$("#board-list >  tr").remove();
+				var content = "";
+				for (var i =0; i < data.length; i++) {
+					content += "<tr>";
+					content += 	"<td>" + data[i].b_num + "</td>";
+					content += 	"<td>" + data[i].b_title + "</td>";
+					content += 	"<td>" + "일반회원" + "</td>";
+					content += 	"<td>" + data[i].b_regDate + "</td>";				
+					content += 	"<td>" + data[i].b_hit + "</td>";
+					content += 	"<td>" + data[i].b_likeCnt + "</td>";
+					content += "</tr>";
+				}
+				$("#board-list").html(content);
+			
 			}
 		})
 		
@@ -88,7 +111,7 @@ var contextPath='${pageContext.request.contextPath}';
 		<div class="board-con1">
 			<div class="btn-group btn-group-lg">
 	   			<button class="btn btn-primary" onclick="getNoticeList()">공지사항</button>
-			    <button class="btn btn-primary" onclick="#">스터디모집</button>
+			    <button class="btn btn-primary" onclick="getStudyBoardList()">스터디모집</button>
 			</div>
 			
 		</div>

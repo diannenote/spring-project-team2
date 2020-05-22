@@ -28,4 +28,10 @@ public class BoardDaoImpl implements BoardDao {
 		return session.selectList("noticeList", board);
 	}
 
+	@Override
+	public List<Board> studyBoardList(Board board) {
+		System.out.println("BoardDaoImpl studyBoardList start");
+		return session.selectList("studyBoardList", board);
+	}
+
 }

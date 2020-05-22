@@ -8,5 +8,6 @@ public interface BoardService {
 
 	List<Board> boardList(Board board);
 	List<Board> noticeList(Board board);
+	List<Board> studyBoardList(Board board);
 
 }
