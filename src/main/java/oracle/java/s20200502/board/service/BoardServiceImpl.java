@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import oracle.java.s20200502.board.dao.BoardDao;
 import oracle.java.s20200502.board.model.Board;
+import oracle.java.s20200502.board.model.Paging;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -15,16 +16,15 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDao boardDao;
 
 	@Override
-	public List<Board> boardList(Board board) {
+	public List<Board> boardList(Paging paging) {
 		System.out.println("BoardServiceImpl boardList start");
-		return boardDao.boardList(board);
-		
+		return boardDao.boardList(paging);
 	}
 
 	@Override
-	public List<Board> noticeList(Board board) {
+	public List<Board> noticeList(Paging paging) {
 		System.out.println("BoardServiceImpl noticeBoard start");
-		return boardDao.noticeList(board);
+		return boardDao.noticeList(paging);
 	}
 
 	@Override

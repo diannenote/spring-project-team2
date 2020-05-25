@@ -15,14 +15,14 @@
     <result property="b_type" column="b_type"/>
   </resultMap> -->
 
-	<select id="boardList"  parameterType="Board" resultType="Board">
+	<select id="boardList"  parameterType="Paging" resultType="Board">
 		select * from (select row_number() over (order by b_num desc) rn, board.b_num, board.b_title, board.b_content, 
 		(case when to_char( board.b_regdate, 'yyyy.mm.dd' ) = to_char( sysdate, 'yyyy.mm.dd' ) then to_char( board.b_regdate, 'HH24:mi:ss') 
 		else to_char( board.b_regdate, 'yyyy.mm.dd') end) as b_regdate, board.b_hit, board.b_likecnt, board.b_replycnt, board.b_type, member.m_nickname from board join member on board.m_num = member.m_num where b_type=1 order by b_num desc)
 		where rn between #{start} and #{end}
 	</select>
 	
-	<select id="noticeList"  parameterType="Board" resultType="Board">
+	<select id="noticeList"  parameterType="Paging" resultType="Board">
 		select * from (select row_number() over (order by b_num desc) rn, board.b_num, board.b_title, board.b_content, 
 		(case when to_char( board.b_regdate, 'yyyy.mm.dd' ) = to_char( sysdate, 'yyyy.mm.dd' ) then to_char( board.b_regdate, 'HH24:mi:ss') 
 		else to_char( board.b_regdate, 'yyyy.mm.dd') end) as b_regdate, board.b_hit, board.b_likecnt, board.b_replycnt, board.b_type, member.m_nickname from board join member on board.m_num = member.m_num where b_type=0 order by b_num desc)

@@ -8,9 +8,6 @@ public class Board {
 	private int b_hit, b_likeCnt, b_replyCnt, b_type;
 	private String m_nickname;
 	
-	private int start, end;
-	private String pageNum;
-	
 	public String getM_nickname() {
 		return m_nickname;
 	}
@@ -18,24 +15,6 @@ public class Board {
 		this.m_nickname = m_nickname;
 	}
 	
-	public int getStart() {
-		return start;
-	}
-	public void setStart(int start) {
-		this.start = start;
-	}
-	public int getEnd() {
-		return end;
-	}
-	public void setEnd(int end) {
-		this.end = end;
-	}
-	public String getPageNum() {
-		return pageNum;
-	}
-	public void setPageNum(String pageNum) {
-		this.pageNum = pageNum;
-	}
 	public int getB_num() {
 		return b_num;
 	}

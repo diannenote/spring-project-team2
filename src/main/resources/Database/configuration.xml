@@ -5,6 +5,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="Board" type="oracle.java.s20200502.board.model.Board"/>
+		<typeAlias alias="Paging" type="oracle.java.s20200502.board.model.Paging"/>
 		
 	</typeAliases>
 	

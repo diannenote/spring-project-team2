@@ -23,8 +23,7 @@
  }
 
 .btn-group a {
-    background-color: #4CAF50;
-    border: 5px solid green;
+    background-color: #4CAF50; 
     color: white;
     padding: 10px 24px;
     cursor: pointer;
@@ -35,11 +34,6 @@
     border-right: none;
 }
 
-.btn-group a:hover {
-    background-color: #3e8e41;
-}
-
-  
  .board-con1 {
  margin-top: 50px;
  }
@@ -50,9 +44,6 @@
 	margin: auto;
  }
  
- .blue {
- background-color: blue;
- }
  
 </style>
 
@@ -104,36 +95,56 @@
 			</div>
 			
 		</div>
-		<form action="#" id="icon">
-					<div style=text-align:right;>
-						<input type="text" name="keyword" required="required" placeholder="검색"> 
-						<i class="fa fa-search" onclick="submit();"></i>
-					</div>
-		</form>
+		<div>
+			<form action="#" id="icon">
+						<div style=text-align:right;>
+							<input type="text" name="keyword" required="required" placeholder="검색"> 
+							<i class="fa fa-search" onclick="submit();"></i>
+						</div>
+			</form>
+		</div>
+		<div style="text-align: center;">
 		
-		<c:if test="${paging.startPage > paging.pageBlock }">
-			<a href="boardList?currentPage=${paging.startPage-paging.pageBlock}"> [이전] </a>
-		</c:if>
-		<c:forEach var="i" begin="${paging.startPage }" end="${paging.endPage }">
-			<a href="boardList?currentPage=${i}">[${i}]</a>
-		</c:forEach>
-		<c:if test="${pg.endPage < paging.totalPage }">
-			<a href="boardList?currentPage=${paging.startPage+paging.pageBlock}">[다음]</a>
-		</c:if>
+			<c:if test="${paging.before eq true }">
+				<a onclick="goBefore(${paging.startPage - 1})"> ◀ PREV</a>
+			</c:if>
+			<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
+				<a onclick="goPage(${i})">[${i}]</a>
+			</c:forEach>
+			<c:if test="${paging.next eq true}">
+				<a onclick="goNext(${paging.endPage + 1})"> NEXT ▶</a>
+			</c:if>
+		</div>
 		
 	</div>
 	
 	<script type="text/javascript">
 		var loc = location.href.split("/")[4];
-		if(loc.indexOf('noticeList') === 0) {
-			console.log(loc);
-			$("#study-btn").addClass("blue");
-
-		} else {
-			$("#notice-btn").addClass("blue");
+		$(document).ready(function() {
+			if(loc.indexOf('noticeList') === 0) {
+				$("#notice-btn").css("background", "blue");
+			} else {
+				$("#board-btn").css("background", "blue");
+			}
+		})
 		
+		function goPage(pageNum) {
+			if(loc.indexOf('noticeList') === 0) {
+				location.href = "noticeList?currentPage=" + pageNum;
+			} 
 		}
 		
+		function goBefore(prevPage) {
+			if(loc.indexOf('noticeList') === 0) {
+				location.href = "noticeList?currentPage=" + prevPage;
+			}
+		}
+		
+		function goNext(nextPage) {
+			if(loc.indexOf('noticeList') === 0) {
+				location.href = "noticeList?currentPage=" + nextPage;
+			}
+		} 
 		
 	</script> 
 </body>

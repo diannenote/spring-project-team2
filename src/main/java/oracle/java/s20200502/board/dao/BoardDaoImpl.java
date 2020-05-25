@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import oracle.java.s20200502.board.model.Board;
+import oracle.java.s20200502.board.model.Paging;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -17,15 +18,15 @@ public class BoardDaoImpl implements BoardDao {
 	private SqlSession session;
 
 	@Override
-	public List<Board> boardList(Board board) {
+	public List<Board> boardList(Paging paging) {
 		System.out.println("BoardDaoImpl boardList start");
-		return session.selectList("boardList", board);
+		return session.selectList("boardList", paging);
 	}
 
 	@Override
-	public List<Board> noticeList(Board board) {
+	public List<Board> noticeList(Paging paging) {
 		System.out.println("BoardDaoImpl noticeList start");
-		return session.selectList("noticeList", board);
+		return session.selectList("noticeList", paging);
 	}
 
 	@Override

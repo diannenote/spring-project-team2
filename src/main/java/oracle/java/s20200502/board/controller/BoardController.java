@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import oracle.java.s20200502.board.model.Board;
+import oracle.java.s20200502.board.model.Paging;
 import oracle.java.s20200502.board.service.BoardService;
-import oracle.java.s20200502.board.service.Paging;
 
 @Controller
 public class BoardController {
@@ -19,39 +19,30 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping("boardList")
-	public String boardList(Board board, Model model, String currentPage) {
+	public String boardList(Paging paging, Model model) {
 		System.out.println("boardList Controller start");
 		
 		int boardtotal = boardService.boardtotal();
-		Paging paging = new Paging(boardtotal, currentPage);
-		board.setStart(paging.getStart());
-		board.setEnd(paging.getEnd());
+		paging.setTotal(boardtotal);
 		
-		System.out.println("EmpController list boardtotal->"+boardtotal);
-		System.out.println("EmpController list currentPage->"+currentPage);
+		System.out.println("BoardController list boardtotal->"+boardtotal);
+		System.out.println("BoardController list currentPage->" + paging.getCurrentPage());
 		
-		List<Board> boardList = boardService.boardList(board);
+		List<Board> boardList = boardService.boardList(paging);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("paging", paging);
-		
 		
 		return "board/boardList";
 	}
 	
 	@RequestMapping("noticeList")
-	public String noticeBoard (Board board, String currentPage, Model model) {
+	public String noticeBoard (Paging paging, Model model) {
 		System.out.println("noticeBoard Controller start");
 		
 		int noticetotal = boardService.noticetotal();
-		Paging paging = new Paging(noticetotal, currentPage);
+		paging.setTotal(noticetotal);
 		
-		board.setStart(paging.getStart());
-		board.setEnd(paging.getEnd());
-		
-		System.out.println("EmpController list noticetotal->"+noticetotal);
-		System.out.println("EmpController list currentPage->"+currentPage);
-		
-		List<Board> noticeList = boardService.noticeList(board);
+		List<Board> noticeList = boardService.noticeList(paging);
 		model.addAttribute("boardList", noticeList);
 		model.addAttribute("paging", paging);
 		
