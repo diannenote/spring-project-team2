@@ -17,21 +17,15 @@ public class BoardDaoImpl implements BoardDao {
 	private SqlSession session;
 
 	@Override
-	public List<Board> boardList(Board board) {
+	public List<Board> boardList() {
 		System.out.println("BoardDaoImpl boardList start");
-		return session.selectList("boardList", board);
+		return session.selectList("boardList");
 	}
 
 	@Override
-	public List<Board> noticeList(Board board) {
+	public List<Board> noticeList() {
 		System.out.println("BoardDaoImpl noticeList start");
-		return session.selectList("noticeList", board);
-	}
-
-	@Override
-	public List<Board> studyBoardList(Board board) {
-		System.out.println("BoardDaoImpl studyBoardList start");
-		return session.selectList("studyBoardList", board);
+		return session.selectList("noticeList");
 	}
 
 }

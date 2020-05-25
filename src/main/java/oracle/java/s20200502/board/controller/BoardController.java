@@ -18,9 +18,10 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping("boardList")
-	public String boardList(Board board, Model model) {
+	public String boardList(Model model) {
 		System.out.println("boardList Controller start");
-		List<Board> boardList = boardService.boardList(board);
+		
+		List<Board> boardList = boardService.boardList();
 		model.addAttribute("boardList", boardList);
 		
 		
@@ -28,22 +29,13 @@ public class BoardController {
 	}
 	
 	@RequestMapping("noticeList")
-	@ResponseBody
-	public List<Board> noticeBoard (Board board) {
+	public String noticeBoard (Model model) {
 		System.out.println("noticeBoard Controller start");
-		List<Board> noticeList = boardService.noticeList(board);
 		
-		return noticeList;
+		List<Board> noticeList = boardService.noticeList();
+		model.addAttribute("boardList", noticeList);
+		
+		return "board/boardList";
 	}
 	
-	@RequestMapping("studyBoardList")
-	@ResponseBody
-	public  List<Board> studyBoardList (Board board) {
-		System.out.println("studyBoardList Controller Start");
-		List<Board> studyBoardList = boardService.studyBoardList(board);
-		
-		return studyBoardList;
-	}
-	
-
 }

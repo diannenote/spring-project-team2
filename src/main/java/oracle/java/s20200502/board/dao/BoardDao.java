@@ -6,8 +6,7 @@ import oracle.java.s20200502.board.model.Board;
 
 public interface BoardDao {
 
-	List<Board> boardList(Board board);
-	List<Board> noticeList(Board board);
-	List<Board> studyBoardList(Board board);
+	List<Board> boardList();
+	List<Board> noticeList();
 	
 }

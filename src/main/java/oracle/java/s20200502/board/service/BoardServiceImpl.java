@@ -15,23 +15,16 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDao boardDao;
 
 	@Override
-	public List<Board> boardList(Board board) {
+	public List<Board> boardList() {
 		System.out.println("BoardServiceImpl boardList start");
-		return boardDao.boardList(board);
+		return boardDao.boardList();
 		
 	}
 
 	@Override
-	public List<Board> noticeList(Board board) {
+	public List<Board> noticeList() {
 		System.out.println("BoardServiceImpl noticeBoard start");
-		return boardDao.noticeList(board);
+		return boardDao.noticeList();
 	}
-
-	@Override
-	public List<Board> studyBoardList(Board board) {
-		System.out.println("BoardServiceImpl studyBoardList start");
-		return boardDao.studyBoardList(board);
-	}
-	
 
 }

@@ -23,7 +23,7 @@
  margin-left:-150px;
  margin-bottom: 50px;
 }
-.btn-group button {
+.btn-group a {
     background-color: #4CAF50;
     border: 5px solid green;
     color: white;
@@ -32,11 +32,11 @@
     float: left;
 }
 
-.btn-group button:not(:last-child) {
+.btn-group a:not(:last-child) {
     border-right: none;
 }
 
-.btn-group button:hover {
+.btn-group a:hover {
     background-color: #3e8e41;
 }
 
@@ -51,57 +51,13 @@
 	margin: auto;
  }
  
+ .blue {
+ background-color: blue;
+ }
  
 </style>
 
-<script type="text/javascript">
-var contextPath='${pageContext.request.contextPath}';
-	function getNoticeList() {
-		$.ajax({
-			url: contextPath + "/noticeList",
-			success:function(data){
-				console.log(data)
-				$("#board-list > tr").remove();
-				var content = "";
-				for(var i = 0; i < data.length; i++) {
-					content += "<tr>";
-					content += 		"<td>" + data[i].b_num + "</td>";
-					content+= 		"<td>" + data[i].b_title + "</td>";
-					content += 		"<td>" + "관리자 "+ "</td>";
-					content += 		"<td>" + data[i].b_regDate + "</td>";
-					content += 		"<td>" + data[i].b_hit + "</td>";
-					content += 		"<td>" + data[i].b_likeCnt + "</td>";
-					content += "</tr>";
-				}
-				$("#board-list").html(content);
-			}
-		})
-	}
-	
-	function getStudyBoardList() {
-		$.ajax({
-			url: contextPath + "/studyBoardList",
-			success:function(data) {
-				$("#board-list >  tr").remove();
-				var content = "";
-				for (var i =0; i < data.length; i++) {
-					content += "<tr>";
-					content += 	"<td>" + data[i].b_num + "</td>";
-					content += 	"<td>" + data[i].b_title + "</td>";
-					content += 	"<td>" + "일반회원" + "</td>";
-					content += 	"<td>" + data[i].b_regDate + "</td>";				
-					content += 	"<td>" + data[i].b_hit + "</td>";
-					content += 	"<td>" + data[i].b_likeCnt + "</td>";
-					content += "</tr>";
-				}
-				$("#board-list").html(content);
-			
-			}
-		})
-		
-	}
 
-</script>
 </head>
 
 <body>
@@ -110,8 +66,8 @@ var contextPath='${pageContext.request.contextPath}';
 	<div id="board-wrap">
 		<div class="board-con1">
 			<div class="btn-group btn-group-lg">
-	   			<button class="btn btn-primary" onclick="getNoticeList()">공지사항</button>
-			    <button class="btn btn-primary" onclick="getStudyBoardList()">스터디모집</button>
+	   			<a class="btn btn-primary" href="noticeList" id="notice-btn">공지사항</a>
+			    <a class="btn btn-primary" href="boardList" id="board-btn">스터디모집</a>
 			</div>
 			
 		</div>
@@ -131,20 +87,17 @@ var contextPath='${pageContext.request.contextPath}';
 						<th>NO.</th><th>제목</th><th>작성자</th>
 						<th>작성일</th><th>조회수</th><th>좋아요♥</th>
 					</tr>
-					<tbody id="board-list">
-						<c:forEach items="${boardList}" var="board">
-							<tr>
-								<td>${ board.b_num} </td>
-								<td>${ board.b_title}</td>
-								<td>관리자</td>
-								<%-- <td><fmt:formatDate value="${ board.b_regDate}" pattern="yyyy.MM.dd"/></td> --%>				
-								<td>${ board.b_regDate}</td>				
-								<td>${ board.b_hit}</td>
-								<td>${ board.b_likeCnt}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-					
+					<c:forEach items="${boardList}" var="board">
+						<tr>
+							<td>${ board.b_num} </td>
+							<td>${ board.b_title}</td>
+							<td>관리자</td>
+							<%-- <td><fmt:formatDate value="${ board.b_regDate}" pattern="yyyy.MM.dd"/></td> --%>				
+							<td>${ board.b_regDate}</td>				
+							<td>${ board.b_hit}</td>
+							<td>${ board.b_likeCnt}</td>
+						</tr>
+					</c:forEach>
 			</table>
 		</div>
 		<div class="board-con3">
@@ -160,6 +113,15 @@ var contextPath='${pageContext.request.contextPath}';
 					</div>
 		</form>
 	</div>
+	
+	<script type="text/javascript">
+		var loc = location.href.split("/")[4].indexOf('noticeList');
+		if(loc === 0) {
+			console.log(loc);
+			$("#notice-btn").addClass("blue");
+		} 
+		
+	</script>	
 </body>
 	
 </html>

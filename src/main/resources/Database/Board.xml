@@ -15,7 +15,7 @@
     <result property="b_type" column="b_type"/>
   </resultMap> -->
 
-	<select id="boardList" parameterType="Board" resultType="Board">
+	<select id="boardList" resultType="Board">
 		select * from board where b_type=1
 	
 	</select>
@@ -25,12 +25,4 @@
 
 	</select>
 	
-	<select id="studyBoardList" resultType="Board">
-		select * from board where b_type=1
-	</select>
-
-
-
-
-
 </mapper>
