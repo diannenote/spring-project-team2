@@ -3,15 +3,39 @@ package oracle.java.s20200502.board.model;
 
 
 public class Board {
-	private int b_num;
-	private int m_num;
-	private String b_title;
-	private String b_content;
-	private String b_regDate;
-	private int b_hit;
-	private int b_likeCnt;
-	private int b_replyCnt;
-	private int b_type;
+	private int b_num, m_num;
+	private String b_title, b_content, b_regDate;
+	private int b_hit, b_likeCnt, b_replyCnt, b_type;
+	private String m_nickname;
+	
+	private int start, end;
+	private String pageNum;
+	
+	public String getM_nickname() {
+		return m_nickname;
+	}
+	public void setM_nickname(String m_nickname) {
+		this.m_nickname = m_nickname;
+	}
+	
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
+	public int getEnd() {
+		return end;
+	}
+	public void setEnd(int end) {
+		this.end = end;
+	}
+	public String getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(String pageNum) {
+		this.pageNum = pageNum;
+	}
 	public int getB_num() {
 		return b_num;
 	}
@@ -66,7 +90,5 @@ public class Board {
 	public void setB_type(int b_type) {
 		this.b_type = b_type;
 	}
-	
-	
 	
 }

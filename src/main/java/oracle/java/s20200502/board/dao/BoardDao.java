@@ -4,9 +4,13 @@ import java.util.List;
 
 import oracle.java.s20200502.board.model.Board;
 
+
 public interface BoardDao {
 
-	List<Board> boardList();
-	List<Board> noticeList();
+	int boardtotal();
+	int noticetotal();
+	
+	List<Board> boardList(Board board);
+	List<Board> noticeList(Board board);
 	
 }

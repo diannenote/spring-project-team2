@@ -17,12 +17,11 @@
 
  <style>
  
-.btn-group {
- position: relative;
- left:50%;
- margin-left:-150px;
+ .board-con1 {
+ text-align: center;
  margin-bottom: 50px;
-}
+ }
+
 .btn-group a {
     background-color: #4CAF50;
     border: 5px solid green;
@@ -72,7 +71,6 @@
 			
 		</div>
 		<div class="board-con2">
-		
 			<table class="board-tb">
 				<colgroup>
 					<col width="5%">
@@ -91,14 +89,14 @@
 						<tr>
 							<td>${ board.b_num} </td>
 							<td>${ board.b_title}</td>
-							<td>관리자</td>
-							<%-- <td><fmt:formatDate value="${ board.b_regDate}" pattern="yyyy.MM.dd"/></td> --%>				
+							<td>${ board.m_nickname}</td>
 							<td>${ board.b_regDate}</td>				
 							<td>${ board.b_hit}</td>
 							<td>${ board.b_likeCnt}</td>
 						</tr>
 					</c:forEach>
 			</table>
+			
 		</div>
 		<div class="board-con3">
 			<div>
@@ -112,16 +110,32 @@
 						<i class="fa fa-search" onclick="submit();"></i>
 					</div>
 		</form>
+		
+		<c:if test="${paging.startPage > paging.pageBlock }">
+			<a href="boardList?currentPage=${paging.startPage-paging.pageBlock}"> [이전] </a>
+		</c:if>
+		<c:forEach var="i" begin="${paging.startPage }" end="${paging.endPage }">
+			<a href="boardList?currentPage=${i}">[${i}]</a>
+		</c:forEach>
+		<c:if test="${pg.endPage < paging.totalPage }">
+			<a href="boardList?currentPage=${paging.startPage+paging.pageBlock}">[다음]</a>
+		</c:if>
+		
 	</div>
 	
 	<script type="text/javascript">
-		var loc = location.href.split("/")[4].indexOf('noticeList');
-		if(loc === 0) {
+		var loc = location.href.split("/")[4];
+		if(loc.indexOf('noticeList') === 0) {
 			console.log(loc);
+			$("#study-btn").addClass("blue");
+
+		} else {
 			$("#notice-btn").addClass("blue");
-		} 
 		
-	</script>	
+		}
+		
+		
+	</script> 
 </body>
 	
 </html>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import oracle.java.s20200502.board.model.Board;
 import oracle.java.s20200502.board.service.BoardService;
+import oracle.java.s20200502.board.service.Paging;
 
 @Controller
 public class BoardController {
@@ -18,22 +19,41 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping("boardList")
-	public String boardList(Model model) {
+	public String boardList(Board board, Model model, String currentPage) {
 		System.out.println("boardList Controller start");
 		
-		List<Board> boardList = boardService.boardList();
+		int boardtotal = boardService.boardtotal();
+		Paging paging = new Paging(boardtotal, currentPage);
+		board.setStart(paging.getStart());
+		board.setEnd(paging.getEnd());
+		
+		System.out.println("EmpController list boardtotal->"+boardtotal);
+		System.out.println("EmpController list currentPage->"+currentPage);
+		
+		List<Board> boardList = boardService.boardList(board);
 		model.addAttribute("boardList", boardList);
+		model.addAttribute("paging", paging);
 		
 		
 		return "board/boardList";
 	}
 	
 	@RequestMapping("noticeList")
-	public String noticeBoard (Model model) {
+	public String noticeBoard (Board board, String currentPage, Model model) {
 		System.out.println("noticeBoard Controller start");
 		
-		List<Board> noticeList = boardService.noticeList();
+		int noticetotal = boardService.noticetotal();
+		Paging paging = new Paging(noticetotal, currentPage);
+		
+		board.setStart(paging.getStart());
+		board.setEnd(paging.getEnd());
+		
+		System.out.println("EmpController list noticetotal->"+noticetotal);
+		System.out.println("EmpController list currentPage->"+currentPage);
+		
+		List<Board> noticeList = boardService.noticeList(board);
 		model.addAttribute("boardList", noticeList);
+		model.addAttribute("paging", paging);
 		
 		return "board/boardList";
 	}
