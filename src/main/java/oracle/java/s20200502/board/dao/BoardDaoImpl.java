@@ -41,4 +41,16 @@ public class BoardDaoImpl implements BoardDao {
 		return session.selectOne("noticetotal");
 	}
 
+	@Override
+	public Board boardContent(int b_num) {
+		System.out.println("BoardDaoImpl noticetotal start");
+		return session.selectOne("boardContent",b_num);
+	}
+
+	@Override
+	public int boardInsert(Board board) {
+		System.out.println("BoardDaoImpl boardInsert start");
+		return session.insert("boardInsert", board);
+	}
+
 }

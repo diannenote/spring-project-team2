@@ -2,10 +2,15 @@ package oracle.java.s20200502.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import oracle.java.s20200502.board.model.Board;
@@ -36,7 +41,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("noticeList")
-	public String noticeBoard (Paging paging, Model model) {
+	public String noticeBoard(Paging paging, Model model) {
 		System.out.println("noticeBoard Controller start");
 		
 		int noticetotal = boardService.noticetotal();
@@ -47,6 +52,42 @@ public class BoardController {
 		model.addAttribute("paging", paging);
 		
 		return "board/boardList";
+	}
+	
+	@RequestMapping("boardContent")
+	public String boardContent(int b_num, Paging paging, Model model) {
+		
+		Board board = boardService.boardContent(b_num);
+		System.out.println("currentPage->"+ paging.getCurrentPage());
+		
+		model.addAttribute("board",board);
+		model.addAttribute("paging",paging);
+		
+		return "board/boardContent";
+		
+	}
+	
+	@RequestMapping("boardWriteForm")
+	public String boardWriteForm (Paging paging, Model model) {
+		System.out.println(paging.getCurrentPage());
+		model.addAttribute("paging",paging);
+		
+		return "board/boardWriteForm";
+	}
+	
+	@RequestMapping(value="boardWrite", method=RequestMethod.POST)
+	public String boardWrite(Board board, Paging paging, Model model) {
+		System.out.println("boardWrite controller start..");
+		System.out.println("boardWrite controller b_num ->" + board.getB_num());
+		
+		model.addAttribute("paging", paging);
+		int result = boardService.boardInsert(board);
+		if(result > 0) {
+			return "redirect:board/boardList";
+		} else {
+			model.addAttribute("msg", "입력실패");
+			return "forward:board/boardWriteForm";
+		}
 	}
 	
 }

@@ -14,4 +14,7 @@ public interface BoardDao {
 	List<Board> boardList(Paging paging);
 	List<Board> noticeList(Paging paging);
 	
+	Board boardContent(int b_num);
+	int boardInsert(Board board);
+	
 }

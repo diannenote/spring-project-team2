@@ -37,4 +37,21 @@
 		select count(*) from board where b_type=0
 	</select>
 	
+	<select id="boardContent" parameterType="int" resultType="Board">
+		select b.b_num, b.m_num, b.b_title, b.b_content, b.b_regdate, 
+		b.b_hit, b.b_likecnt, b.b_replycnt, b.b_type, m.m_nickname 
+		from board b left join member m on b.m_num = m.m_num where b_num=#{b_num}
+	</select>
+	
+	<insert id="boardInsert" parameterType="Board">
+		insert into board values(B_NUM.NEXTVAL, 6, #{b_title}, #{b_content}, sysdate, 0, 0, 0, #{b_type})
+	</insert>
+	
 </mapper>
+
+
+
+
+
+
+

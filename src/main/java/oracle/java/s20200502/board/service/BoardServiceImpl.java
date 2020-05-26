@@ -39,4 +39,16 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.noticetotal();
 	}
 
+	@Override
+	public Board boardContent(int b_num) {
+		System.out.println("BoardServiceImpl boardContent start");
+		return boardDao.boardContent(b_num);
+	}
+
+	@Override
+	public int boardInsert(Board board) {
+		System.out.println("BoardServiceImpl boardInsert start");
+		return boardDao.boardInsert(board);
+	}
+
 }

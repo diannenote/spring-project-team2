@@ -13,6 +13,7 @@ public interface BoardService {
 	int boardtotal();
 	int noticetotal();
 	
-	
+	Board boardContent(int b_num);
+	int boardInsert(Board board);
 
 }

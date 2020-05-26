@@ -5,8 +5,8 @@ public class Paging {
 	private int startPage, endPage;
 	private int total, totalPage;
 	
-	private static final int PAGE_SIZE = 5;
-	private static final int PAGE_BLOCK   = 2;
+	private static final int PAGE_SIZE = 10;
+	private static final int PAGE_BLOCK   = 3;
 	private boolean before;
 	private boolean next;
 	
@@ -39,9 +39,11 @@ public class Paging {
 		return 1;
 		
 	}
+
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
 	}
+
 	public int getStart() {
 		if(this.getCurrentPage() == 1) {
 			return 0;

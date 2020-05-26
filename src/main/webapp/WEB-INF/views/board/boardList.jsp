@@ -76,10 +76,11 @@
 						<th>NO.</th><th>제목</th><th>작성자</th>
 						<th>작성일</th><th>조회수</th><th>좋아요♥</th>
 					</tr>
+					
 					<c:forEach items="${boardList}" var="board">
 						<tr>
 							<td>${ board.b_num} </td>
-							<td>${ board.b_title}</td>
+							<td><a href='boardContent?b_num=${board.b_num }&currentPage=${paging.currentPage}'>${ board.b_title}</a></td>
 							<td>${ board.m_nickname}</td>
 							<td>${ board.b_regDate}</td>				
 							<td>${ board.b_hit}</td>
@@ -91,7 +92,7 @@
 		</div>
 		<div class="board-con3">
 			<div>
-				<a href="#" class="write-btn">글쓰기</a>
+				<a href="boardWriteForm" class="write-btn">글쓰기</a>
 			</div>
 			
 		</div>
@@ -122,27 +123,33 @@
 		var loc = location.href.split("/")[4];
 		$(document).ready(function() {
 			if(loc.indexOf('noticeList') === 0) {
-				$("#notice-btn").css("background", "blue");
+				$("#notice-btn").css("background", "#0652DD");
 			} else {
-				$("#board-btn").css("background", "blue");
+				$("#board-btn").css("background", "#0652DD");
 			}
 		})
 		
 		function goPage(pageNum) {
 			if(loc.indexOf('noticeList') === 0) {
 				location.href = "noticeList?currentPage=" + pageNum;
-			} 
+			} else {
+				location.href = "boardList?currentPage=" + pageNum;
+			}
 		}
 		
 		function goBefore(prevPage) {
 			if(loc.indexOf('noticeList') === 0) {
 				location.href = "noticeList?currentPage=" + prevPage;
+			} else {
+				location.href = "boardList?currentPage=" + prevPage;
 			}
 		}
 		
 		function goNext(nextPage) {
 			if(loc.indexOf('noticeList') === 0) {
 				location.href = "noticeList?currentPage=" + nextPage;
+			} else {
+				location.href = "boardList?currentPage=" + nextPage;
 			}
 		} 
 		
