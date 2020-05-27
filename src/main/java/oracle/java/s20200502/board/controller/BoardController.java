@@ -78,12 +78,12 @@ public class BoardController {
 		System.out.println("boardWrite controller b_type ->" + board.getB_type());
 		
 		model.addAttribute("paging", paging);
+		model.addAttribute("board", board);
 		int result = boardService.boardInsert(board);
-		if(result > 0) {
-			return "redirect:boardList";
+		if(result > 0 && board.getB_type() == 0) {
+			return "redirect:noticeList";
 		} else {
-			model.addAttribute("msg", "입력실패");
-			return "forward:boardWriteForm";
+			return "redirect:boardList";
 		}
 	}
 	
