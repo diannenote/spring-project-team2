@@ -23,14 +23,11 @@
 		
 				<%-- <c:if test="${mNo ne null }"> --%>
 				<div style=text-align:right>
-						<a href='like?b_num=${board.b_num}&currentPage=${paging.currentPage}' class="likes">
-						            좋아요 ♡
-						   <%-- <c:choose>
-						   		<c:when test="${isLike eq 0 }"> ♡ </c:when>
-						   		<c:otherwise> ♥ </c:otherwise>
-						   
-						   </c:choose>    --%>  
-						</a>
+						<div class="likeBtn">
+							<input type="button" id="btnLike">
+							<span id="likeCount">0</span>
+						</div>
+						
 				<%-- <c:if test="${mNo eq board.mNo }"> --%>
 				
 							<button onclick="location.href='boardUpdateForm?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
@@ -81,7 +78,7 @@
 	
 	</div> <!--board end  -->
 	
-	<script type="text/javascript">
+<script type="text/javascript">
 	
 	function listBtn(type, pageNum) {
 		if(type === 1) {
@@ -91,6 +88,33 @@
 		}
 	}
 	
-	</script>
+	var isLike = false;
+	$('#btnLike').on('click', function() {
+		let flag = isLike ? 'minus' : 'plus';
+		$.ajax({
+			method: "post",
+			url:"${pageContext.request.contextPath}/boardLike",
+			data: { flag: flag}
+		})
+		.done(function(cnt){
+			$('#likeCount').text(cnt);
+			isLike = !isLike;
+			if(isLike) {
+				$('#btnLike').css('background', 'red');
+			}else{
+				$('#btnLike').css('background', 'black');
+			}
+		});
+		
+	}); 
+	
+	
+</script>
+
 </body>
 <%-- <%@ include file="../footer.jsp" %> --%>
+
+
+
+
+
