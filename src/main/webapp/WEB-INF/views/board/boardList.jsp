@@ -57,7 +57,7 @@
 		<div class="board-con1">
 			<div class="btn-group btn-group-lg">
 	   			<a class="btn btn-primary" href="noticeList" id="notice-btn">공지사항</a>
-			    <a class="btn btn-primary" href="boardList" id="board-btn">스터디모집</a>
+			    <a class="btn btn-primary" href="boardList" id="board-btn">스터디그룹</a>
 			</div>
 			
 		</div>
@@ -80,7 +80,7 @@
 					<c:forEach items="${boardList}" var="board">
 						<tr>
 							<td>${ board.b_num} </td>
-							<td><a href='boardContent?b_num=${board.b_num }&currentPage=${paging.currentPage}'>${ board.b_title}</a></td>
+							<td><a href='boardContent?b_num=${board.b_num }&currentPage=${paging.currentPage}&b_type=${board.b_type}'>${board.b_title}</a></td>
 							<td>${ board.m_nickname}</td>
 							<td>${ board.b_regDate}</td>				
 							<td>${ board.b_hit}</td>

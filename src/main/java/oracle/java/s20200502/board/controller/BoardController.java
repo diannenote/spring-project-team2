@@ -50,9 +50,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping("boardContent")
-	public String boardContent(int b_num, Paging paging, Model model) {
+	public String boardContent(Board board, Paging paging, Model model) {
 		
-		Board board = boardService.boardContent(b_num);
+		board = boardService.boardContent(board.getB_num());
 		System.out.println("currentPage->"+ paging.getCurrentPage());
 		
 		model.addAttribute("paging",paging);
@@ -102,4 +102,20 @@ public class BoardController {
 		return "redirect:boardList";
 	}
 	
+	@RequestMapping("boardUpdateForm")
+	public String boardUpdateForm(Board board, Paging paging, Model model) {
+		
+		System.out.println("b_type->" + board.getB_type());
+		model.addAttribute("board",board);
+		model.addAttribute("paging",paging);
+		board = boardService.boardContent(board.getB_num());
+		
+		return "board/boardUpdateForm";
+		
+	}
+	
 }
+
+
+
+

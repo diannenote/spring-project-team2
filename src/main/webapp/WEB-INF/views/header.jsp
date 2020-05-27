@@ -26,7 +26,7 @@
 			<!-- 메인 메뉴 -->
 			<ul class="navbar-nav navbar-dark">
 				<li class="nav-item active"><a class="nav-link" href="#">로그인/회원가입</a></li>
-				<li class="nav-item active"><a class="nav-link" href="boardList">공지사항&스터디모집</a></li>
+				<li class="nav-item active"><a class="nav-link" href="boardList">공지사항&스터디그룹</a></li>
 				<li class="nav-item active"><a class="nav-link" href="#">Q&A</a></li>
 				<li class="nav-item active"><a class="nav-link" href="#">마이페이지</a></li>
 				<li class="nav-item active"><a class="nav-link" href="#">방등록하기(사업자)</a></li>
