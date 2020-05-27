@@ -92,7 +92,7 @@
 		</div>
 		<div class="board-con3">
 			<div>
-				<a href="boardWriteForm" class="write-btn">글쓰기</a>
+				<a onclick="boardType()" class="write-btn">글쓰기</a>
 			</div>
 			
 		</div>
@@ -152,6 +152,17 @@
 				location.href = "boardList?currentPage=" + nextPage;
 			}
 		} 
+		
+		function boardType() {
+			if(loc.indexOf('boardList') === 0) {
+				console.log(loc);
+				location.href = "boardWriteForm?b_type=1";
+			}  else {
+				location.href = "boardWriteForm?b_type=0";
+			}
+		}
+		
+	</script> -->
 		
 	</script> 
 </body>

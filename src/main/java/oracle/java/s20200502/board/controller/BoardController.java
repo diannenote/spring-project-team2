@@ -30,9 +30,6 @@ public class BoardController {
 		int boardtotal = boardService.boardtotal();
 		paging.setTotal(boardtotal);
 		
-		System.out.println("BoardController list boardtotal->"+boardtotal);
-		System.out.println("BoardController list currentPage->" + paging.getCurrentPage());
-		
 		List<Board> boardList = boardService.boardList(paging);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("paging", paging);
@@ -50,7 +47,7 @@ public class BoardController {
 		List<Board> noticeList = boardService.noticeList(paging);
 		model.addAttribute("boardList", noticeList);
 		model.addAttribute("paging", paging);
-		
+
 		return "board/boardList";
 	}
 	
@@ -59,8 +56,6 @@ public class BoardController {
 		
 		Board board = boardService.boardContent(b_num);
 		System.out.println("currentPage->"+ paging.getCurrentPage());
-		
-		model.addAttribute("board",board);
 		model.addAttribute("paging",paging);
 		
 		return "board/boardContent";
@@ -68,9 +63,10 @@ public class BoardController {
 	}
 	
 	@RequestMapping("boardWriteForm")
-	public String boardWriteForm (Paging paging, Model model) {
-		System.out.println(paging.getCurrentPage());
-		model.addAttribute("paging",paging);
+	public String boardWriteForm (Paging paging, Model model, Board board) {
+		System.out.println("b_type->" + board.getB_type());
+		model.addAttribute("paging", paging);
+		model.addAttribute("board", board);
 		
 		return "board/boardWriteForm";
 	}
@@ -78,15 +74,15 @@ public class BoardController {
 	@RequestMapping(value="boardWrite", method=RequestMethod.POST)
 	public String boardWrite(Board board, Paging paging, Model model) {
 		System.out.println("boardWrite controller start..");
-		System.out.println("boardWrite controller b_num ->" + board.getB_num());
+		System.out.println("boardWrite controller b_type ->" + board.getB_type());
 		
 		model.addAttribute("paging", paging);
 		int result = boardService.boardInsert(board);
 		if(result > 0) {
-			return "redirect:board/boardList";
+			return "redirect:boardList";
 		} else {
 			model.addAttribute("msg", "입력실패");
-			return "forward:board/boardWriteForm";
+			return "forward:boardWriteForm";
 		}
 	}
 	

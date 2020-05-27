@@ -8,9 +8,9 @@
 <body>
 	<div id="wrap">
 		<c:if test="${msg != null }">${msg}</c:if>
-		<form action="boardWrite?currentPage=${paging.currentPage }" method="post">
-			<input type="hidden" name="b_num" value="${b_num }">
-			<input type="hidden" name="b_type" value="${b_type }">
+		<form action="boardWrite"method="post">
+			<input type="hidden" name="currentPage" value="${paging.currentPage }">
+			<input type="hidden" name="b_type" value="${board.b_type }">
 	
 		<table>
 			<h2>게시판 글쓰기</h2>
@@ -37,6 +37,7 @@
 			</table>		
 		</form>
 	</div>
+	
 </body>
 </html>	
 	<%-- <%@ include file="../footer.jsp" %> --%>
