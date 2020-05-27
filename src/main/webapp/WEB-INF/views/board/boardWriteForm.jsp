@@ -9,7 +9,6 @@
 	<div id="wrap">
 		<c:if test="${msg != null }">${msg}</c:if>
 		<form action="boardWrite"method="post">
-			<input type="hidden" name="currentPage" value="${paging.currentPage }">
 			<input type="hidden" name="b_type" value="${board.b_type }">
 	
 		<table>

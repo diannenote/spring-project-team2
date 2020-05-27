@@ -17,38 +17,39 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<Board> boardList(Paging paging) {
-		System.out.println("BoardServiceImpl boardList start");
 		return boardDao.boardList(paging);
 	}
 
 	@Override
 	public List<Board> noticeList(Paging paging) {
-		System.out.println("BoardServiceImpl noticeBoard start");
 		return boardDao.noticeList(paging);
 	}
 
 	@Override
 	public int boardtotal() {
-		System.out.println("BoardServiceImpl boardtotal start");
 		return boardDao.boardtotal();
 	}
 
 	@Override
 	public int noticetotal() {
-		System.out.println("BoardServiceImpl noticetotal start");
 		return boardDao.noticetotal();
 	}
 
 	@Override
 	public Board boardContent(int b_num) {
-		System.out.println("BoardServiceImpl boardContent start");
 		return boardDao.boardContent(b_num);
 	}
 
 	@Override
 	public int boardInsert(Board board) {
-		System.out.println("BoardServiceImpl boardInsert start");
 		return boardDao.boardInsert(board);
+	}
+
+	@Override
+	public int boardDelete(int b_num) {
+		System.out.println("BoardServiceImpl delete start...");
+		return boardDao.boardDelete(b_num);
+		
 	}
 
 }

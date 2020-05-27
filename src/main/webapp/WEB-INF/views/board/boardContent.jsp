@@ -41,7 +41,7 @@ text-decoration: none;
 						<button onclick="location.href='boardUpdate?b_num=${board.b_num}&currentPage=${paging.currentPage}'">
 						           수정
 						 </button>           
-						<button onclick="location.href='boardDelete?b_num=${board.b_num}&currentPage=${paging.currentPage}'">
+						<button onclick="location.href='boardDelete?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type }'">
 						            삭제
 					</button>
 			<%-- </c:if> --%>

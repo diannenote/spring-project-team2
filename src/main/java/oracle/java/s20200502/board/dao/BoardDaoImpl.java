@@ -53,4 +53,10 @@ public class BoardDaoImpl implements BoardDao {
 		return session.insert("boardInsert", board);
 	}
 
+	@Override
+	public int boardDelete(int b_num) {
+		System.out.println("BoardDaoImpl delete start");
+		return session.delete("boardDelete",b_num);
+	}
+
 }

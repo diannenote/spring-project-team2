@@ -47,6 +47,10 @@
 		insert into board values( B_NUM.NEXTVAL, 6, #{b_title}, #{b_content}, sysdate, 0, 0, 0, #{b_type} )
 	</insert>
 	
+	<delete id="boardDelete" parameterType="int">
+		delete from board where b_num=#{b_num}
+	</delete>
+	
 </mapper>
 
 

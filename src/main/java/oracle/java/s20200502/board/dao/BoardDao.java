@@ -16,5 +16,6 @@ public interface BoardDao {
 	
 	Board boardContent(int b_num);
 	int boardInsert(Board board);
+	int boardDelete(int b_num);
 	
 }

@@ -25,12 +25,11 @@ public class BoardController {
 	
 	@RequestMapping("boardList")
 	public String boardList(Paging paging, Model model) {
-		System.out.println("boardList Controller start");
 		
 		int boardtotal = boardService.boardtotal();
 		paging.setTotal(boardtotal);
-		
 		List<Board> boardList = boardService.boardList(paging);
+		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("paging", paging);
 		
@@ -39,12 +38,11 @@ public class BoardController {
 	
 	@RequestMapping("noticeList")
 	public String noticeBoard(Paging paging, Model model) {
-		System.out.println("noticeBoard Controller start");
 		
 		int noticetotal = boardService.noticetotal();
 		paging.setTotal(noticetotal);
-		
 		List<Board> noticeList = boardService.noticeList(paging);
+		
 		model.addAttribute("boardList", noticeList);
 		model.addAttribute("paging", paging);
 
@@ -56,6 +54,7 @@ public class BoardController {
 		
 		Board board = boardService.boardContent(b_num);
 		System.out.println("currentPage->"+ paging.getCurrentPage());
+		
 		model.addAttribute("paging",paging);
 		model.addAttribute("board", board);
 		
@@ -64,9 +63,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping("boardWriteForm")
-	public String boardWriteForm (Paging paging, Model model, Board board) {
+	public String boardWriteForm (Model model, Board board) {
+		
 		System.out.println("b_type->" + board.getB_type());
-		model.addAttribute("paging", paging);
 		model.addAttribute("board", board);
 		
 		return "board/boardWriteForm";
@@ -74,7 +73,7 @@ public class BoardController {
 	
 	@RequestMapping(value="boardWrite", method=RequestMethod.POST)
 	public String boardWrite(Board board, Paging paging, Model model) {
-		System.out.println("boardWrite controller start..");
+		
 		System.out.println("boardWrite controller b_type ->" + board.getB_type());
 		
 		model.addAttribute("paging", paging);
@@ -85,6 +84,22 @@ public class BoardController {
 			model.addAttribute("msg", "입력실패");
 			return "forward:boardWriteForm";
 		}
+	}
+	
+	@RequestMapping("boardDelete")
+	public String boardDelete(Board board, Paging paging, Model model) {
+		
+		System.out.println("b_num->" + board.getB_num());
+		System.out.println("b_type->" + board.getB_type());
+		
+		boardService.boardDelete(board.getB_num());
+		model.addAttribute("paging",paging);
+		model.addAttribute("board",board);
+		
+		if(board.getB_type() == 0) {
+			return "redirect:noticeList";
+		}
+		return "redirect:boardList";
 	}
 	
 }
