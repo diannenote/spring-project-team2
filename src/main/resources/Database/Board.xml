@@ -51,6 +51,10 @@
 		delete from board where b_num=#{b_num}
 	</delete>
 	
+	<update id="boardUpdate" parameterType="Board">
+		update board set b_title=#{b_title}, b_content=#{b_content}, b_regdate=sysdate where b_num=#{b_num}
+	</update>
+	
 </mapper>
 
 

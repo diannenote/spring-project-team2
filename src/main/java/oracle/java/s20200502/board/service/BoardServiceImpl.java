@@ -47,9 +47,14 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int boardDelete(int b_num) {
-		System.out.println("BoardServiceImpl delete start...");
 		return boardDao.boardDelete(b_num);
 		
+	}
+
+	@Override
+	public int boardUpdate(Board board) {
+		System.out.println("boardUpdate Service start");
+		return boardDao.boardUpdate(board);
 	}
 
 }

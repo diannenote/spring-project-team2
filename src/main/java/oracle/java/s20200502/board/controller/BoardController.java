@@ -106,11 +106,23 @@ public class BoardController {
 	public String boardUpdateForm(Board board, Paging paging, Model model) {
 		
 		System.out.println("b_type->" + board.getB_type());
+		board = boardService.boardContent(board.getB_num());
 		model.addAttribute("board",board);
 		model.addAttribute("paging",paging);
-		board = boardService.boardContent(board.getB_num());
 		
 		return "board/boardUpdateForm";
+		
+	}
+	
+	@RequestMapping("boardUpdate")
+	public String boardUpdate(Board board, Paging paging, Model model) {
+		
+		System.out.println("b_num->" + board.getB_num());
+		int update = boardService.boardUpdate(board);
+		model.addAttribute("paging",paging);
+		model.addAttribute("board",board);
+		
+		return "forward:boardContent";
 		
 	}
 	
