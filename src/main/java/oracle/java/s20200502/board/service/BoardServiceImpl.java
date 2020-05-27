@@ -53,8 +53,13 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int boardUpdate(Board board) {
-		System.out.println("boardUpdate Service start");
 		return boardDao.boardUpdate(board);
 	}
+
+	@Override
+	public int boardHitUp(int b_num) {
+		return boardDao.boardHitUp(b_num);
+	}
+
 
 }

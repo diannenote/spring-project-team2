@@ -54,8 +54,12 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public int boardUpdate(Board board) {
-		System.out.println("boardUpdate BoardDaoImplstart");
 		return session.update("boardUpdate", board);
+	}
+
+	@Override
+	public int boardHitUp(int b_num) {
+		return session.update("boardHitUp", b_num);
 	}
 
 }

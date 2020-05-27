@@ -53,6 +53,7 @@ public class BoardController {
 	public String boardContent(Board board, Paging paging, Model model) {
 		
 		board = boardService.boardContent(board.getB_num());
+		boardService.boardHitUp(board.getB_num());
 		System.out.println("currentPage->"+ paging.getCurrentPage());
 		
 		model.addAttribute("paging",paging);

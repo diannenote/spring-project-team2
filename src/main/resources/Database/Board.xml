@@ -55,6 +55,10 @@
 		update board set b_title=#{b_title}, b_content=#{b_content}, b_regdate=sysdate where b_num=#{b_num}
 	</update>
 	
+	<update id="boardHitUp" parameterType="int">
+		update board set b_hit = b_hit + 1 where b_num=#{b_num}
+	</update>
+	
 </mapper>
 
 
