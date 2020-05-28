@@ -94,16 +94,23 @@ background-image: url("${pageContext.request.contextPath}/resources/boardImg/emp
 		}
 	}
 	
-	var isLike = false;
 	function btnLike() {
-			console.log(isLike);
-		let flag = isLike ? 'minus' : 'plus';
 		$.ajax({
 			method: "post",
 			url:"${pageContext.request.contextPath}/boardLike",
-			data: { flag: flag}
+			success:function(data){
+				console.log(data)
+			
+				$('#likeCount').text(cnt);
+				isLike = !isLike;
+				if(isLike) {
+					$('#likeBtn').attr('src', '${pageContext.request.contextPath}/resources/boardImg/full-heart.png');
+				}else{
+					$('#likeBtn').attr('src', '${pageContext.request.contextPath}/resources/boardImg/empty-heart.png');
+				}
+			}
 		})
-		.done(function(cnt){
+		/* .done(function(cnt){
 			$('#likeCount').text(cnt);
 			isLike = !isLike;
 			if(isLike) {
@@ -111,7 +118,7 @@ background-image: url("${pageContext.request.contextPath}/resources/boardImg/emp
 			}else{
 				$('#likeBtn').attr('src', '${pageContext.request.contextPath}/resources/boardImg/empty-heart.png');
 			}
-		});
+		}); */
 		
 	}; 
 	

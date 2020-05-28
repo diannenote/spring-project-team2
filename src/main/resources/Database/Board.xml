@@ -59,6 +59,14 @@
 		update board set b_hit = b_hit + 1 where b_num=#{b_num}
 	</update>
 	
+	<update id="plusLike" parameterType="int">
+		update board set b_likecnt = b_likecnt + 1 where b_num=#{b_num}
+	</update>
+	
+	<update id="minusLike" parameterType="int">
+		update board set b_likecnt = b_likecnt - 1 where b_num=#{b_num}
+	</update>
+	
 </mapper>
 
 

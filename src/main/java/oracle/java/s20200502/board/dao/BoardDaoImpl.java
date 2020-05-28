@@ -62,4 +62,14 @@ public class BoardDaoImpl implements BoardDao {
 		return session.update("boardHitUp", b_num);
 	}
 
+	@Override
+	public int plusLike(int b_num) {
+		return session.update("plusLike", b_num);
+	}
+
+	@Override
+	public int minusLike(int b_num) {
+		return session.update("minusLike", b_num);
+	}
+
 }

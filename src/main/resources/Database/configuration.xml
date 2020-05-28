@@ -11,8 +11,8 @@
 	
 	<mappers>
 		<mapper resource="Database/Board.xml"/>
+		<mapper resource="Database/Likes.xml"/>
 	
 	</mappers>
-	
 	
 </configuration>

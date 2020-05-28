@@ -11,17 +11,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import oracle.java.s20200502.board.model.Board;
 import oracle.java.s20200502.board.model.Paging;
 import oracle.java.s20200502.board.service.BoardService;
+import oracle.java.s20200502.board.service.LikeService;
 
 @Controller
 public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private LikeService likeService;
 	
 	@RequestMapping("boardList")
 	public String boardList(Paging paging, Model model) {
@@ -56,7 +60,7 @@ public class BoardController {
 		boardService.boardHitUp(board.getB_num());
 		System.out.println("currentPage->"+ paging.getCurrentPage());
 		
-		model.addAttribute("paging",paging);
+		model.addAttribute("paging", paging);
 		model.addAttribute("board", board);
 		
 		return "board/boardContent";
@@ -125,6 +129,27 @@ public class BoardController {
 		
 		return "forward:boardContent";
 		
+	}
+	
+	@RequestMapping(value="boardLike", method=RequestMethod.POST)
+	@ResponseBody
+	public boolean boardLike (@RequestParam String flag, Board board, Paging paging) {
+		boolean isLike;
+		int count = likeService.likeCount(board.getB_num(), board.getM_num());
+		System.out.println(count);
+		
+		if (count == 0) {
+			boardService.plusLike(board.getB_num());
+			likeService.insertLike(board.getB_num(), board.getM_num());
+			isLike = true;
+		} else {
+			boardService.minusLike(board.getB_num());
+			likeService.deleteLike(board.getB_num(), board.getM_num());
+			isLike = false;
+		}
+		
+		
+		return isLike;
 	}
 	
 }

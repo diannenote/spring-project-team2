@@ -18,5 +18,6 @@ public interface BoardService {
 	int boardDelete(int b_num);
 	int boardUpdate(Board board);
 	int boardHitUp(int b_num);
-
+	int plusLike(int b_num);
+	int minusLike(int b_num);
 }
