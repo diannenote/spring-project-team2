@@ -27,21 +27,23 @@ background-image: url("${pageContext.request.contextPath}/resources/boardImg/emp
 			</article>
 		</section>
 		
-				<%-- <c:if test="${mNo ne null }"> --%>
-				<div style=text-align:right>
+		<div style=text-align:right>
+			<c:choose>
+				<c:when test="${likeCnt eq 1}">
+					<input type="image" src="resources/boardImg/full-heart.png" width="20" height="20" onclick="btnLike(${board.b_num}, ${board.m_num})" id="likeBtn">
+				</c:when>
+				<c:otherwise>
+					<input type="image" src="resources/boardImg/empty-heart.png" width="20" height="20" onclick="btnLike(${board.b_num}, ${board.m_num})" id="likeBtn">
+				</c:otherwise>
+			</c:choose>			
+				<span id="likeCount">${board.b_likeCnt }</span>
 						
-						<input type="image" src="resources/boardImg/empty-heart.png" width="20" height="20" onclick="btnLike()" id="likeBtn">
-						<span id="likeCount">0</span>
-						
-						
-				<%-- <c:if test="${mNo eq board.mNo }"> --%>
-				
-							<button onclick="location.href='boardUpdateForm?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
-							           수정
-							 </button>           
-							<button onclick="location.href='boardDelete?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
-							            삭제
-						</button>
+				<button onclick="location.href='boardUpdateForm?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
+				           수정
+				 </button>           
+				<button onclick="location.href='boardDelete?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
+				            삭제
+				</button>
 				<%-- </c:if> --%>
 				</div>
 			<%-- </c:if>	 --%>
@@ -94,31 +96,23 @@ background-image: url("${pageContext.request.contextPath}/resources/boardImg/emp
 		}
 	}
 	
-	function btnLike() {
+	function btnLike(bNum, mNum) {
+		let b_num = bNum;
+		let m_num = mNum;
 		$.ajax({
-			method: "post",
+			method:"post",
 			url:"${pageContext.request.contextPath}/boardLike",
+			data:{b_num, m_num},
 			success:function(data){
-				console.log(data)
-			
-				$('#likeCount').text(cnt);
-				isLike = !isLike;
-				if(isLike) {
+				if(data.isLike) {
 					$('#likeBtn').attr('src', '${pageContext.request.contextPath}/resources/boardImg/full-heart.png');
 				}else{
 					$('#likeBtn').attr('src', '${pageContext.request.contextPath}/resources/boardImg/empty-heart.png');
 				}
+				$('#likeCount').text(data.likeCnt);
 			}
 		})
-		/* .done(function(cnt){
-			$('#likeCount').text(cnt);
-			isLike = !isLike;
-			if(isLike) {
-				$('#likeBtn').attr('src', '${pageContext.request.contextPath}/resources/boardImg/full-heart.png');
-			}else{
-				$('#likeBtn').attr('src', '${pageContext.request.contextPath}/resources/boardImg/empty-heart.png');
-			}
-		}); */
+		
 		
 	}; 
 	

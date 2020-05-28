@@ -72,4 +72,9 @@ public class BoardDaoImpl implements BoardDao {
 		return session.update("minusLike", b_num);
 	}
 
+	@Override
+	public int selectLikeCnt(int b_num) {
+		return  session.selectOne("selectLikeCnt", b_num);
+	}
+
 }

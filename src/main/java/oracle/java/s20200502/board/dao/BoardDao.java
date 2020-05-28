@@ -21,4 +21,5 @@ public interface BoardDao {
 	int boardHitUp(int b_num);
 	int plusLike(int b_num);
 	int minusLike(int b_num);
+	int selectLikeCnt(int b_num);
 }

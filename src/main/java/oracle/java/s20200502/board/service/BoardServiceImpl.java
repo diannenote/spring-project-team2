@@ -63,14 +63,17 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int plusLike(int b_num) {
-		
 		return boardDao.plusLike(b_num);
 	}
 
 	@Override
 	public int minusLike(int b_num) {
-		
 		return boardDao.minusLike(b_num);
+	}
+
+	@Override
+	public int selectLikeCnt(int b_num) {
+		return boardDao.selectLikeCnt(b_num);
 	}
 
 

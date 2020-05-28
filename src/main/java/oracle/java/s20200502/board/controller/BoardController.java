@@ -1,6 +1,8 @@
 package oracle.java.s20200502.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -58,10 +60,11 @@ public class BoardController {
 		
 		board = boardService.boardContent(board.getB_num());
 		boardService.boardHitUp(board.getB_num());
-		System.out.println("currentPage->"+ paging.getCurrentPage());
+		int count = likeService.likeCount(board.getB_num(), board.getM_num());
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("board", board);
+		model.addAttribute("likeCnt", count);
 		
 		return "board/boardContent";
 		
@@ -133,23 +136,27 @@ public class BoardController {
 	
 	@RequestMapping(value="boardLike", method=RequestMethod.POST)
 	@ResponseBody
-	public boolean boardLike (@RequestParam String flag, Board board, Paging paging) {
+	public Map<String, Object> boardLike (@RequestParam int b_num, @RequestParam int m_num) {
+		
+		Map<String, Object> result = new HashMap<>();
 		boolean isLike;
-		int count = likeService.likeCount(board.getB_num(), board.getM_num());
+		int count = likeService.likeCount(b_num, m_num);
 		System.out.println(count);
 		
 		if (count == 0) {
-			boardService.plusLike(board.getB_num());
-			likeService.insertLike(board.getB_num(), board.getM_num());
+			boardService.plusLike(b_num);
+			likeService.insertLike(b_num, m_num);
 			isLike = true;
 		} else {
-			boardService.minusLike(board.getB_num());
-			likeService.deleteLike(board.getB_num(), board.getM_num());
+			boardService.minusLike(b_num);
+			likeService.deleteLike(b_num, m_num);
 			isLike = false;
 		}
+		int likeCnt = boardService.selectLikeCnt(b_num);
+		result.put("isLike", isLike);
+		result.put("likeCnt", likeCnt);
 		
-		
-		return isLike;
+		return result;
 	}
 	
 }
