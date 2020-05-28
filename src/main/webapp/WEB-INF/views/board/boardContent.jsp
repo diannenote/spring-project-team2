@@ -89,21 +89,23 @@
 	}
 	
 	var isLike = false;
+	var contextPath='${pageContext.request.contextPath}';
 	$('#btnLike').on('click', function() {
 		let flag = isLike ? 'minus' : 'plus';
 		$.ajax({
 			method: "post",
-			url:"${pageContext.request.contextPath}/boardLike",
+			url: contextPath + "/boardLike",
 			data: { flag: flag}
 		})
 		.done(function(cnt){
 			$('#likeCount').text(cnt);
 			isLike = !isLike;
 			if(isLike) {
-				$('#btnLike').css('background', 'red');
+				$('#btnLike').css('background', 'url("/resources/boardImg/full-heart.png") no-repeat');
 			}else{
-				$('#btnLike').css('background', 'black');
+				$('#btnLike').css('background', 'url("/resources/boardImg/full-heart.png") no-repeat');
 			}
+			$('#btnLike').css('background-size', 'contain');
 		});
 		
 	}); 
