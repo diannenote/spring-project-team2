@@ -7,6 +7,12 @@
 <title>BoardContent</title>
 
 <%@ include file="../header.jsp" %>
+<style>
+.likeBtn {
+background-image: url("${pageContext.request.contextPath}/resources/boardImg/empty-heart.png");
+}
+
+</style>
 
 <body>
 
@@ -23,10 +29,10 @@
 		
 				<%-- <c:if test="${mNo ne null }"> --%>
 				<div style=text-align:right>
-						<div class="likeBtn">
-							<input type="button" id="btnLike">
-							<span id="likeCount">0</span>
-						</div>
+						
+						<input type="image" src="resources/boardImg/empty-heart.png" width="20" height="20" onclick="btnLike()" id="likeBtn">
+						<span id="likeCount">0</span>
+						
 						
 				<%-- <c:if test="${mNo eq board.mNo }"> --%>
 				
@@ -89,26 +95,25 @@
 	}
 	
 	var isLike = false;
-	var contextPath='${pageContext.request.contextPath}';
-	$('#btnLike').on('click', function() {
+	function btnLike() {
+			console.log(isLike);
 		let flag = isLike ? 'minus' : 'plus';
 		$.ajax({
 			method: "post",
-			url: contextPath + "/boardLike",
+			url:"${pageContext.request.contextPath}/boardLike",
 			data: { flag: flag}
 		})
 		.done(function(cnt){
 			$('#likeCount').text(cnt);
 			isLike = !isLike;
 			if(isLike) {
-				$('#btnLike').css('background', 'url("/resources/boardImg/full-heart.png") no-repeat');
+				$('#likeBtn').attr('src', '${pageContext.request.contextPath}/resources/boardImg/full-heart.png');
 			}else{
-				$('#btnLike').css('background', 'url("/resources/boardImg/full-heart.png") no-repeat');
+				$('#likeBtn').attr('src', '${pageContext.request.contextPath}/resources/boardImg/empty-heart.png');
 			}
-			$('#btnLike').css('background-size', 'contain');
 		});
 		
-	}); 
+	}; 
 	
 	
 </script>
