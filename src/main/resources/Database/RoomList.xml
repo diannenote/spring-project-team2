@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="listRoom">
+
+	<!-- 게시물 목록 with Dubin-->
+	<!-- <select id="roomList"  parameterType="RoomList" resultType="RoomList">
+		select * from (select rownum rn, a.* from (select * from room
+		order by ro_num desc) a) where rn between #{start} and
+		#{end}
+	</select> -->
+	
+<!-- 게시물 목록 kuzuro -->
+	<!-- <select id="roomList" resultType="RoomList">
+		select
+			ro_num, ro_title, m_num, ro_hit, ro_mReservation
+		from room		
+	</select> -->
+	
+	<!-- 검색 목록 -->
+	<select id="roomList" resultType="RoomList">
+		select * from room
+		WHERE ro_title LIKE '%?%'
+		order by ro_num desc
+	</select>
+
+<!-- 게시물 총 갯수 -->
+	<select id="total" resultType="int">
+		select count(*) from room
+	</select>
+
+</mapper>

@@ -6,12 +6,22 @@
 	<typeAliases>
 		<typeAlias alias="Board" type="oracle.java.s20200502.board.model.Board"/>
 		<typeAlias alias="Paging" type="oracle.java.s20200502.board.model.Paging"/>
+		<typeAlias alias="Member" type="oracle.java.s20200502.main.model.Member"/>
+		<typeAlias alias="RoomList"	type="oracle.java.s20200502.main.model.RoomList"/>
+		<typeAlias alias="Room" type="oracle.java.s20200502.room.model.Room"/>
+		<typeAlias alias="RoomImg" type="oracle.java.s20200502.room.model.RoomImg"/>
+		<typeAlias alias="RoomReservation" type="oracle.java.s20200502.room.model.Reservation"/>
 		
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="Database/Board.xml"/>
 		<mapper resource="Database/Likes.xml"/>
+		<mapper resource="Database/Member.xml"/>
+		<mapper resource="Database/RoomList.xml"/>
+		<mapper resource="Database/Room.xml"/>
+		<mapper resource="Database/RoomImg.xml"/>
+		<mapper resource="Database/RoomReservation.xml"/>
 	
 	</mappers>
 	

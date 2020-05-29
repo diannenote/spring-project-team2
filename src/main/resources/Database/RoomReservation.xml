@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="RoomReservation">
+	<select id="roomReserveCheck" parameterType="map" resultType="RoomReservation">
+		SELECT
+			re.ro_num,
+			r.ro_num
+		FROM
+			reservation re
+		JOIN
+			room r
+		ON
+			re.ro_num = r.ro_num
+		WHERE
+			re.ro_num = #{roomNo}
+	</select>
+</mapper>

@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>search list</h2>
+	<h2>room search</h2>
 	<article>
 	<div class="container">
 		<div class="table-responsive">
@@ -31,19 +31,19 @@
 				</thead>
 				<tbody>
 					<c:choose>
-						<c:when test="${empty boardList }">
+						<c:when test="${empty listRoom }">
 							<tr>
 								<td colspan="5" align="center">데이터가 없습니다.</td>
 							</tr>
 						</c:when>
-						<c:when test="${!empty boardList}">
-							<c:forEach var="list" items="${boardList}">
+						<c:when test="${!empty listRoom}">
+							<c:forEach items="${listRoom }" var="list">
 								<tr>
-									<td><c:out value="${list.bid}" /></td>
-									<td><c:out value="${list.title}" /></td>
-									<td><c:out value="${list.reg_id}" /></td>
-									<td><c:out value="${list.view_cnt}" /></td>
-									<td><c:out value="${list.reg_dt}" /></td>
+									<td>${list.ro_num}</td>
+									<td>${list.ro_title}</td>
+									<td>${list.m_num}</td>
+									<td>${list.ro_hit}</td>
+									<td>${list.ro_mReservation}</td>
 								</tr>
 							</c:forEach>
 						</c:when>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+
+<resultMap id="MemberResult" type="Member">
+	<result property="m_num" column="m_num"/>
+	<result property="m_email" column="m_email"/>
+	<result property="m_nickname" column="m_nickname"/> 
+	<result property="m_password" column="m_password"/> 
+	<result property="m_phone" column="m_phone"/> 
+	<result property="m_ban" column="m_ban"/> 
+	<result property="m_ragdate" column="m_ragdate"/> 
+	<result property="m_biznum" column="m_biznum"/> 
+	<result property="m_bizname" column="m_bizname"/> 
+	<result property="m_type" column="m_type"/> 
+</resultMap>
+	<select id="loginSelect" parameterType="Member" resultMap="MemberResult">
+		select * from member where m_email = #{m_email} and m_password = #{m_password}
+	</select>
+	<insert id="memberShipInsert" parameterType="Member" statementType="CALLABLE">
+		{call NEWMEMBER(
+			#{m_email ,mode=IN, jdbcType=VARCHAR},
+			#{m_password ,mode=IN, jdbcType=VARCHAR},
+			#{m_phone ,mode=IN, jdbcType=VARCHAR},
+			#{m_num ,mode=IN, jdbcType=INTEGER},
+			#{m_biznum ,mode=IN, jdbcType=INTEGER},
+			#{m_bizname ,mode=IN, jdbcType=VARCHAR},
+			#{m_type ,mode=IN, jdbcType=INTEGER},
+			#{m_newMemberResult, mode=OUT, jdbcType=INTEGER})}
+	</insert>
+</mapper>
