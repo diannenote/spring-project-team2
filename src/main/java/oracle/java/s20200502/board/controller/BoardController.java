@@ -32,8 +32,15 @@ public class BoardController {
 	private LikeService likeService;
 	
 	@RequestMapping("boardList")
-	public String boardList(Paging paging, Model model) {
+	public String boardList(Paging paging, Model model, HttpServletRequest request) {
 		
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("member"); 
+		if(member != null) {
+			int m_type = member.getM_type();
+			System.out.println("m_type->>>" + m_type);
+			model.addAttribute("m_type", m_type);
+		}
 		int boardtotal = boardService.boardtotal();
 		paging.setTotal(boardtotal);
 		List<Board> boardList = boardService.boardList(paging);
@@ -41,11 +48,21 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("paging", paging);
 		
+		
+		
 		return "board/boardList";
 	}
 	
 	@RequestMapping("noticeList")
-	public String noticeBoard(Paging paging, Model model) {
+	public String noticeBoard(Paging paging, Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("member"); 
+		if(member != null) {
+			int m_type = member.getM_type();
+			System.out.println("m_type->>>" + m_type);
+			model.addAttribute("m_type", m_type);
+		}
 		
 		int noticetotal = boardService.noticetotal();
 		paging.setTotal(noticetotal);

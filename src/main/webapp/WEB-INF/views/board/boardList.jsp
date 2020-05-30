@@ -77,21 +77,28 @@
 						<th>작성일</th><th>조회수</th><th>좋아요♥</th>
 					</tr>
 					
-					<c:forEach items="${boardList}" var="board">
+					<c:forEach items="${boardList}" var="boardList">
 						<tr>
-							<td>${ board.b_num} </td>
-							<td><a href='boardContent?b_num=${board.b_num }&currentPage=${paging.currentPage}&b_type=${board.b_type}'>${board.b_title}</a></td>
-							<td>${ board.m_nickname}</td>
-							<td>${ board.b_regDate}</td>				
-							<td>${ board.b_hit}</td>
-							<td>${ board.b_likeCnt}</td>
+							<td>${ boardList.b_num} </td>
+							<td><a href='boardContent?b_num=${boardList.b_num }&currentPage=${paging.currentPage}&b_type=${boardList.b_type}'>${boardList.b_title}</a></td>
+							<td>${ boardList.m_nickname}</td>
+							<td>${ boardList.b_regDate}</td>				
+							<td>${ boardList.b_hit}</td>
+							<td>${ boardList.b_likeCnt}</td>
 						</tr>
 					</c:forEach>
 			</table>
 			
 		</div>
 		<div class="board-con3">
-			<div>
+		<%-- <% String url; %>
+		<%= %> --%>
+			<div id="WriteBtnDiv1" style="display: none;">
+			 	<c:if test="${m_type == 2 }">
+					<a onclick="boardType()" class="write-btn">글쓰기</a>
+			 	</c:if>
+			</div>
+			<div id="WriteBtnDiv2" style="display: none;">
 				<a onclick="boardType()" class="write-btn">글쓰기</a>
 			</div>
 			
@@ -128,6 +135,16 @@
 				$("#board-btn").css("background", "#0652DD");
 			}
 		})
+		$(document).ready(function() {
+			if(loc.indexOf('noticeList') === 0) {
+				$("#WriteBtnDiv1").css("display", "inline");
+			}
+		})
+		$(document).ready(function() {
+			if(loc.indexOf('boardList') === 0) {
+				$("#WriteBtnDiv2").css("display", "inline");
+			}
+		})
 		
 		function goPage(pageNum) {
 			if(loc.indexOf('noticeList') === 0) {
@@ -155,8 +172,8 @@
 		
 		function boardType() {
 			if(loc.indexOf('boardList') === 0) {
-				console.log(loc);
 				location.href = "boardWriteForm?b_type=1";
+				
 			}  else {
 				location.href = "boardWriteForm?b_type=0";
 			}
