@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -80,9 +81,11 @@ public class BoardController {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("member");
 
-		int count = 0;
 		if (member != null) {
-			count = likeService.likeCount(board.getB_num(), member.getM_num());
+			int count = likeService.likeCount(board.getB_num(), member.getM_num());
+			int m_num = member.getM_num();
+			model.addAttribute("m_num",m_num);
+			model.addAttribute("likeCnt", count);
 		}
 		if(member == null && board.getB_type() == 1) {
 			return "main/loginForm";
@@ -93,7 +96,7 @@ public class BoardController {
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("board", board);
-		model.addAttribute("likeCnt", count);
+		
 		
 		return "board/boardContent";
 		
@@ -168,20 +171,23 @@ public class BoardController {
 	
 	@RequestMapping(value="boardLike", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> boardLike (@RequestParam int b_num, @RequestParam int m_num) {
+	public Map<String, Object> boardLike (@RequestParam int b_num, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("member");
 		
 		Map<String, Object> result = new HashMap<>();
 		boolean isLike;
-		int count = likeService.likeCount(b_num, m_num);
+		int count = likeService.likeCount(b_num, member.getM_num());
 		System.out.println(count);
 		
 		if (count == 0) {
 			boardService.plusLike(b_num);
-			likeService.insertLike(b_num, m_num);
+			likeService.insertLike(b_num, member.getM_num());
 			isLike = true;
 		} else {
 			boardService.minusLike(b_num);
-			likeService.deleteLike(b_num, m_num);
+			likeService.deleteLike(b_num, member.getM_num());
 			isLike = false;
 		}
 		int likeCnt = boardService.selectLikeCnt(b_num);

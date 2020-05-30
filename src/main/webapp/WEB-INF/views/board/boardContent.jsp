@@ -31,21 +31,22 @@ background-image: url("${pageContext.request.contextPath}/resources/boardImg/emp
 			<c:if test="${board.b_type == 1 }">
 				<c:choose>
 					<c:when test="${likeCnt eq 1}">
-						<input type="image" src="resources/boardImg/full-heart.png" width="20" height="20" onclick="btnLike(${board.b_num}, ${board.m_num})" id="likeBtn">
+						<input type="image" src="resources/boardImg/full-heart.png" width="20" height="20" onclick="btnLike(${board.b_num})" id="likeBtn">
 					</c:when>
 					<c:otherwise>
-						<input type="image" src="resources/boardImg/empty-heart.png" width="20" height="20" onclick="btnLike(${board.b_num}, ${board.m_num})" id="likeBtn">
+						<input type="image" src="resources/boardImg/empty-heart.png" width="20" height="20" onclick="btnLike(${board.b_num})" id="likeBtn">
 					</c:otherwise>
 				</c:choose>			
 					<span id="likeCount">${board.b_likeCnt }</span>
 			</c:if>
-						
+			<c:if test="${m_num ne null && m_num eq board.m_num}">
 				<button onclick="location.href='boardUpdateForm?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
 				           수정
 				 </button>           
 				<button onclick="location.href='boardDelete?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
 				            삭제
 				</button>
+			</c:if>			
 				<%-- </c:if> --%>
 				</div>
 			<%-- </c:if>	 --%>
@@ -98,13 +99,12 @@ background-image: url("${pageContext.request.contextPath}/resources/boardImg/emp
 		}
 	}
 	
-	function btnLike(bNum, mNum) {
+	function btnLike(bNum) {
 		let b_num = bNum;
-		let m_num = mNum;
 		$.ajax({
 			method:"post",
 			url:"${pageContext.request.contextPath}/boardLike",
-			data:{b_num, m_num},
+			data:{b_num},
 			success:function(data){
 				if(data.isLike) {
 					$('#likeBtn').attr('src', '${pageContext.request.contextPath}/resources/boardImg/full-heart.png');
@@ -114,8 +114,6 @@ background-image: url("${pageContext.request.contextPath}/resources/boardImg/emp
 				$('#likeCount').text(data.likeCnt);
 			}
 		})
-		
-		
 	}; 
 	
 	
