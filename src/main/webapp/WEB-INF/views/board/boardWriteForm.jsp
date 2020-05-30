@@ -10,6 +10,7 @@
 		<c:if test="${msg != null }">${msg}</c:if>
 		<form action="boardWrite"method="post">
 			<input type="hidden" name="b_type" value="${board.b_type }">
+			<input type="hidden" name="m_num" value="${board.m_num }">
 	
 		<table>
 			<h2>게시판 글쓰기</h2>

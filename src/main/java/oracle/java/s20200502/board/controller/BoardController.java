@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -20,6 +21,7 @@ import oracle.java.s20200502.board.model.Board;
 import oracle.java.s20200502.board.model.Paging;
 import oracle.java.s20200502.board.service.BoardService;
 import oracle.java.s20200502.board.service.LikeService;
+import oracle.java.s20200502.main.model.Member;
 
 @Controller
 public class BoardController {
@@ -56,11 +58,21 @@ public class BoardController {
 	}
 	
 	@RequestMapping("boardContent")
-	public String boardContent(Board board, Paging paging, Model model) {
+	public String boardContent(Board board, Paging paging, Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("member");
+
+		int count = 0;
+		if (member != null) {
+			count = likeService.likeCount(board.getB_num(), member.getM_num());
+		}
+		if(member == null && board.getB_type() == 1) {
+			return "main/loginForm";
+		} 
 		
 		board = boardService.boardContent(board.getB_num());
 		boardService.boardHitUp(board.getB_num());
-		int count = likeService.likeCount(board.getB_num(), board.getM_num());
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("board", board);
@@ -71,18 +83,21 @@ public class BoardController {
 	}
 	
 	@RequestMapping("boardWriteForm")
-	public String boardWriteForm (Model model, Board board) {
+	public String boardWriteForm (Model model, Board board, HttpServletRequest request) {
 		
-		System.out.println("b_type->" + board.getB_type());
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("member");
+		if(member == null) {
+			return "main/loginForm";
+		}
+		board.setM_num(member.getM_num());
 		model.addAttribute("board", board);
 		
 		return "board/boardWriteForm";
 	}
 	
 	@RequestMapping(value="boardWrite", method=RequestMethod.POST)
-	public String boardWrite(Board board, Paging paging, Model model) {
-		
-		System.out.println("boardWrite controller b_type ->" + board.getB_type());
+	public String boardWrite(Board board, Paging paging, Model model, HttpServletRequest request) {
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("board", board);

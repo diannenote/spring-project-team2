@@ -66,10 +66,10 @@ public class MainContoller {
 			if(members != null) {
 				session.setAttribute("member", members);
 				if(members.getM_ban() == 1) {
-					model.addAttribute("msg","정지된 게정입니다.");
+					model.addAttribute("msg","정지된 계정입니다.");
 					return "main/loginForm";
 				}
-				return "main/mainForm";
+				return "main/main";
 			}else {
 				model.addAttribute("msg","아이디 패스워드 오류입니다.");
 				return "main/loginForm";

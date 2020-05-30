@@ -44,7 +44,7 @@
 	</select>
 	
 	<insert id="boardInsert" parameterType="Board">
-		insert into board values( B_NUM.NEXTVAL, 6, #{b_title}, #{b_content}, sysdate, 0, 0, 0, #{b_type} )
+		insert into board values( B_NUM.NEXTVAL, #{m_num}, #{b_title}, #{b_content}, sysdate, 0, 0, 0, #{b_type} )
 	</insert>
 	
 	<delete id="boardDelete" parameterType="int">

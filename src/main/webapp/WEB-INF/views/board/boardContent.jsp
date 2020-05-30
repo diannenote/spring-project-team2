@@ -28,15 +28,17 @@ background-image: url("${pageContext.request.contextPath}/resources/boardImg/emp
 		</section>
 		
 		<div style=text-align:right>
-			<c:choose>
-				<c:when test="${likeCnt eq 1}">
-					<input type="image" src="resources/boardImg/full-heart.png" width="20" height="20" onclick="btnLike(${board.b_num}, ${board.m_num})" id="likeBtn">
-				</c:when>
-				<c:otherwise>
-					<input type="image" src="resources/boardImg/empty-heart.png" width="20" height="20" onclick="btnLike(${board.b_num}, ${board.m_num})" id="likeBtn">
-				</c:otherwise>
-			</c:choose>			
-				<span id="likeCount">${board.b_likeCnt }</span>
+			<c:if test="${board.b_type == 1 }">
+				<c:choose>
+					<c:when test="${likeCnt eq 1}">
+						<input type="image" src="resources/boardImg/full-heart.png" width="20" height="20" onclick="btnLike(${board.b_num}, ${board.m_num})" id="likeBtn">
+					</c:when>
+					<c:otherwise>
+						<input type="image" src="resources/boardImg/empty-heart.png" width="20" height="20" onclick="btnLike(${board.b_num}, ${board.m_num})" id="likeBtn">
+					</c:otherwise>
+				</c:choose>			
+					<span id="likeCount">${board.b_likeCnt }</span>
+			</c:if>
 						
 				<button onclick="location.href='boardUpdateForm?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
 				           수정
