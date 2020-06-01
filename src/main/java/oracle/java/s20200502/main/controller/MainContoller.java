@@ -59,12 +59,11 @@ public class MainContoller {
 	}
 	//로그인 체크
 	@RequestMapping(value="loginChk", method=RequestMethod.POST)
-	public String loginChk(Model model,Member member,HttpServletRequest request,String error) {
+	public String loginChk(Model model,Member member,HttpSession session,String error) {
 		System.out.println("MainController loginChk()...");
-		HttpSession session = request.getSession();
-			Member members = memberService.login(member);
+			Member members = memberService.login(member, session);
 			if(members != null) {
-				session.setAttribute("member", members);
+				session.setAttribute("memberInfo", members);
 				if(members.getM_ban() == 1) {
 					model.addAttribute("msg","정지된 계정입니다.");
 					return "main/loginForm";

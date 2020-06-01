@@ -33,10 +33,9 @@ public class BoardController {
 	private LikeService likeService;
 	
 	@RequestMapping("boardList")
-	public String boardList(Paging paging, Model model, HttpServletRequest request) {
+	public String boardList(Paging paging, Model model, HttpSession session) {
 		
-		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("member"); 
+		Member member = (Member) session.getAttribute("memberInfo"); 
 		if(member != null) {
 			int m_type = member.getM_type();
 			System.out.println("m_type->>>" + m_type);
@@ -55,10 +54,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping("noticeList")
-	public String noticeBoard(Paging paging, Model model, HttpServletRequest request) {
+	public String noticeBoard(Paging paging, Model model, HttpSession session) {
 		
-		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("member"); 
+		Member member = (Member) session.getAttribute("memberInfo"); 
 		if(member != null) {
 			int m_type = member.getM_type();
 			System.out.println("m_type->>>" + m_type);
@@ -76,11 +74,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping("boardContent")
-	public String boardContent(Board board, Paging paging, Model model, HttpServletRequest request) {
+	public String boardContent(Board board, Paging paging, Model model, HttpSession session) {
 		
-		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("member");
-
+		Member member = (Member) session.getAttribute("memberInfo");
 		if (member != null) {
 			int count = likeService.likeCount(board.getB_num(), member.getM_num());
 			int m_num = member.getM_num();
@@ -97,16 +93,14 @@ public class BoardController {
 		model.addAttribute("paging", paging);
 		model.addAttribute("board", board);
 		
-		
 		return "board/boardContent";
 		
 	}
 	
 	@RequestMapping("boardWriteForm")
-	public String boardWriteForm (Model model, Board board, HttpServletRequest request) {
+	public String boardWriteForm (Model model, Board board, HttpSession session) {
 		
-		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("member");
+		Member member = (Member) session.getAttribute("memberInfo");
 		if(member == null) {
 			return "main/loginForm";
 		}
@@ -117,7 +111,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="boardWrite", method=RequestMethod.POST)
-	public String boardWrite(Board board, Paging paging, Model model, HttpServletRequest request) {
+	public String boardWrite(Board board, Paging paging, Model model) {
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("board", board);
@@ -171,10 +165,9 @@ public class BoardController {
 	
 	@RequestMapping(value="boardLike", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> boardLike (@RequestParam int b_num, HttpServletRequest request) {
+	public Map<String, Object> boardLike (@RequestParam int b_num, HttpSession session) {
 		
-		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("member");
+		Member member = (Member) session.getAttribute("memberInfo");
 		
 		Map<String, Object> result = new HashMap<>();
 		boolean isLike;

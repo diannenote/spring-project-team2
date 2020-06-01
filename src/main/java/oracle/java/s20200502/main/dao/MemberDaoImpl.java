@@ -2,6 +2,8 @@ package oracle.java.s20200502.main.dao;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,7 +16,7 @@ public class MemberDaoImpl implements MemberDao {
 	private SqlSession sqlSession;
 	@Override
 	//로그인 체크 Dao
-	public Member login(Member member) {	
+	public Member login(Member member, HttpSession session) {	
 		System.out.println("MemberDaoImpl login Start()=>" + member.getM_email());
 		System.out.println("MemberDaoImpl login Start()=>" + member.getM_password());
 		System.out.println("MemberDaoImpl memberShip Start()=>" + member.getM_ban());

@@ -16,9 +16,9 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDao memberDao;
 	@Override
 	//로그인 체크 Service
-	public Member login(Member member) {
+	public Member login(Member member, HttpSession session) {
 		System.out.println("MemberServiceImpl login()=>" + member);
-		return memberDao.login(member);
+		return memberDao.login(member, session);
 	}
 	@Override
 	public int memberShip(Member member) {
