@@ -32,6 +32,7 @@ public class BoardController {
 	@Autowired
 	private LikeService likeService;
 	
+	//스터디모임 게시판
 	@RequestMapping("boardList")
 	public String boardList(Paging paging, Model model, HttpSession session) {
 		
@@ -48,11 +49,10 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("paging", paging);
 		
-		
-		
 		return "board/boardList";
 	}
 	
+	//공지사항 게시판
 	@RequestMapping("noticeList")
 	public String noticeBoard(Paging paging, Model model, HttpSession session) {
 		
@@ -73,6 +73,7 @@ public class BoardController {
 		return "board/boardList";
 	}
 	
+	//게시글 내용(공지사항, 일반게시판 공유)
 	@RequestMapping("boardContent")
 	public String boardContent(Board board, Paging paging, Model model, HttpSession session) {
 		
@@ -96,7 +97,7 @@ public class BoardController {
 		return "board/boardContent";
 		
 	}
-	
+	//글등록 폼(공지, 일반 공유)
 	@RequestMapping("boardWriteForm")
 	public String boardWriteForm (Model model, Board board, HttpSession session) {
 		
@@ -110,6 +111,7 @@ public class BoardController {
 		return "board/boardWriteForm";
 	}
 	
+	//글등록 (공지, 일반 공유)
 	@RequestMapping(value="boardWrite", method=RequestMethod.POST)
 	public String boardWrite(Board board, Paging paging, Model model) {
 		
@@ -123,6 +125,7 @@ public class BoardController {
 		}
 	}
 	
+	//게시글 삭제(공지, 일반)
 	@RequestMapping("boardDelete")
 	public String boardDelete(Board board, Paging paging, Model model) {
 		
@@ -139,6 +142,7 @@ public class BoardController {
 		return "redirect:boardList";
 	}
 	
+	//게시글 수정 폼
 	@RequestMapping("boardUpdateForm")
 	public String boardUpdateForm(Board board, Paging paging, Model model) {
 		
@@ -151,6 +155,8 @@ public class BoardController {
 		
 	}
 	
+	
+	//게시글 수정
 	@RequestMapping("boardUpdate")
 	public String boardUpdate(Board board, Paging paging, Model model) {
 		
@@ -163,6 +169,7 @@ public class BoardController {
 		
 	}
 	
+	//좋아요 기능
 	@RequestMapping(value="boardLike", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> boardLike (@RequestParam int b_num, HttpSession session) {
