@@ -22,4 +22,8 @@ public interface RoomDao {
 
 	int delete(int ro_num);
 
+	int contentUp(int ro_num);
+
+	int contentDown(int ro_num);
+
 }

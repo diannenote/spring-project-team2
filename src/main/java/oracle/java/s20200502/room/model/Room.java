@@ -14,8 +14,15 @@ public class Room {
 	private int ro_nitReservation;	
 	private String pageNum;
 	private String ro_loc;
+	private String ro_level;
 	private int start; 		     private int end;
 	
+	public String getRo_level() {
+		return ro_level;
+	}
+	public void setRo_level(String ro_level) {
+		this.ro_level = ro_level;
+	}
 	public String getRo_loc() {
 		return ro_loc;
 	}

@@ -59,4 +59,16 @@ public class RoomServiceImpl implements RoomService {
 		System.out.println("RoomServiceImpl delete Start...");
 		return rd.delete(ro_num);
 	}
+
+	@Override
+	public int contentUp(int ro_num) {
+		System.out.println("RoomServiceImpl contentUp Start...");
+		return rd.contentUp(ro_num);
+	}
+
+	@Override
+	public int contentDown(int ro_num) {
+		System.out.println("RoomServiceImpl contentDown Start...");
+		return rd.contentDown(ro_num);
+	}
 }

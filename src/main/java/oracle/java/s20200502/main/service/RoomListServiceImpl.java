@@ -7,24 +7,29 @@ import org.springframework.stereotype.Service;
 
 import oracle.java.s20200502.main.dao.RoomListDao;
 import oracle.java.s20200502.main.model.RoomList;
+import oracle.java.s20200502.main.model.SearchRoomList;
 
 @Service
 public class RoomListServiceImpl implements RoomListService {
-	
+
 	@Autowired
-	private RoomListDao rld;
+	private RoomListDao dao;
 
-
-	@Override
-	public List<RoomList> listRoom(RoomList roomList) {
-		System.out.println("RoomListServiceImpl lsitRoom start...");
-		return rld.listRoom(roomList);
-	}
-
-	//게시물 총 갯수
 	@Override
 	public int total() {
-		return rld.total();
+		return dao.total();
+	}
+
+	@Override
+	public List<RoomList> list(RoomList roomlist) {
+		// TODO Auto-generated method stub
+		return dao.list(roomlist);
+	}
+
+	@Override
+	public List<RoomList> listSearch(SearchRoomList srl) {
+		// TODO Auto-generated method stub
+		return dao.Searchlist(srl);
 	}
 
 }

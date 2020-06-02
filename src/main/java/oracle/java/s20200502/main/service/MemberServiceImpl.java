@@ -14,6 +14,7 @@ import oracle.java.s20200502.main.model.Member;
 public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDao memberDao;
+	
 	@Override
 	//로그인 체크 Service
 	public Member login(Member member, HttpSession session) {
@@ -25,5 +26,19 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("MemberServiceImpl memberShipImpl=>" + member);
 		return memberDao.memberShip(member);
 	}
-
+	@Override
+	public Member duplicateCheck(Member member) {
+		System.out.println("MemberServiceImpl duplicateCheck=>" + member);
+		return memberDao.duplicateCheck(member);
+	}
+	@Override
+	public Member myInfoSave(Member member) {
+		System.out.println("MemberServiceImpl myInfoSave=>" + member);
+		return memberDao.myInfoSave(member);
+	}
+	@Override
+	public Member nickNameCheck(Member member) {
+		System.out.println("MemberServiceImpl nickNameCheck=>" + member);
+		return memberDao.nickNameCheck(member);
+	}
 }

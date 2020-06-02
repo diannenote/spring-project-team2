@@ -1,7 +1,6 @@
 package oracle.java.s20200502.room.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,15 +17,16 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import oracle.java.s20200502.room.service.Paging;
-import oracle.java.s20200502.room.model.Reservation;
+import oracle.java.s20200502.room.model.Review;
 import oracle.java.s20200502.room.model.Room;
 import oracle.java.s20200502.room.service.RoomImgService;
 import oracle.java.s20200502.room.service.RoomReservationService;
+import oracle.java.s20200502.room.service.RoomReviewService;
 import oracle.java.s20200502.room.service.RoomService;
 
 @Controller
@@ -40,22 +40,9 @@ public class dubinController {
 	private RoomImgService ris;
 	@Autowired
 	private RoomReservationService res;
+	@Autowired
+	private RoomReviewService rrs;
 	
-	
-	@RequestMapping("roomMain")
-	public String main(Model model) {		
-		return "room/main";
-	}
-	
-	@RequestMapping("roomJoin")
-	public String join(Model model) {		
-		return "room/join";
-	}
-	
-	@RequestMapping("roomLogin")
-	public String login(Model model) {		
-		return "room/login";
-	}
 	
 	@RequestMapping("roomInsertGo")
 	public String roomInsertGo(Model model) {		
@@ -68,14 +55,27 @@ public class dubinController {
 		
 		Room room = rs.getRoomContent(ro_num);
 		List<String> roomImg = ris.getRoomImg(ro_num);
+		List<String> roomReview = rrs.getRoomReview(ro_num);
+		List<String> roomBizReview = rrs.getRoomBizReview(ro_num);
+		int reviewTotal = rrs.getReviewTotal(ro_num);
+		double scoreAvg;
+		if(reviewTotal == 0) {
+			scoreAvg = 0;
+		}else {
+			scoreAvg = rrs.getScoreAvg(ro_num);						
+		}
 		rs.upHit(ro_num);
 		
 		model.addAttribute("room", room);
 		model.addAttribute("roomImg", roomImg);
+		model.addAttribute("roomReview", roomReview);
+		model.addAttribute("roomBizReview", roomBizReview);
+		model.addAttribute("scoreAvg", scoreAvg);
+		
 		return "room/roomContent2";
 	}
 	
-	/*@RequestMapping(value="calendar.do")
+	/*@RequestMapping(value="calendar")
 	public ModelAndView calendar(@RequestParam(value = "roomNo") int roomNo,
 								 @RequestParam(value = "ddayYear", defaultValue = "0") int ddayYear,
 								 @RequestParam(value = "ddayMonth", defaultValue = "0") int ddayMonth,
@@ -90,17 +90,20 @@ public class dubinController {
 		return mv;
 	}*/
 	
-	@RequestMapping(value="calendar", method=RequestMethod.POST)
+	@RequestMapping(value="calendar")
+	@ResponseBody
 	public String calendar2(@RequestParam(value = "roomNo") int roomNo,
 							@RequestParam(value = "ddayYear", defaultValue = "0") int ddayYear,
 							@RequestParam(value = "ddayMonth", defaultValue = "0") int ddayMonth,
 							@RequestParam(value = "ddayOption", defaultValue = "default") String ddayOption,
 							Model model) {
 		Map<String, Object> map = res.getOneDayList(roomNo, ddayYear, ddayMonth, ddayOption);
+		List<String> roomImg = ris.getRoomImg(roomNo);
 		
 		model.addAttribute("calendarList", map.get("calendarList"));
 		model.addAttribute("ddayYear", map.get("ddayYear"));
 		model.addAttribute("ddayMonth", map.get("ddayMonth"));
+		model.addAttribute("roomImg", roomImg);
 		
 		return "room/roomContent2";
 	}
@@ -118,7 +121,42 @@ public class dubinController {
 		
 		model.addAttribute("list", listAll);
 		model.addAttribute("pg", pg);
-		return "room/list";
+		return "room/roomList";
+	}
+	
+	@RequestMapping("levelList")
+	public String levelList(Model model, Room room, String currentPage) {	
+		System.out.println("dubinController levelList Start...");
+		int total = rs.total();
+		Paging pg = new Paging(total, currentPage);
+		room.setStart(pg.getStart());
+		room.setEnd(pg.getEnd());
+		List<Room> listAll = rs.getList(room);
+		
+		model.addAttribute("list", listAll);
+		model.addAttribute("pg", pg);
+		return "room/levelList";
+	}
+	
+	@RequestMapping("roomReview")
+	public String reviewInsert(Model model, String currentPage, HttpServletRequest request) {	
+		System.out.println("dubinController reviewInsert Start...");
+		int ro_num = Integer.parseInt(request.getParameter("ro_num"));
+		int m_num = 1;
+		int rv_score = Integer.parseInt(request.getParameter("star"));
+		String rv_userReview = request.getParameter("review");
+		String rv_bizReview = request.getParameter("review");
+		
+		Review rv = new Review();
+		rv.setRo_num(ro_num);
+		rv.setM_num(m_num);
+		rv.setRv_score(rv_score);
+		rv.setRv_userReview(rv_userReview);
+		rv.setRv_bizReview(rv_bizReview);
+		
+		int result = rrs.reviewInsert(rv);
+		
+		return "redirect:roomContent?ro_num=" + ro_num;
 	}
 	
 	@RequestMapping("roomUpdateGo")
@@ -132,6 +170,24 @@ public class dubinController {
 		model.addAttribute("room", room);
 		model.addAttribute("roomImg", roomImg);
 		return "room/roomUpdate";
+	}
+	
+	@RequestMapping("contentUp")
+	public String contentUp(Model model, HttpServletRequest request) {	
+		System.out.println("dubinController contentUp Start...");
+		int ro_num = Integer.parseInt(request.getParameter("ro_num"));
+		int result = rs.contentUp(ro_num);
+		
+		return "redirect:roomList";
+	}
+	
+	@RequestMapping("contentDown")
+	public String contentDown(Model model, HttpServletRequest request) {	
+		System.out.println("dubinController contentDown Start...");
+		int ro_num = Integer.parseInt(request.getParameter("ro_num"));
+		int result = rs.contentDown(ro_num);
+		
+		return "redirect:roomList";
 	}
 	
 	@RequestMapping("roomDelete")
@@ -199,9 +255,9 @@ public class dubinController {
 		int ro_num = rs.titleToNum(ro_title);
 		int result2 = ris.insert(pathList, ro_num);
 		
-		return "room/roomInsert";
+		return "redirect:roomList";
 	}
-	////////////////update@@@@@@@@@@@@@@@@@@@@@@@@
+///////////////////update@@@@@@@@@@@@@@@@@@@@@@@@
 	@RequestMapping(value="roomUpdate", method=RequestMethod.POST)
 	public String roomUpdate(MultipartHttpServletRequest mtfRequest, Model model) {	
 		
@@ -261,7 +317,8 @@ public class dubinController {
 		// roomImg reInsert
 		int result3 = ris.insert(pathList, ro_num);
 		
-		return "room/roomContent.do?ro_num="+room.getRo_num();
+		return "redirect:roomContent?ro_num=" + ro_num;
+		
 	}
 	
 	private String uploadFile(String originalName, byte[] fileData, String uploadPath) throws Exception {

@@ -34,7 +34,7 @@ public class RoomDaoImpl implements RoomDao {
 	@Override
 	public List<Room> getList(Room room) {
 		System.out.println("RoomDaoImpl getList Start...");
-		return session.selectList("roomGetList", room);
+		return session.selectList("getRoomList", room);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class RoomDaoImpl implements RoomDao {
 
 	@Override
 	public void upHit(int ro_num) {
-		session.update("roomUpHit", ro_num);
+		session.update("upHit", ro_num);
 	}
 
 	@Override
@@ -57,6 +57,18 @@ public class RoomDaoImpl implements RoomDao {
 	@Override
 	public int delete(int ro_num) {
 		System.out.println("RoomDaoImpl delete Start...");
-		return session.delete("roomDeleteRoom", ro_num);
+		return session.delete("deleteRoom", ro_num);
+	}
+
+	@Override
+	public int contentUp(int ro_num) {
+		System.out.println("RoomDaoImpl contentUp Start...");
+		return session.update("contentUp", ro_num);
+	}
+
+	@Override
+	public int contentDown(int ro_num) {
+		System.out.println("RoomDaoImpl contentDown Start...");
+		return session.update("contentDown", ro_num);
 	}
 }

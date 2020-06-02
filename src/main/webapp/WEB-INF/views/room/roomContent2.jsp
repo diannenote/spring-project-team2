@@ -5,6 +5,7 @@
 <%
 	String context = request.getContextPath();
 %>
+<%@ include file="../header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,34 +28,18 @@ th, td {
 	border: 1px solid black;
 }
 </style>
-<!-- <script>
-	$(function() {
-		$("#pw1, #pw2").keyup(function() {
-			var pw1Value = $("#pw1").val();
-			var pw2Value = $("#pw2").val();
-
-			if (pw1Value != pw2Value) {
-				$("#message").text("패스워드가 일치하지 않습니다.");
-			} else {
-				$("#message").text("패스워드가 일치합니다.");
-			}
-		})
-	});
-</script> -->
 <script>
 //실시간 예약 BootStrap modal Show
 $(document).on('click', '.roomReserveListModal', function() {
 	var roomNo = ${room.ro_num }
-	alert("modal show 앞 룸넘 -> "+roomNo);
 	$('#roomReserveNo').val(roomNo);
 	$('#ddayYear').val(0);
 	$('#ddayMonth').val(0);
 	var ddayOption = 'default';
 	var ddayYear = $('#ddayYear').val();
 	var ddayMonth = $('#ddayMonth').val();
-	reserveCalendar(roomNo, ddayYear, ddayMonth, ddayOption);	
+	reserveCalendar(roomNo, ddayYear, ddayMonth, ddayOption);
 	$("#roomReserveListModal").modal('show');
-	alert("modal show 뒤 룸넘 -> "+roomNo);
 });
 //달력 month 변경
 $(document).on('click', '.calendarMoveBtn', function() {
@@ -65,11 +50,32 @@ $(document).on('click', '.calendarMoveBtn', function() {
 	reserveCalendar(roomNo, ddayYear, ddayMonth, ddayOption);
 });
 //달력 load function
-function reserveCalendar(roomNo, ddayYear, ddayMonth, ddayOption) {
+/* function reserveCalendar(roomNo, ddayYear, ddayMonth, ddayOption) {
+	alert("나는 리저브캘린더의 룸넘 -> " + roomNo);
 	$.ajax({
-		url : "<%=context%>/calendar",
-		type : "POST",
-		data : {roomNo, ddayYear:ddayYear, ddayMonth:ddayMonth, ddayOption:ddayOption},
+		url : "calendar",
+		data : {roomNo:roomNo, ddayYear:ddayYear, ddayMonth:ddayMonth, ddayOption:ddayOption},
+		dataType : "json",
+		success : function(data) {
+			var html ="";
+			var calendarTitle = data.ddayYear+"년 "+(data.ddayMonth+1)+"월";
+			console.log("나는 아작스의 캘린더타이틀 -> " + calendarTitle);
+			$("#calendarTitle").html(calendarTitle);
+			var calendarList = data.calendarList;
+			alert(calendarList);
+			html = calenderAppend(calendarList);
+			$('#calendarListTbody').html(html);
+			$('#ddayYear').val(data.ddayYear);
+			$('#ddayMonth').val(data.ddayMonth);
+		}
+	})
+} */
+function reserveCalendar(roomNo, ddayYear, ddayMonth, ddayOption) {
+	console.log("나는 리저브캘린더의 룸넘 -> " + roomNo);
+	console.log("나는 리저브캘린더의 data -> " + roomNo, ddayYear, ddayMonth, ddayOption);
+	$.ajax({
+		url : "calendar",
+		data : {roomNo:roomNo, ddayYear:ddayYear, ddayMonth:ddayMonth, ddayOption:ddayOption},
 		dataType : "json",
 		success : function(data) {
 			var html ="";
@@ -94,7 +100,8 @@ function calenderAppend(calendarList){
 	var weekdayColor="#000000";
 	var saturdayColor="#0000FF";
 	
-	alert(roomNo);
+	alert("나는 캘린더어펜드의 룸넘 -> " + roomNo);
+	console.log("나는 캘린더어펜드의 룸넘 -> " + roomNo);
 	
 	$.each(calendarList,function(key, item) {
         if(key%7==0){
@@ -143,78 +150,6 @@ function calenderAppend(calendarList){
 
 </head>
 <body>
-	<%-- <%
-		Object userID = null;
-		if (session.getAttribute("loginUser") == null) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('로그인이 필요합니다.')");
-			script.println("location.href='../login/login'");
-			script.println("</script>");
-		} else if (session.getAttribute("loginUser") != null) {
-			userID = session.getAttribute("loginUser");
-		}
-	%> --%>
-	<!-- 네비게이션 -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		<a class="navbar-brand" href="roomList">공부하랑</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#mynav1">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<!-- id값으로 위의 navbar-toggler와 묶여짐 (collapse) -->
-		<div class="collapse navbar-collapse" id="mynav1">
-			<ul class="navbar-nav mr-auto ml-auto">
-				<!-- mr -> margin right -->
-				<!-- <li class="nav-item active">
-					<a class="nav-link" href="#">메뉴1</a>
-				</li>
-				메뉴 드롭다운
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">드롭다운 메뉴</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#">드롭1</a> 
-							<a class="dropdown-item" href="#">드롭2</a> 
-							<a class="dropdown-item" href="#">드롭3</a>
-						</div>
-				</li> -->
-				<li>
-					<form class="form-inline" action="#" method="post">
-						<input class="form-control" type="search" placeholder="검색">
-						<button class="btn btn-light" type="submit">검색</button>
-					</form>
-				</li>
-			</ul>
-			<ul class="navbar-nav">
-				<%-- 				<%
-					if (userID == null) {
-				%> --%>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					data-toggle="dropdown">접속하기</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="roomLogin">로그인</a> <a
-							class="dropdown-item" href="roomJoin">회원가입</a> <a
-							class="dropdown-item" href="roomInsertGo">방등록</a>
-					</div></li>
-				<%-- 				<%
-					} else {
-				%>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">회원관리</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#">마이페이지</a>
-							<c:url value="/login/logout" var="logoutUrl" />
-							<a class="dropdown-item" href="#">로그아웃</a>
-						</div>
-				</li>
-				<%
-					}
-				%> --%>
-			</ul>
-		</div>
-	</nav>
-
 	<div class="container">
 		<!-- 점보트론 -->
 		<div class="jumbotron" style="min-width: 100%;">
@@ -225,9 +160,11 @@ function calenderAppend(calendarList){
 					조회수 : ${room.ro_hit }<br> 위도 : ${room.ro_spot1 }<br> 
 					경도 : ${room.ro_spot2 }<br> 오전가 : ${room.ro_mReservation }<br>
 					오후가 : ${room.ro_aftReservation }<br> 밤가 : ${room.ro_nitReservation }<br>
+					별점평균 : ${scoreAvg }<br>
 					<c:forEach items="#{roomImg }" var="img">
-						<img src="${pageContext.request.contextPath }/upload/${img }"
-							alt="img">
+						<img src="${pageContext.request.contextPath }/upload/${img }" alt="img"><br>
+						${pageContext.request.contextPath }<br>
+						${img }<br>
 					</c:forEach>
 				</div>
 			</div>
@@ -235,11 +172,14 @@ function calenderAppend(calendarList){
 				onclick="location.href='roomUpdateGo?ro_num=${room.ro_num}'">수정하기</button>
 			<button class="btn btn-primary" type="button"
 				onclick="location.href='roomDelete?ro_num=${room.ro_num}'">삭제하기</button>
+			<button class="btn btn-primary" type="button"
+				onclick="location.href='contentUp?ro_num=${room.ro_num}'">방승인하기</button>
+			<button class="btn btn-primary" type="button"
+				onclick="location.href='contentDown?ro_num=${room.ro_num}'">방블라인드</button>
 			<!-- 예약 -->
 			<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#roomReserveListModal"> Modal 띄우기 </button> -->
-<!--  -->	<div class="roomReserveListModal">클릭</div>
-			<div class="modal fade" id="roomReserveListModal" tabindex="-1"
-				role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--  -->	<button class="roomReserveListModal btn btn-primary" type="button">클릭</button>
+			<div class="modal fade" id="roomReserveListModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -258,23 +198,17 @@ function calenderAppend(calendarList){
 											<tr>
 												<td class="fc-header-left">
 													<div class="btn-group">
-														<button type="button"
-															class="fc-button-prev fc-corner-left btn btn-default btn-sm calendarMoveBtn"
-															ddayOption="prev">
-															<i class="fa fa-chevron-left"></i>
-
+														<button type="button" class="fc-button-prev fc-corner-left btn btn-primary btn-sm calendarMoveBtn" ddayOption="prev">
+															<i class="fa fa-chevron-left"></i>이전 달
 														</button>
-														<button type="button"
-															class="btn btn-default btn-sm calendarMoveBtn"
-															ddayOption="next">
-															<i class="fa fa-chevron-right"></i>
-
+														<button type="button" class="btn btn-primary btn-sm calendarMoveBtn" ddayOption="next">
+															<i class="fa fa-chevron-right"></i>다음 달
 														</button>
 													</div>
 												</td>
 												<td class="fc-header-center"><span
 													class="fc-header-title">
-														<h2 id="calendarTitle">May 2020</h2>
+														<h2 id="calendarTitle">2020년 5월</h2>
 												</span></td>
 												<td class="fc-header-right"></td>
 											</tr>
@@ -282,27 +216,17 @@ function calenderAppend(calendarList){
 									</table>
 									<div class="fc-content"
 										style="position: relative; min-height: 1px;">
-										<div class="fc-view fc-view-month fc-grid"
-											style="position: relative; min-height: 1px;"
-											unselectable="on">
+										<div class="fc-view fc-view-month fc-grid" style="position: relative; min-height: 1px;" unselectable="on">
 											<table class="fc-border-separate" cellspacing="0">
 												<thead>
 													<tr class="fc-first fc-last">
-														<th
-															class="fc-day-header fc-sun fc-widget-header fc-first"
-															style="width: 158px;">Sun</th>
-														<th class="fc-day-header fc-mon fc-widget-header"
-															style="width: 158px;">Mon</th>
-														<th class="fc-day-header fc-tue fc-widget-header"
-															style="width: 158px;">Tue</th>
-														<th class="fc-day-header fc-wed fc-widget-header"
-															style="width: 158px;">Wed</th>
-														<th class="fc-day-header fc-thu fc-widget-header"
-															style="width: 158px;">Thu</th>
-														<th class="fc-day-header fc-fri fc-widget-header"
-															style="width: 158px;">Fri</th>
-														<th class="fc-day-header fc-sat fc-widget-header fc-last"
-															style="width: 158px;">Sat</th>
+														<th class="fc-day-header fc-sun fc-widget-header fc-first" style="width: 158px;">Sun</th>
+														<th class="fc-day-header fc-mon fc-widget-header" style="width: 158px;">Mon</th>
+														<th class="fc-day-header fc-tue fc-widget-header" style="width: 158px;">Tue</th>
+														<th class="fc-day-header fc-wed fc-widget-header" style="width: 158px;">Wed</th>
+														<th class="fc-day-header fc-thu fc-widget-header" style="width: 158px;">Thu</th>
+														<th class="fc-day-header fc-fri fc-widget-header" style="width: 158px;">Fri</th>
+														<th class="fc-day-header fc-sat fc-widget-header fc-last" style="width: 158px;">Sat</th>
 													</tr>
 												</thead>
 												<tbody id="calendarListTbody">
@@ -321,7 +245,31 @@ function calenderAppend(calendarList){
 					</div>
 				</div>
 			</div>
-		</div>
+			<div class="review">
+				<form action="roomReview" method="post">
+					<input type="hidden" name="ro_num" value="${room.ro_num }">
+					<!-- <input type="hidden" name="m_num" value=""> -->
+					<textarea name="review">리뷰를 작성하세요</textarea>
+					<select name="star">
+						<option value="1">1점</option>
+						<option value="2">2점</option>
+						<option value="3">3점</option>
+						<option value="4">4점</option>
+						<option value="5">5점</option>
+					</select>
+					<input type="submit" value="리뷰제출">
+				</form>
+			</div>
+			<div class="review">
+				<c:forEach items="${roomReview }" var="userReview">
+					리뷰 번호: ${userReview.rv_num }<br>
+					리뷰 작성자: ${userReview.m_num }<br>
+					리뷰: ${userReview.rv_userReview }<br>
+					리뷰 점수: ${userReview.rv_score }<br>
+					<p><br>
+				</c:forEach>
+			</div>
+		</div><!-- 점보트론 -->
 	</div>
 </body>
 </html>

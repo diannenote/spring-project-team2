@@ -1,34 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RoomList">
+<!-- id=매퍼내에서 쿼리를 구분짓는 고유한 이름, resultType=쿼리의 결과의 형태 -->
 
-<mapper namespace="listRoom">
-
-	<!-- 게시물 목록 with Dubin-->
-	<!-- <select id="roomList"  parameterType="RoomList" resultType="RoomList">
-		select * from (select rownum rn, a.* from (select * from room
-		order by ro_num desc) a) where rn between #{start} and
-		#{end}
-	</select> -->
-	
-<!-- 게시물 목록 kuzuro -->
-	<!-- <select id="roomList" resultType="RoomList">
-		select
-			ro_num, ro_title, m_num, ro_hit, ro_mReservation
-		from room		
-	</select> -->
-	
-	<!-- 검색 목록 -->
-	<select id="roomList" resultType="RoomList">
-		select * from room
-		WHERE ro_title LIKE '%?%'
-		order by ro_num desc
-	</select>
 
 <!-- 게시물 총 갯수 -->
-	<select id="total" resultType="int">
-		select count(*) from room
-	</select>
+<select resultType="int" id="total">
+	select count(*) from room 
+</select>
 
+<!-- 리스트 -->
+<!-- id(listAll) from RoomListDaoImpl  -->
+<!-- parameterType 과 resultType from configuration.xml -->
+<select id="listAll" parameterType="RoomList" resultType="RoomList">
+	select * from (select rownum rn, a.* from (select *from room
+		order by ro_num) a) where rn between #{start} and #{end}
+</select>
+
+
+<!-- 검색쿼리 -->
+<select id="listSearch" parameterType="SearchRoomList" resultType="SearchRoomList">
+select ro_num, ro_title, ro_content, m_num 
+  		from(
+       	select ro_num, ro_title, ro_content, m_num,
+           	row_number() over(order by ro_num desc) as rn
+       	from room
+       		<!-- where ro_title like '%제목%' --> 
+       		<include refid="search"></include>
+       	)ro
+       	where rn between 1 and 10
+       	order by ro_num desc
+</select>
+
+<sql id="search">
+	<!-- where ro_title like '%제목%' -->
+	<if test="searchType !=null">
+	<!-- <if test="searchType =='t'.toString()">where ro_title like '%' ||#{keyword}|| '%'</if> --> 
+	<if test="searchType == 'SearchRoomList'">where ro_title like '%'||#{keyword}||'%'</if>
+	</if>
+</sql> 
+
+<!-- <select id="countSearch" resultType="int">
+	select count(ro_num)
+		from room
+			<include refid="search"></include>
+<![CDATA[
+	and ro_num > 0
+]]>
+</select>  -->
+
+	
 </mapper>

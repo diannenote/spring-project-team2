@@ -23,6 +23,7 @@ public class RoomReservationServiceImpl implements RoomReservationService {
 
 	@Override
 	public Map<String, Object> getOneDayList(int roomNo, int ddayYear, int ddayMonth, String ddayOption) {
+		System.out.println("RoomReservationServiceImpl getOneDayList Start...");
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		// dday : ?년 + ?월 + 1일
 		Calendar dday = Calendar.getInstance();

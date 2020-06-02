@@ -78,9 +78,8 @@
 					<tr>
 						<th>NO.</th><th>제목</th><th>작성자</th>
 						<th>작성일</th><th>조회수</th>
-						<c:if test="${board.b_type == 1 }">
-						<th style="display:none;" id="likeTh">좋아요♥</th>
-						</c:if>
+						<th class="likes">좋아요♥</th>
+						
 					</tr>
 					
 					<c:forEach items="${boardList}" var="boardList">
@@ -90,7 +89,7 @@
 							<td>${ boardList.m_nickname}</td>
 							<td>${ boardList.b_regDate}</td>				
 							<td>${ boardList.b_hit}</td>
-							<td style="display: none;" id="likeTd">${ boardList.b_likeCnt}</td>
+							<td style="display: none;" class="likes">${ boardList.b_likeCnt}</td>
 						</tr>
 					</c:forEach>
 			</table>
@@ -142,22 +141,19 @@
 				$("#board-btn").css("background", "#0652DD");
 			}
 		})
-		// 글쓰기 버튼(공지/스터디)
+		// 글쓰기 버튼(공지.스터디),스터디게시판 좋아요 테이블
 		$(document).ready(function() {
 			if(loc.indexOf('noticeList') === 0) {
 				$("#WriteBtnDiv1").css("display", "inline");
+				$(".likes").hide();
 			}
 			if(loc.indexOf('boardList') === 0) {
 				$("#WriteBtnDiv2").css("display", "inline");
+				$(".likes").show();
+				
 			}
 		})
-		//likes table
-		$(document).ready(function() {
-			if(loc.indexOf('boardList') === 0) {
-				$("#likeTh").css("display", "block");
-				$("#likeTd").css("display", "block");
-			}
-		})
+		
 		//페이징(페이지이동 게시판별로 나눔)
 		function goPage(pageNum) {
 			if(loc.indexOf('noticeList') === 0) {

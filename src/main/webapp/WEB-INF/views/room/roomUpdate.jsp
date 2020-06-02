@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="../header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,14 +90,15 @@
 </head>
 <body>
 	<!-- 네비게이션 -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	
+	<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<a class="navbar-brand" href="roomList">공부하랑</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynav1">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<!-- id값으로 위의 navbar-toggler와 묶여짐 (collapse) -->
+		id값으로 위의 navbar-toggler와 묶여짐 (collapse)
 		<div class="collapse navbar-collapse" id="mynav1">   
-			<ul class="navbar-nav mr-auto ml-auto">       <!-- mr -> margin right -->
+			<ul class="navbar-nav mr-auto ml-auto">       mr -> margin right
 				<li>
 					<form class="form-inline" action="roomInsert" method="post">
 						<input class="form-control" type="search" placeholder="검색">
@@ -107,15 +109,17 @@
 			<ul class="navbar-nav">
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">접속하기</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="roomLogin">로그인</a> 
-							<a class="dropdown-item" href="roomJoin">회원가입</a>
-							<a class="dropdown-item" href="roomInsertGo">방등록</a>
-						</div>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="login">로그인</a> 
+						<a class="dropdown-item" href="join">회원가입</a> 
+						<a class="dropdown-item" href="roomInsertGo">방등록</a>
+						<a class="dropdown-item" href="roomInsertGo">방등록</a>
+						<a class="dropdown-item" href="levelList">방승인</a>
+					</div>
 				</li>
 			</ul>
 		</div>
-	</nav>
+	</nav> -->
 	<div class="container">
 		<div>
 			<!-- 점보트론 -->

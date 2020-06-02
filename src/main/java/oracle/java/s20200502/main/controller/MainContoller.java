@@ -1,22 +1,27 @@
 package oracle.java.s20200502.main.controller;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import oracle.java.s20200502.main.model.Member;
 import oracle.java.s20200502.main.model.RoomList;
+import oracle.java.s20200502.main.model.SearchRoomList;
 import oracle.java.s20200502.main.service.MemberService;
 import oracle.java.s20200502.main.service.Paging;
 import oracle.java.s20200502.main.service.RoomListService;
@@ -27,30 +32,57 @@ public class MainContoller {
 	@Autowired
 	private MemberService memberService;
 	@Autowired
-	private RoomListService rls;
+	private	RoomListService ls;
+	//메일 셋팅
+	@Autowired
+	private JavaMailSender mailSender;
 	
+	//리스트
+	@RequestMapping(value="list")
+	public String list(RoomList roomlist, String currentPage, Model model) throws Exception {
+		System.out.println("maincontroller list Start...");
+		int total = ls.total();
+		System.out.println("total=>" + total);
+		Paging pg = new Paging(total, currentPage);
+		System.out.println("currentPage=>" + currentPage);
+		roomlist.setStart(pg.getStart());
+		roomlist.setEnd(pg.getEnd());
+		System.out.println("체크1");
+		
+		List<RoomList> list = ls.list(roomlist);
+		model.addAttribute("list", list);
+		model.addAttribute("pg", pg);
+		System.out.println("체크2");
+		return "main/list";
+	}
+	//리스트 + 검색   ■■■■■■■■■■■■■■■■■■■■■■■■■■■ 페이징 처리 해야 함.	
+	@RequestMapping(value="listSearch")
+	public String listSearch(@ModelAttribute("srl") SearchRoomList srl, String currentPage, Model model)
+			throws Exception{
+		logger.info("get list search");
+
+		srl.setSearchType("SearchRoomList");
+		System.out.println(srl.toString());
+		
+		
+		int total = ls.total();
+		System.out.println("total=>" + total);
+		Paging pg = new Paging(total, currentPage);
+		System.out.println("currentPage=>" + currentPage);
+		/*int total = ls.total();*/
+		/*Paging pg = new Paging(total, currentPage);*/
+		/*pg.setRoomList(srl);*/
+		
+		
+		List<RoomList> list = ls.listSearch(srl);
+		model.addAttribute("list", list);
+		return "main/listSearch";
+	}	
 	@RequestMapping("main")
 	public String main(Model model) {
 		System.out.println("Open Main");
 		return "main/main";
 	}
-	// 게시물 목록(with dubin)
-	@RequestMapping(value = "list")
-	public String getList(Model model, RoomList roomList, String currentPage) {
-		System.out.println("Controller list start.. ");
-		
-		int total = rls.total();
-		Paging pg = new Paging(total, currentPage);
-		roomList.setStart(pg.getStart());
-		roomList.setEnd(pg.getEnd());
-		System.out.println("체크1");
-		
-		List<RoomList> listRoom = rls.listRoom(roomList);
-		model.addAttribute("listRoom", listRoom);
-		System.out.println("체크2");
-		return "main/list";
-	}
-	
 	//로그인폼
 	@RequestMapping(value="loginForm")
 	public String login(Model model) {
@@ -74,29 +106,91 @@ public class MainContoller {
 				return "main/loginForm";
 			}
 		}
-	
+	//로그아웃
+	@RequestMapping(value="logout")
+	public String logout(Model model,Member member,HttpSession session) {
+		System.out.println("MainController logout()...");
+			session.removeAttribute("memberinfo");
+			return "main/mainForm";
+		}
+	//회원정보 수정 창
+	@RequestMapping(value="myInfo")
+	public String myInfo(Model model,Member member) {
+			System.out.println("MainController myInfo()..");
+			return "main/myInfoForm";
+		}
+	//회원정보 수정 실행
+	@RequestMapping(value="myInfoSave", method=RequestMethod.POST)
+	public String myInfoSave(Model model,Member member) {
+			System.out.println("MainController myInfoSave()..");
+			System.out.println("myInfoSave=>" + member.getM_nickname());
+			System.out.println("myInfoSave=>" + member.getM_phone());
+			System.out.println("myInfoSave=>" + member.getM_bizname());
+			System.out.println("myInfoSave=>" + member.getM_biznum());
+			System.out.println("myInfoSave=>" + member.getM_num());
+			memberService.myInfoSave(member);
+			return "main/mainForm";
+		}
 	//회원가입 폼
 	@RequestMapping(value="memberShip")
 	public String memberShipForm(Model model) {
 		System.out.println("MainController login()...");
 		return "main/memberShipForm";
 	}
+	//회원가입 인증 처리
+	@RequestMapping(value="sertification", method=RequestMethod.POST)
+	public String sertification(Model model, Member member,String m_email) {
+		//리스트 및 랜덤선언
+		HashSet<Integer> number = new HashSet<Integer>();
+		String numberStr = "";
+		while(number.size() < 6) {
+			number.add((int)(Math.random() * 9)+1);
+		}
+		 Iterator<Integer> iter = number.iterator();
+		 while(iter.hasNext()) {
+			 String str = Integer.toString(iter.next());
+			 numberStr += str;
+		 }
+		//메일 보내기
+		System.out.println("mailSending");
+		String tomail = m_email;
+		System.out.println(tomail);
+		String setfrom = m_email;
+		String title = "공부하랑 회원가입 인증번호입니다.";
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"UTF-8");
+			messageHelper.setFrom(setfrom);
+			messageHelper.setTo(tomail);
+			messageHelper.setSubject(title);
+			messageHelper.setText("공부하랑 회원가입 인증번호는("+numberStr+")입니다");
+			mailSender.send(message);
+			model.addAttribute("check",1);
+			model.addAttribute("numberStr",numberStr);
+		}catch(Exception e) {
+			System.out.println(e);
+			model.addAttribute("check",2);
+		}
+		model.addAttribute("sertificationNum",numberStr);
+		return "main/sertification";
+	}
 	//회원가입 처리
-	@RequestMapping(value="memberInsert", method=RequestMethod.POST)
-	public String memberShip(Model model,Member member) {
-			System.out.println("MainController memberShip()=>" + member.getM_email());
-			if(member.getM_bizname() !=  null && member.getM_biznum() != null) {
-				member.setM_type(1);
-			}else {
-				member.setM_type(0);
-			}
-			int result = memberService.memberShip(member);
-			if(result == 1) {
-				model.addAttribute("msg","회원가입이 완료되었습니다.");
-				return "main/main";
-			}else{
-				model.addAttribute("msg","회원가입에 실패하였습니다.");
+		@RequestMapping(value="memberInsert", method=RequestMethod.POST)
+		public String memberShip(Model model,Member member,
+				@RequestParam("m_bizname") String m_bizname,
+				@RequestParam("m_biznum") String m_biznum) {
+				System.out.println("MainController memberShip()=>" + member.getM_email());
+				System.out.println("MainController memberShip()=>" + member.getM_bizname());
+				System.out.println("MainController memberShip()=>" + member.getM_biznum());
+		try {
+			if(m_bizname.equals("") && m_biznum.equals("")){member.setM_type(0);}
+			else if(m_bizname != null && m_biznum != null){member.setM_type(1);}
+				memberService.memberShip(member);
+				System.out.println("member.m_membership result=>" + member.getM_newMemberResult());
+				return "main/loginForm";
+		}catch(Exception e) {
+				e.printStackTrace();
 				return "main/loginForm";
 			}
 		}
-	}
+}

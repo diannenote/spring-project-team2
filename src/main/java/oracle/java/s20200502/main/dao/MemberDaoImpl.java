@@ -34,4 +34,19 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println("MemberDaoImpl memberShipDao Start()=>" + member.getM_biznum());
 		return sqlSession.selectOne("memberShipInsert", member);
 	}
+	@Override
+	public Member duplicateCheck(Member member) {
+		System.out.println("MemberDaoImpl duplicateCheck Start eamil()=>" + member.getM_email());
+		return sqlSession.selectOne("duplicateCheck", member);
+	}
+	@Override
+	public Member myInfoSave(Member member) {
+		System.out.println("MemberDaoImpl myInfoSave Start=>" + member.getM_num());
+		return sqlSession.selectOne("myInfoSave", member);
+	}
+	@Override
+	public Member nickNameCheck(Member member) {
+		System.out.println("MemberDaoImpl nickNameCheck Start=>" + member.getM_nickname());
+		return sqlSession.selectOne("nickNameCheck", member);
+	}
 }

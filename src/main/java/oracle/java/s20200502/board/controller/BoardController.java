@@ -200,7 +200,7 @@ public class BoardController {
 		
 		return result;
 	}
-	
+	//로그인 체크후 게시판으로 리턴
 	@RequestMapping(value="loginChk", method=RequestMethod.POST)
 	public String loginChk(Model model,Member member,HttpSession session,String error) {
 		System.out.println("MainController loginChk()...");

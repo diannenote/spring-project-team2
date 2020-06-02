@@ -1,6 +1,7 @@
 package oracle.java.s20200502.main.model;
 
 public class RoomList {
+	//룸 테이블 내 컬럼
 	private int ro_num;
 	private int m_num;
 	private String ro_title;
@@ -9,17 +10,28 @@ public class RoomList {
 	private String ro_spot1;
 	private String ro_spot2;
 	private String ro_img;
-	private int ro_mReservation;
-	private int ro_aftReservation;
-	private int ro_nitReservation;	
-	private String pageNum;  
-	private int start; 		     private int end;
+	private int ro_mreservateion;
+	private int ro_aftreservation;
+	private int ro_nitreservation;
+	private String ro_loc;
 	
-	public int getRo_hit() {
-		return ro_hit;
+	//조회용
+	private String search;		private String keyword;
+	private String pageNum;
+	private int start;			private int end;
+	
+	
+	public String getSearch() {
+		return search;
 	}
-	public void setRo_hit(int ro_hit) {
-		this.ro_hit = ro_hit;
+	public void setSearch(String search) {
+		this.search = search;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	public String getPageNum() {
 		return pageNum;
@@ -63,6 +75,12 @@ public class RoomList {
 	public void setRo_content(String ro_content) {
 		this.ro_content = ro_content;
 	}
+	public int getRo_hit() {
+		return ro_hit;
+	}
+	public void setRo_hit(int ro_hit) {
+		this.ro_hit = ro_hit;
+	}
 	public String getRo_spot1() {
 		return ro_spot1;
 	}
@@ -81,22 +99,29 @@ public class RoomList {
 	public void setRo_img(String ro_img) {
 		this.ro_img = ro_img;
 	}
-	public int getRo_mReservation() {
-		return ro_mReservation;
+	public int getRo_mreservateion() {
+		return ro_mreservateion;
 	}
-	public void setRo_mReservation(int ro_mReservation) {
-		this.ro_mReservation = ro_mReservation;
+	public void setRo_mreservateion(int ro_mreservateion) {
+		this.ro_mreservateion = ro_mreservateion;
 	}
-	public int getRo_aftReservation() {
-		return ro_aftReservation;
+	public int getRo_aftreservation() {
+		return ro_aftreservation;
 	}
-	public void setRo_aftReservation(int ro_aftReservation) {
-		this.ro_aftReservation = ro_aftReservation;
+	public void setRo_aftreservation(int ro_aftreservation) {
+		this.ro_aftreservation = ro_aftreservation;
 	}
-	public int getRo_nitReservation() {
-		return ro_nitReservation;
+	public int getRo_nitreservation() {
+		return ro_nitreservation;
 	}
-	public void setRo_nitReservation(int ro_nitReservation) {
-		this.ro_nitReservation = ro_nitReservation;
+	public void setRo_nitreservation(int ro_nitreservation) {
+		this.ro_nitreservation = ro_nitreservation;
 	}
+	public String getRo_loc() {
+		return ro_loc;
+	}
+	public void setRo_loc(String ro_loc) {
+		this.ro_loc = ro_loc;
+	}
+
 }

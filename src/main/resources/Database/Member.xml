@@ -28,6 +28,25 @@
 			#{m_biznum ,mode=IN, jdbcType=INTEGER},
 			#{m_bizname ,mode=IN, jdbcType=VARCHAR},
 			#{m_type ,mode=IN, jdbcType=INTEGER},
-			#{m_newMemberResult, mode=OUT, jdbcType=INTEGER})}
+			#{m_newMemberResult, mode=OUT, jdbcType=NUMERIC, javaType=INTEGER})}
 	</insert>
+	<select id="duplicateCheck" parameterType="Member" statementType="CALLABLE">
+		{call DUPLICATECHECK(
+			#{m_email ,mode=IN, jdbcType=VARCHAR},
+			#{m_newMemberResult, mode=OUT, jdbcType=NUMERIC, javaType=INTEGER})}
+	</select>
+	<select id="nickNameCheck" parameterType="Member" statementType="CALLABLE">
+		{call NICKNAMECHECK(
+			#{m_nickname ,mode=IN, jdbcType=VARCHAR},
+			#{m_newMemberResult, mode=OUT, jdbcType=NUMERIC, javaType=INTEGER})}
+	</select>
+	<update id="myInfoSave" parameterType="Member" statementType="CALLABLE">
+		{call MYINFOSAVE(
+			#{m_num ,mode=IN, jdbcType=INTEGER},
+			#{m_nickname,mode=IN, jdbcType=VARCHAR},
+			#{m_phone ,mode=IN, jdbcType=VARCHAR},
+			#{m_biznum ,mode=IN, jdbcType=INTEGER},
+			#{m_bizname ,mode=IN, jdbcType=VARCHAR},
+			#{m_type ,mode=IN, jdbcType=INTEGER})}
+	</update>
 </mapper>
