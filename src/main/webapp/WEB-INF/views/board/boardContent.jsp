@@ -12,6 +12,7 @@
 <%@ include file="../header.jsp" %>
 <style>
 
+
 </style>
 
 <body>
@@ -47,15 +48,13 @@
 				            삭제
 				</button>
 			</c:if>			
-				<%-- </c:if> --%>
-				</div>
-			<%-- </c:if>	 --%>
+		</div>
 			
 		<div>
 			<div>${board.m_nickname }</div>
 		</div>
 		
-		<div>
+		<div id="replyList">
 			<c:if test="${board.b_type == 1 }">
 				<textarea style="resize: none; width: 800px; height: 90px;" id="replyComent"></textarea>
 				<input type="button" id="btn_write" class='btnsubmit' value="댓글작성"  onclick="btnWriteReply()">
@@ -110,15 +109,47 @@
 		})
 	}; 
 	//댓글 리스트
-	<%-- window.onload = function() {
+	window.onload = function() {
 		getReplyList();
 	}
+	"${memberInfo.m_num}"
 	function getReplyList() {
+		var m_num = "${memberInfo.m_num}";
 		$.ajax({
-			url:"<%=context%>/reply/replyList?b_num=${board.b_num}"
-		})
+			url:"<%=context%>/reply/replyList?b_num=${board.b_num}",
+			dataType : 'json',
+			success : function(data) {
+				var str    = "<div class='reply-row>";
+				
+				$(data).each(function() {
+					str += "<div style ='margin-left:"+this.br_indent+"px'>";
+					str += "	<div class='reply-top'>"
+					str += "		<div class='reply-nickname'>"+this.m_nickname+"</div>";
+					str += "		<div class='reply-regdate'>" + this.br_regdate + "</div>";
+					str += "	</div>"
+					str += "	<div class='reply' id='replyCon"+this.br_num+"'>"+this.br_content+"</div>";
+					
+					if(m_num == this.m_num) {
+						str += "		<div id='btnDelete"+this.br_num+"'><input type='button' id='btnDelete' class='btn-Reply' value='삭제' onclick='btnDeleteReply("+this.br_num+")'></div>";
+						str += "		<div id='btnModifyForm"+this.br_num+"'><input type='button' id='btnModifyForm' class='btn-Reply' value='수정' onclick='btnModifyReplyForm("+this.br_num+")'></div>";
+					}
+					
+					str += "		<div id='btnReReply"+this.br_num +"'><input type='button' id='btnReReply' class='btn-Reply' value='댓글' onclick='btnRereplyForm("+this.br_num+")'></div>";
+					str += "	<div id='reReplyComent"+this.br_num+"'></div>";
+					str += "</div>";
+					
+					});
+				str += "</div>";
+				$('#replyList').append(str);
+				
+			},
+			error:function(request,status,error){
+		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+		    }
+		});
 	}
-	 --%>
+		
+	
 	
 </script>
 

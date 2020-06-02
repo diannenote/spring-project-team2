@@ -4,7 +4,14 @@ public class Reply {
 	private int br_num, b_num, m_num;
 	private String br_content, br_regdate;
 	private int br_group, br_indent, br_step;
+	private String m_nickname;
 	
+	public String getM_nickname() {
+		return m_nickname;
+	}
+	public void setM_nickname(String m_nickname) {
+		this.m_nickname = m_nickname;
+	}
 	public int getBr_num() {
 		return br_num;
 	}

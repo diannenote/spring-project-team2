@@ -96,8 +96,7 @@
 			
 		</div>
 		<div class="board-con3">
-		<%-- <% String url; %>
-		<%= %> --%>
+		
 			<div id="WriteBtnDiv1" style="display: none;">
 			 	<c:if test="${m_type == 2 }">
 					<a onclick="boardType()" class="write-btn">글쓰기</a>
@@ -141,7 +140,7 @@
 				$("#board-btn").css("background", "#0652DD");
 			}
 		})
-		// 글쓰기 버튼(공지.스터디),스터디게시판 좋아요 테이블
+		// 글쓰기 버튼(공지/스터디),스터디게시판 좋아요 테이블
 		$(document).ready(function() {
 			if(loc.indexOf('noticeList') === 0) {
 				$("#WriteBtnDiv1").css("display", "inline");
