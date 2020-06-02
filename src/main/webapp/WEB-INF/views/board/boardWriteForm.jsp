@@ -7,7 +7,6 @@
 <%@ include file="../header.jsp" %>
 <body>
 	<div id="wrap">
-		<c:if test="${msg != null }">${msg}</c:if>
 		<form action="boardWrite"method="post">
 			<input type="hidden" name="b_type" value="${board.b_type }">
 			<input type="hidden" name="m_num" value="${board.m_num }">

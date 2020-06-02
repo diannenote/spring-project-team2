@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String context = request.getContextPath();
+%>
 
 <!DOCTYPE>
 <html>
@@ -8,9 +11,6 @@
 
 <%@ include file="../header.jsp" %>
 <style>
-.likeBtn {
-background-image: url("${pageContext.request.contextPath}/resources/boardImg/empty-heart.png");
-}
 
 </style>
 
@@ -30,11 +30,11 @@ background-image: url("${pageContext.request.contextPath}/resources/boardImg/emp
 		<div style=text-align:right>
 			<c:if test="${board.b_type == 1 }">
 				<c:choose>
-					<c:when test="${likeCnt eq 1}">
-						<input type="image" src="resources/boardImg/full-heart.png" width="20" height="20" onclick="btnLike(${board.b_num})" id="likeBtn">
+					<c:when test="${likeCnt == 1}">
+						<input type="image" src="<%=context%>/resources/boardImg/full-heart.png" width="20" height="20" onclick="btnLike(${board.b_num})" id="likeBtn">
 					</c:when>
 					<c:otherwise>
-						<input type="image" src="resources/boardImg/empty-heart.png" width="20" height="20" onclick="btnLike(${board.b_num})" id="likeBtn">
+						<input type="image" src="<%=context%>/resources/boardImg/empty-heart.png" width="20" height="20" onclick="btnLike(${board.b_num})" id="likeBtn">
 					</c:otherwise>
 				</c:choose>			
 					<span id="likeCount">${board.b_likeCnt }</span>
@@ -54,20 +54,14 @@ background-image: url("${pageContext.request.contextPath}/resources/boardImg/emp
 		<div>
 			<div>${board.m_nickname }</div>
 		</div>
+		
 		<div>
-			<%-- <c:if test="${mNo ne null }"> --%>
-				<form action="replyWrite" method="post">
-					<input type="hidden" name="b_num" value="${bNo }">
-					<input type="hidden" name="currentPage" value="${currentPage }">
-					<textarea style="resize: none; width: 800px; height: 90px;" name="content"></textarea>
-					
-					<button>
-						등록
-					</button>
-				</form>
-			<%-- </c:if>	 --%>
+			<c:if test="${board.b_type == 1 }">
+				<textarea style="resize: none; width: 800px; height: 90px;" id="replyComent"></textarea>
+				<input type="button" id="btn_write" class='btnsubmit' value="댓글작성"  onclick="btnWriteReply()">
+			</c:if>
 		</div>
-			<button onclick="listBtn(${board.b_type}, ${paging.currentPage})">
+			<button onclick="listBtn(${board.b_type}, ${paging.currentPage} )">
 			목록
 			</button>
 	
@@ -90,32 +84,41 @@ background-image: url("${pageContext.request.contextPath}/resources/boardImg/emp
 	</div> <!--board end  -->
 	
 <script type="text/javascript">
-	
+	//목록버튼
 	function listBtn(type, pageNum) {
 		if(type === 1) {
 			location.href = "boardList?currentPage=" + pageNum;
 		} else {
 			location.href = "noticeList?currentPage=" + pageNum;
 		}
-	}
-	
+	} 
+	//좋아요
 	function btnLike(bNum) {
 		let b_num = bNum;
 		$.ajax({
 			method:"post",
-			url:"${pageContext.request.contextPath}/boardLike",
+			url:"<%=context%>/board/boardLike",
 			data:{b_num},
 			success:function(data){
 				if(data.isLike) {
-					$('#likeBtn').attr('src', '${pageContext.request.contextPath}/resources/boardImg/full-heart.png');
+					$('#likeBtn').attr('src', '<%=context%>/resources/boardImg/full-heart.png');
 				}else{
-					$('#likeBtn').attr('src', '${pageContext.request.contextPath}/resources/boardImg/empty-heart.png');
+					$('#likeBtn').attr('src', '<%=context%>/resources/boardImg/empty-heart.png');
 				}
 				$('#likeCount').text(data.likeCnt);
 			}
 		})
 	}; 
-	
+	//댓글 리스트
+	<%-- window.onload = function() {
+		getReplyList();
+	}
+	function getReplyList() {
+		$.ajax({
+			url:"<%=context%>/reply/replyList?b_num=${board.b_num}"
+		})
+	}
+	 --%>
 	
 </script>
 

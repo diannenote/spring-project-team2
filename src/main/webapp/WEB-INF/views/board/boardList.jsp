@@ -3,6 +3,9 @@
     <%@ include file="../header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+	String context = request.getContextPath();
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -74,7 +77,10 @@
 			
 					<tr>
 						<th>NO.</th><th>제목</th><th>작성자</th>
-						<th>작성일</th><th>조회수</th><th>좋아요♥</th>
+						<th>작성일</th><th>조회수</th>
+						<c:if test="${board.b_type == 1 }">
+						<th style="display:none;" id="likeTh">좋아요♥</th>
+						</c:if>
 					</tr>
 					
 					<c:forEach items="${boardList}" var="boardList">
@@ -84,7 +90,7 @@
 							<td>${ boardList.m_nickname}</td>
 							<td>${ boardList.b_regDate}</td>				
 							<td>${ boardList.b_hit}</td>
-							<td>${ boardList.b_likeCnt}</td>
+							<td style="display: none;" id="likeTd">${ boardList.b_likeCnt}</td>
 						</tr>
 					</c:forEach>
 			</table>
@@ -127,7 +133,8 @@
 	</div>
 	
 	<script type="text/javascript">
-		var loc = location.href.split("/")[4];
+		var loc = location.href.split("/")[5];
+		// 공지/스터디게시판 버튼 css 
 		$(document).ready(function() {
 			if(loc.indexOf('noticeList') === 0) {
 				$("#notice-btn").css("background", "#0652DD");
@@ -135,17 +142,23 @@
 				$("#board-btn").css("background", "#0652DD");
 			}
 		})
+		// 글쓰기 버튼(공지/스터디)
 		$(document).ready(function() {
 			if(loc.indexOf('noticeList') === 0) {
 				$("#WriteBtnDiv1").css("display", "inline");
 			}
-		})
-		$(document).ready(function() {
 			if(loc.indexOf('boardList') === 0) {
 				$("#WriteBtnDiv2").css("display", "inline");
 			}
 		})
-		
+		//likes table
+		$(document).ready(function() {
+			if(loc.indexOf('boardList') === 0) {
+				$("#likeTh").css("display", "block");
+				$("#likeTd").css("display", "block");
+			}
+		})
+		//페이징(페이지이동 게시판별로 나눔)
 		function goPage(pageNum) {
 			if(loc.indexOf('noticeList') === 0) {
 				location.href = "noticeList?currentPage=" + pageNum;
@@ -153,7 +166,7 @@
 				location.href = "boardList?currentPage=" + pageNum;
 			}
 		}
-		
+		//페이징(이전블록 게시판별로 나눔)
 		function goBefore(prevPage) {
 			if(loc.indexOf('noticeList') === 0) {
 				location.href = "noticeList?currentPage=" + prevPage;
@@ -161,7 +174,7 @@
 				location.href = "boardList?currentPage=" + prevPage;
 			}
 		}
-		
+		//페이징(다음블록 게시판별로 나눔)
 		function goNext(nextPage) {
 			if(loc.indexOf('noticeList') === 0) {
 				location.href = "noticeList?currentPage=" + nextPage;
@@ -169,19 +182,18 @@
 				location.href = "boardList?currentPage=" + nextPage;
 			}
 		} 
-		
+		//게시판 타입주기
 		function boardType() {
 			if(loc.indexOf('boardList') === 0) {
 				location.href = "boardWriteForm?b_type=1";
-				
 			}  else {
 				location.href = "boardWriteForm?b_type=0";
 			}
 		}
 		
-	</script> -->
+	</script>
 		
-	</script> 
+	
 </body>
 	
 </html>

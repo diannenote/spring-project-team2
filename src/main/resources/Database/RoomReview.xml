@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="RoomReview">
+	<insert id="reviewInsert" parameterType="RoomReview" >
+		insert into review (rv_num, ro_num, m_num, rv_userReview, rv_score) values (rv_num.nextval, #{ro_num}, #{m_num}, #{rv_userReview}, #{rv_score})
+	</insert>
+	<select id="getRoomReview" parameterType="int" resultType="RoomReview">
+		select rv_num, m_num, rv_userreview, rv_score from review where ro_num=#{ro_num}
+	</select>
+	<select id="getRoomBizReview" parameterType="int" resultType="RoomReview">
+		select rv_num, m_num, rv_Bizreview from review where ro_num=#{ro_num}
+	</select>
+	<select id="getScoreAvg" parameterType="int" resultType="double">
+		select round(avg(rv_score),1) from (select rv_score from review where ro_num=#{ro_num})
+	</select>
+	<select id="getReviewTotal" parameterType="int" resultType="int">
+		select count(rv_score) from review where ro_num=#{ro_num}
+	</select>
+</mapper>

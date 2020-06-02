@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
 	<typeAliases>
-		<typeAlias alias="Board" type="oracle.java.s20200502.board.model.Board"/>
-		<typeAlias alias="Paging" type="oracle.java.s20200502.board.model.Paging"/>
-		<typeAlias alias="Member" type="oracle.java.s20200502.main.model.Member"/>
-		<typeAlias alias="RoomList"	type="oracle.java.s20200502.main.model.RoomList"/>
+		<!-- 룸 -->
 		<typeAlias alias="Room" type="oracle.java.s20200502.room.model.Room"/>
 		<typeAlias alias="RoomImg" type="oracle.java.s20200502.room.model.RoomImg"/>
 		<typeAlias alias="RoomReservation" type="oracle.java.s20200502.room.model.Reservation"/>
-		
+		<typeAlias alias="RoomReview" type="oracle.java.s20200502.room.model.Review"/>
+		<!-- 보드 -->
+		<typeAlias alias="Board" type="oracle.java.s20200502.board.model.Board"/>
+		<typeAlias alias="Paging" type="oracle.java.s20200502.board.model.Paging"/>
+		<typeAlias alias="Reply" type="oracle.java.s20200502.board.model.Reply"/>
+		<typeAlias alias="Member" type="oracle.java.s20200502.main.model.Member"/>
+		<typeAlias alias="RoomList"	type="oracle.java.s20200502.main.model.RoomList"/>
 	</typeAliases>
-	
 	<mappers>
-		<mapper resource="Database/Board.xml"/>
-		<mapper resource="Database/Likes.xml"/>
-		<mapper resource="Database/Member.xml"/>
-		<mapper resource="Database/RoomList.xml"/>
+		<!-- 룸 -->
 		<mapper resource="Database/Room.xml"/>
 		<mapper resource="Database/RoomImg.xml"/>
 		<mapper resource="Database/RoomReservation.xml"/>
-	
+		<mapper resource="Database/RoomReview.xml"/>
+		<!-- 보드 -->
+		<mapper resource="Database/Board.xml"/>
+		<mapper resource="Database/Likes.xml"/>
+		<mapper resource="Database/Reply.xml"/>
+		<mapper resource="Database/Member.xml"/>
+		<mapper resource="Database/RoomList.xml"/>
 	</mappers>
-	
 </configuration>

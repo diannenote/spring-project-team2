@@ -23,14 +23,18 @@ import oracle.java.s20200502.board.model.Paging;
 import oracle.java.s20200502.board.service.BoardService;
 import oracle.java.s20200502.board.service.LikeService;
 import oracle.java.s20200502.main.model.Member;
+import oracle.java.s20200502.main.service.MemberService;
 
 @Controller
+@RequestMapping("board")
 public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
 	@Autowired
 	private LikeService likeService;
+	@Autowired
+	private MemberService memberService;
 	
 	//스터디모임 게시판
 	@RequestMapping("boardList")
@@ -196,6 +200,23 @@ public class BoardController {
 		
 		return result;
 	}
+	
+	@RequestMapping(value="loginChk", method=RequestMethod.POST)
+	public String loginChk(Model model,Member member,HttpSession session,String error) {
+		System.out.println("MainController loginChk()...");
+			Member members = memberService.login(member, session);
+			if(members != null) {
+				session.setAttribute("memberInfo", members);
+				if(members.getM_ban() == 1) {
+					model.addAttribute("msg","정지된 계정입니다.");
+					return "main/loginForm";
+				}
+				return "redirect:boardList";
+			}else {
+				model.addAttribute("msg","아이디 패스워드 오류입니다.");
+				return "main/loginForm";
+			}
+		}
 	
 }
 
