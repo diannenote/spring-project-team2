@@ -57,7 +57,7 @@ display: inline-block;
 				<button onclick="location.href='boardUpdateForm?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
 				           수정
 				 </button>           
-				<button onclick="location.href='boardDelete?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
+				<button onclick="deleteChk()">
 				            삭제
 				</button>
 			</c:if>			
@@ -121,6 +121,14 @@ display: inline-block;
 			}
 		})
 	}; 
+	//게시글삭제시 확인창
+	function deleteChk() {
+		result = confirm('정말 삭제 하시겠습니까??');
+		if(result == true) {
+			location.href = "boardDelete?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}";
+
+		} else return false;
+	}
 	//댓글 리스트
 	window.onload = function() {
 		getReplyList();
@@ -146,8 +154,8 @@ display: inline-block;
 					str += "		 <ul><li class='reply' id='replyCon"+this.br_num+"'>"+this.br_content+"</li>";
 					
 					if(m_num == this.m_num) {
-						str += "		<li id='btnDelete"+this.br_num+"'><input type='button' id='btnDelete' class='btn-Reply' value='삭제' onclick='btnDeleteReply("+this.br_num+")'></li>";
 						str += "		<li id='btnModifyForm"+this.br_num+"'><input type='button' id='btnModifyForm' class='btn-Reply' value='수정' onclick='btnModifyReplyForm("+this.br_num+")'></li>";
+						str += "		<li id='btnDelete"+this.br_num+"'><input type='button' id='btnDelete' class='btn-Reply' value='삭제' onclick='btnDeleteReply("+this.br_num+")'></li>";
 					}
 					
 					str += "			<li id='btnReReply"+this.br_num +"'><input type='button' id='btnReReply' class='btn-Reply' value='댓글' onclick='btnRereplyForm("+this.br_num+")'></li>";
