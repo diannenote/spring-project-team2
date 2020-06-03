@@ -133,20 +133,16 @@
 	<script type="text/javascript">
 		var loc = location.href.split("/")[5];
 		// 공지/스터디게시판 버튼 css 
+		// 글쓰기 버튼(공지/스터디)
+		//스터디게시판 좋아요 테이블
 		$(document).ready(function() {
 			if(loc.indexOf('noticeList') === 0) {
 				$("#notice-btn").css("background", "#0652DD");
-			} else {
-				$("#board-btn").css("background", "#0652DD");
-			}
-		})
-		// 글쓰기 버튼(공지/스터디),스터디게시판 좋아요 테이블
-		$(document).ready(function() {
-			if(loc.indexOf('noticeList') === 0) {
 				$("#WriteBtnDiv1").css("display", "inline");
 				$(".likes").hide();
 			}
 			if(loc.indexOf('boardList') === 0) {
+				$("#board-btn").css("background", "#0652DD");
 				$("#WriteBtnDiv2").css("display", "inline");
 				$(".likes").show();
 				

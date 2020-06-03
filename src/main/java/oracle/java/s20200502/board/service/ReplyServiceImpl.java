@@ -18,6 +18,26 @@ public class ReplyServiceImpl implements ReplyService {
 	public List<Reply> replyList(Reply reply) {
 		return replyDao.replyList(reply);
 	}
+
+	@Override
+	public void replyWrite(Reply reply) {
+		replyDao.replyWrite(reply);
+	}
+
+	@Override
+	public Reply replyContent(Reply reply) {
+		return replyDao.replyContent(reply);
+	}
+
+	@Override
+	public void replyUpdate(Reply reply) {
+		replyDao.replyUpdate(reply);
+	}
+
+	@Override
+	public void replyDelete(Reply reply) {
+		replyDao.replyDelete(reply);
+	}
 	
 
 }

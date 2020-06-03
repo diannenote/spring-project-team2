@@ -15,4 +15,31 @@
 			board.b_num=#{b_num} order by  reply.br_group, reply.br_num
 	</select>
 	
+	<!-- 댓글 작성 -->
+	<insert id="replyWrite" parameterType="Reply">
+		insert into reply values (br_num.nextval, #{m_num}, #{b_num},
+								 	#{br_content}, sysdate, br_num.currval, 0, 0)
+	</insert>
+	
+	<!-- 댓글 내용/수정 폼 -->
+	<select id="replyContent" parameterType="Reply" resultType="Reply">
+		select 
+			r.b_num, r.br_content, r.br_regdate, m.m_nickname
+		from 
+			reply r join member m on r.m_num = m.m_num where b_num=#{b_num} and br_num=#{br_num} 
+	</select>
+	
+	<!-- 댓글수정 -->
+	<update id="replyUpdate" parameterType="Reply">
+		update reply set 
+			br_content=#{br_content}, br_regdate = sysdate 
+		where br_num = #{br_num} and b_num=#{b_num}
+	</update>
+	
+	<!-- 댓글삭제 -->
+	<delete id="replyDelete" parameterType="Reply">
+		delete from reply where br_num=#{br_num}
+	</delete>
+	
+	
 </mapper>

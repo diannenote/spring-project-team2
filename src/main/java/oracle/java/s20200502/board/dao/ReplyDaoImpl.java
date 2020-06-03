@@ -18,5 +18,25 @@ public class ReplyDaoImpl implements ReplyDao {
 	public List<Reply> replyList(Reply reply) {
 		return session.selectList("replyList", reply);
 	}
+
+	@Override
+	public void replyWrite(Reply reply) {
+		session.insert("replyWrite", reply);
+	}
+
+	@Override
+	public Reply replyContent(Reply reply) {
+		return session.selectOne("replyContent", reply);
+	}
+
+	@Override
+	public void replyUpdate(Reply reply) {
+		session.update("replyUpdate", reply);
+	}
+
+	@Override
+	public void replyDelete(Reply reply) {
+		session.update("replyDelete", reply);
+	}
 	
 }

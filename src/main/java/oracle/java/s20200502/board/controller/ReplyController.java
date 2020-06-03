@@ -3,6 +3,7 @@ package oracle.java.s20200502.board.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,6 +23,31 @@ public class ReplyController {
 		
 		List<Reply> replyList = replyService.replyList(reply);
 		return replyList;
+	}
+	
+	@RequestMapping("replyWrite")
+	public void replyWrite (Reply reply) {
+		
+		replyService.replyWrite(reply);
+	}
+	
+	@RequestMapping("replyContent")
+	public Reply replyContent (Reply reply) {
+		
+		return replyService.replyContent(reply);
+	}
+	
+	@RequestMapping("replyUpdate")
+	public void replyUpdate (Reply reply) {
+		
+		replyService.replyUpdate(reply);
+	}
+	
+	@RequestMapping("replyDelete")
+	public void replyDelete (Reply reply) {
+		
+		replyService.replyDelete(reply);
+		
 	}
 	
 }
