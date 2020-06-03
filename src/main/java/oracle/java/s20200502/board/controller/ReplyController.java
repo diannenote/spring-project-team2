@@ -2,6 +2,8 @@ package oracle.java.s20200502.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +49,13 @@ public class ReplyController {
 	public void replyDelete (Reply reply) {
 		
 		replyService.replyDelete(reply);
-		
 	}
+	
+	@RequestMapping("reReplyWrite")
+	public void reReplyWrite (Reply reply) {
+		
+		replyService.reReplyWrite(reply);
+	}
+	
 	
 }

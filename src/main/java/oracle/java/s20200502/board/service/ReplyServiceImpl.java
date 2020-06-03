@@ -38,6 +38,11 @@ public class ReplyServiceImpl implements ReplyService {
 	public void replyDelete(Reply reply) {
 		replyDao.replyDelete(reply);
 	}
+
+	@Override
+	public void reReplyWrite(Reply reply) {
+		replyDao.reReplyWrite(reply);		
+	}
 	
 
 }

@@ -38,5 +38,10 @@ public class ReplyDaoImpl implements ReplyDao {
 	public void replyDelete(Reply reply) {
 		session.update("replyDelete", reply);
 	}
+
+	@Override
+	public void reReplyWrite(Reply reply) {
+		session.insert("reReplyWrite", reply);
+	}
 	
 }

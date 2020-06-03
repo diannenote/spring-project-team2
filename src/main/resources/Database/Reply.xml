@@ -41,5 +41,12 @@
 		delete from reply where br_num=#{br_num}
 	</delete>
 	
+	<!-- 대댓글 작성 -->
+	<insert id="reReplyWrite" parameterType="Reply">
+		insert into 
+			reply
+		values 
+			(br_num.nextval, #{m_num}, #{b_num}, #{br_content}, sysdate, #{br_num}, 70, 0)
+	</insert>
 	
 </mapper>

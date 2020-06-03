@@ -25,7 +25,9 @@ list-style: none;
 ul > li{
 display: inline-block;
 }
-
+textarea {
+resize: none;
+}
 </style>
 
 <body>
@@ -71,7 +73,7 @@ display: inline-block;
 			
 		<div id="replyList">
 			<c:if test="${board.b_type == 1 }">
-				<textarea style="resize: none; width: 800px; height: 90px;" id="replyComent"></textarea>
+				<textarea rows="5" cols="180" id="replyComent"></textarea>
 				<input type="button" id="btn_write" class='btn-submit' value="댓글작성"  onclick="btnWriteReply()">
 			</c:if>
 		</div>
@@ -169,7 +171,7 @@ display: inline-block;
 				
 			},
 			error:function(request,status,error){
-		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
 		    }
 		});
 	}
@@ -178,7 +180,8 @@ display: inline-block;
 		var content = $("#replyComent");
 		var br_content = content.val();
 		var b_num = ${board.b_num};
-		var m_num = ${m_num};
+		var m_num = ${memberInfo.m_num};
+		
 		$.ajax({
 			url:"<%=context%>/reply/replyWrite",
 			data : { br_content, 
@@ -229,7 +232,7 @@ display: inline-block;
 				getReplyList();
 			},
 			error:function(request,status,error){
-		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); 
 		    }
 		}); 
 	}	
@@ -248,6 +251,48 @@ display: inline-block;
 		    }
 		});		
 	}
+	
+	// 대댓글 작성 폼
+	function btnRereplyForm(br_num){
+		var b_num = ${board.b_num};
+		$.ajax({
+			url:"<%=context%>/reply/replyContent",
+			data : { br_num,				
+					 b_num},
+					 
+			success : function(data) {
+				$("#reReplyComent"+br_num).html("<textarea rows='2' cols=90' id='reReplytext' placeholder='대댓글을 작성해 주세요'></textarea>"
+											+ "<input type='button' value='대댓글 입력' onclick='btnReReplyWrite("
+											+ br_num
+											+ ")'>");
+			},
+			error:function(request,status,error){
+		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+		    }
+		});
+	}
+	
+	 //대댓글 작성
+	function btnReReplyWrite(br_num){
+		var b_num = ${board.b_num};
+		var content = $("#reReplytext");
+		var br_content = content.val();
+		var m_num = "${memberInfo.m_num}";
+		$.ajax({
+			url:"<%=context%>/reply/reReplyWrite",
+			data : { br_content,
+					 br_num,
+					 b_num,
+					 m_num },
+					 
+			success : function(result){
+				getReplyList();
+			},
+			error:function(request,status,error){
+		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+		    }
+		}); 
+	} 
 	
 	
 </script>
