@@ -152,13 +152,13 @@ left: 150px;
 						str += "		<li id='btnDelete"+this.br_num+"'><input type='button' id='btnDelete' class='btn-Reply' value='삭제' onclick='btnDeleteReply("+this.br_num+")'></li>";
 					}
 					
-					str += "			<li id='btnReReply"+this.br_num +"'><input type='button' id='btnReReply' class='btn-Reply' value='댓글' onclick='btnRereplyForm("+this.br_group+")'></li>";
+					str += "			<li id='btnReReply"+this.br_num +"'><input type='button' id='btnReReply' class='btn-Reply' value='댓글' onclick='btnRereplyForm("+this.br_group+","+this.br_num+")'></li>";
 					str += "		</ul>"
-					str += "		 <ul><li class='reply' id='replyCon"+this.br_num+"'>"+this.br_content+"</li>";
-					str += "			<li id='reReplyComent"+this.br_num+"' class='reply-input'></li>";
+					str += "		 <ul><li id='replyCon"+this.br_num+"'>"+this.br_content+"</li>";
+					str += "			 <li id='reReplyComent"+this.br_num+"' class='reply-input'></li>";
 					str += "		</ul>";
 					str += "	</div>";
-					str += "</div>";
+					
 					
 					});
 				$('#replyList').append(str);
@@ -249,17 +249,17 @@ left: 150px;
 	}
 	
 	// 대댓글 작성 폼
-	function btnRereplyForm(br_num){
+	function btnRereplyForm(br_group, br_num){
 		var b_num = ${board.b_num};
 		$.ajax({
 			url:"<%=context%>/reply/replyContent",
 			data : { br_num,				
-					 b_num},
+					 b_num },
 					 
 			success : function(data) {
-				$("#reReplyComent"+br_num).html("<textarea rows='1' cols='100' id='reReplytext' placeholder='대댓글을 작성해 주세요'></textarea>"
+				$("#reReplyComent"+br_num).html("<textarea rows='2' cols='80' id='reReplytext' placeholder='대댓글을 작성해 주세요'></textarea>"
 											+ "<input type='button' value='입력' onclick='btnReReplyWrite("
-											+ br_num
+											+ br_group
 											+ ")'>"
 											+ "<input type='button' value='취소' onclick='getReplyList()'>");
 			},	
