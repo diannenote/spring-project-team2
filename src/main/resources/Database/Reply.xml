@@ -8,7 +8,7 @@
 		select 
 			reply.b_num, reply.br_num, reply.br_content, 
 			(case when to_char( reply.br_regdate, 'yyyy.mm.dd' ) = to_char( sysdate, 'yyyy.mm.dd' ) then to_char( reply.br_regdate, 'HH24:mi:ss') else to_char( reply.br_regdate, 'yyyy.mm.dd') end) as br_regdate, 
-			reply.br_group, reply.br_indent, reply.br_step, member.m_num, member.m_nickname 
+			reply.br_group, reply.br_indent, member.m_num, member.m_nickname 
 		from 
 			reply join board on reply.b_num = board.b_num join member on reply.m_num = member.m_num
 		where 
@@ -18,7 +18,7 @@
 	<!-- 댓글 작성 -->
 	<insert id="replyWrite" parameterType="Reply">
 		insert into reply values (br_num.nextval, #{m_num}, #{b_num},
-								 	#{br_content}, sysdate, br_num.currval, 0, 0)
+								 	#{br_content}, sysdate, br_num.currval, 0)
 	</insert>
 	
 	<!-- 댓글 내용/수정 폼 -->
@@ -46,7 +46,7 @@
 		insert into 
 			reply
 		values 
-			(br_num.nextval, #{m_num}, #{b_num}, #{br_content}, sysdate, #{br_num}, 70, 0)
+			(br_num.nextval, #{m_num}, #{b_num}, #{br_content}, sysdate, #{br_num}, 70)
 	</insert>
 	
 	<!--댓글 갯수  -->

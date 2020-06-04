@@ -15,9 +15,9 @@
 margin: auto;
 width : 80%;
 }
-/* #reply-warp {
+#reply-warp {
 width : 70%;
-}  */
+}  
 ul {
 list-style: none;
 
@@ -28,6 +28,14 @@ display: inline-block;
 textarea {
 resize: none;
 }
+.reply-input {
+display : block;
+}
+
+.btn-Reply {
+position: relative;
+left: 150px;
+} 
 </style>
 
 <body>
@@ -138,16 +146,16 @@ resize: none;
 					str += "		<ul>"
 					str += "			<li class='reply-nickname'>"+this.m_nickname+"</li>";
 					str += "			<li class='reply-regdate'>" + this.br_regdate + "</li>";
-					str += "		</ul>"
-					str += "		 <ul><li class='reply' id='replyCon"+this.br_num+"'>"+this.br_content+"</li>";
 					
 					if(m_num == this.m_num) {
 						str += "		<li id='btnModifyForm"+this.br_num+"'><input type='button' id='btnModifyForm' class='btn-Reply' value='수정' onclick='btnModifyReplyForm("+this.br_num+")'></li>";
 						str += "		<li id='btnDelete"+this.br_num+"'><input type='button' id='btnDelete' class='btn-Reply' value='삭제' onclick='btnDeleteReply("+this.br_num+")'></li>";
 					}
 					
-					str += "			<li id='btnReReply"+this.br_num +"'><input type='button' id='btnReReply' class='btn-Reply' value='댓글' onclick='btnRereplyForm("+this.br_num+")'></li>";
-					str += "			<li id='reReplyComent"+this.br_num+"'></li>";
+					str += "			<li id='btnReReply"+this.br_num +"'><input type='button' id='btnReReply' class='btn-Reply' value='댓글' onclick='btnRereplyForm("+this.br_group+")'></li>";
+					str += "		</ul>"
+					str += "		 <ul><li class='reply' id='replyCon"+this.br_num+"'>"+this.br_content+"</li>";
+					str += "			<li id='reReplyComent"+this.br_num+"' class='reply-input'></li>";
 					str += "		</ul>";
 					str += "	</div>";
 					str += "</div>";
@@ -249,12 +257,12 @@ resize: none;
 					 b_num},
 					 
 			success : function(data) {
-				$("#reReplyComent"+br_num).html("<textarea rows='2' cols=90' id='reReplytext' placeholder='대댓글을 작성해 주세요'></textarea>"
+				$("#reReplyComent"+br_num).html("<textarea rows='1' cols='100' id='reReplytext' placeholder='대댓글을 작성해 주세요'></textarea>"
 											+ "<input type='button' value='입력' onclick='btnReReplyWrite("
 											+ br_num
 											+ ")'>"
 											+ "<input type='button' value='취소' onclick='getReplyList()'>");
-			},
+			},	
 			error:function(request,status,error){
 		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 		    }
