@@ -3,11 +3,19 @@ package oracle.java.s20200502.board.model;
 
 
 public class Board {
-	private int b_num, m_num;
+	private int b_num, m_num, rn;
 	private String b_title, b_content, b_regDate;
 	private int b_hit, b_likeCnt, b_replyCnt, b_type;
 	private String m_nickname;
 	
+	
+	
+	public int getRn() {
+		return rn;
+	}
+	public void setRn(int rn) {
+		this.rn = rn;
+	}
 	public String getM_nickname() {
 		return m_nickname;
 	}

@@ -84,8 +84,9 @@
 					
 					<c:forEach items="${boardList}" var="boardList">
 						<tr>
-							<td>${ boardList.b_num} </td>
-							<td><a href='boardContent?b_num=${boardList.b_num }&currentPage=${paging.currentPage}&b_type=${boardList.b_type}'>${boardList.b_title}</a></td>
+							<td>${ boardList.rn} </td>
+							<td><a href='boardContent?b_num=${boardList.b_num }&currentPage=${paging.currentPage}&b_type=${boardList.b_type}'>${boardList.b_title}</a>
+							     &nbsp; [${boardList.b_replyCnt }] </td>
 							<td>${ boardList.m_nickname}</td>
 							<td>${ boardList.b_regDate}</td>				
 							<td>${ boardList.b_hit}</td>

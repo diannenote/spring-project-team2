@@ -43,5 +43,15 @@ public class ReplyDaoImpl implements ReplyDao {
 	public void reReplyWrite(Reply reply) {
 		session.insert("reReplyWrite", reply);
 	}
+
+	@Override
+	public void plusReplyCnt(Reply reply) {
+		session.update("plusReplyCnt", reply);
+	}
+
+	@Override
+	public void minusReplyCnt(Reply reply) {
+		session.update("minusReplyCnt", reply);
+	}
 	
 }

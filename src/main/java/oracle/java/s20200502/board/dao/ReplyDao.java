@@ -12,5 +12,7 @@ public interface ReplyDao {
 	void replyUpdate(Reply reply);
 	void replyDelete(Reply reply);
 	void reReplyWrite(Reply reply);
+	void plusReplyCnt(Reply reply);
+	void minusReplyCnt(Reply reply);
 
 }

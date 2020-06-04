@@ -43,6 +43,17 @@ public class ReplyServiceImpl implements ReplyService {
 	public void reReplyWrite(Reply reply) {
 		replyDao.reReplyWrite(reply);		
 	}
+
+	@Override
+	public void plusReplyCnt(Reply reply) {
+		replyDao.plusReplyCnt(reply);
+	}
+
+	@Override
+	public void minusReplyCnt(Reply reply) {
+		replyDao.minusReplyCnt(reply);
+		
+	}
 	
 
 }

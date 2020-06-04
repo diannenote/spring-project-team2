@@ -31,6 +31,7 @@ public class ReplyController {
 	public void replyWrite (Reply reply) {
 		
 		replyService.replyWrite(reply);
+		replyService.plusReplyCnt(reply);
 	}
 	
 	@RequestMapping("replyContent")
@@ -49,6 +50,7 @@ public class ReplyController {
 	public void replyDelete (Reply reply) {
 		
 		replyService.replyDelete(reply);
+		replyService.minusReplyCnt(reply);
 	}
 	
 	@RequestMapping("reReplyWrite")

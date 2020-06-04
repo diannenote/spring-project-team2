@@ -15,9 +15,9 @@
 margin: auto;
 width : 80%;
 }
-#reply-warp {
+/* #reply-warp {
 width : 70%;
-} 
+}  */
 ul {
 list-style: none;
 
@@ -78,29 +78,13 @@ resize: none;
 			</c:if>
 		</div>
 	
-		<ul>
-			<c:forEach var="reply" items="${replyList }">
-				<li>
-				<c:out value='${reply.br_content }' /> 
-				${reply.m_nickname } 
-				${reply.br_regDate } 
-					<c:if test="${mNo eq reply.mNo }">
-						<a href='replyDelete?currentPage=${paging.currentPage}&b_num=${b_num }&br_num=${reply.br_num }' >
-						X
-						</a>
-					</c:if>
-				</li>
-				
-			</c:forEach>
-		</ul>
-	
 	</div> <!--board end  -->
 	
 <script type="text/javascript">
-
+	
 	//목록버튼
 	function listBtn(type, pageNum) {
-		if(type === 1) {
+		if(type == 1) {
 			location.href = "boardList?currentPage=" + pageNum;
 		} else {
 			location.href = "noticeList?currentPage=" + pageNum;
@@ -145,8 +129,10 @@ resize: none;
 			success : function(data) {
 				$('#replyList').children().remove();
 				var str = "<div id='reply-warp'>";
+				if(${board.b_type == 1}) {
 				    str += "	<textarea style='resize: none; width: 800px; height: 90px;' id='replyComent'></textarea>";
 					str += "	<input type='button' id='btn_write' class='btn-submit' value='댓글작성' onclick='btnWriteReply()'>";
+				}
 				$(data).each(function() {
 					str += "	<div style ='margin-left:"+this.br_indent+"px'>";
 					str += "		<ul>"
@@ -180,7 +166,7 @@ resize: none;
 		var content = $("#replyComent");
 		var br_content = content.val();
 		var b_num = ${board.b_num};
-		var m_num = ${memberInfo.m_num};
+		var m_num = "${memberInfo.m_num}";
 		
 		$.ajax({
 			url:"<%=context%>/reply/replyWrite",
@@ -238,9 +224,11 @@ resize: none;
 	}	
 	//댓글 삭제
 	function btnDeleteReply(br_num){
+		var b_num = ${board.b_num};
 		$.ajax({
 			url:"<%=context%>/reply/replyDelete",
-			data : { br_num},
+			data : { br_num,
+					 b_num },
 			
 			success: function(result){
 				alert("댓글이 삭제되었습니다");
@@ -262,9 +250,10 @@ resize: none;
 					 
 			success : function(data) {
 				$("#reReplyComent"+br_num).html("<textarea rows='2' cols=90' id='reReplytext' placeholder='대댓글을 작성해 주세요'></textarea>"
-											+ "<input type='button' value='대댓글 입력' onclick='btnReReplyWrite("
+											+ "<input type='button' value='입력' onclick='btnReReplyWrite("
 											+ br_num
-											+ ")'>");
+											+ ")'>"
+											+ "<input type='button' value='취소' onclick='getReplyList()'>");
 			},
 			error:function(request,status,error){
 		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
