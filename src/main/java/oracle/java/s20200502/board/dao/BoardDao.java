@@ -8,8 +8,8 @@ import oracle.java.s20200502.board.model.Paging;
 
 public interface BoardDao {
 
-	int boardtotal();
-	int noticetotal();
+	int boardtotal(Paging paging);
+	int noticetotal(Paging paging);
 	
 	List<Board> boardList(Paging paging);
 	List<Board> noticeList(Paging paging);

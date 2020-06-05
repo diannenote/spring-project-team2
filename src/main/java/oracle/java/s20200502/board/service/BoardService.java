@@ -10,8 +10,8 @@ public interface BoardService {
 	List<Board> boardList(Paging paging);
 	List<Board> noticeList(Paging paging);
 	
-	int boardtotal();
-	int noticetotal();
+	int boardtotal(Paging paging);
+	int noticetotal(Paging paging);
 	
 	Board boardContent(int b_num);
 	int boardInsert(Board board);

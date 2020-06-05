@@ -109,13 +109,13 @@
 			
 		</div>
 		<div>
-			<form action="boardSearch" id="boardSearch">
+			<form action="boardList" id="boardSearch">
 				<div id="boardKeyword" style="text-align:right; display: none;">
 					<input type="text" name="keyword" required="required" placeholder="검색"> 
 					<i class="fa fa-search" onclick="searchBtn()"></i>
 				</div>
 			</form>
-			<form action="noticeSearch" id="noticeSearch">
+			<form action="noticeList" id="noticeSearch">
 				<div id="noticeKeyword" style="text-align:right; display: none;">
 					<input type="text" name="keyword" required="required" placeholder="검색"> 
 					<i class="fa fa-search" onclick="searchBtn()"></i>

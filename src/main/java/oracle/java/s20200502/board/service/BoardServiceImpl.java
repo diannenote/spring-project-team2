@@ -26,13 +26,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int boardtotal() {
-		return boardDao.boardtotal();
+	public int boardtotal(Paging paging) {
+		return boardDao.boardtotal(paging);
 	}
 
 	@Override
-	public int noticetotal() {
-		return boardDao.noticetotal();
+	public int noticetotal(Paging paging) {
+		return boardDao.noticetotal(paging);
 	}
 
 	@Override

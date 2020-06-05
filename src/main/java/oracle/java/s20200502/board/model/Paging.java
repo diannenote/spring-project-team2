@@ -13,6 +13,14 @@ public class Paging {
 	private String keyword; 
 	
 	
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	public boolean isBefore() {
 		if(this.getStartPage() > PAGE_BLOCK) return true;
 		return false;

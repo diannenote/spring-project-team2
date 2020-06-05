@@ -36,7 +36,7 @@ public class BoardController {
 	@Autowired
 	private MemberService memberService;
 	
-	//스터디모임 게시판
+	//스터디 게시판
 	@RequestMapping("boardList")
 	public String boardList(Paging paging, Model model, HttpSession session) {
 		
@@ -46,7 +46,7 @@ public class BoardController {
 			System.out.println("m_type->>>" + m_type);
 			model.addAttribute("m_type", m_type);
 		}
-		int boardtotal = boardService.boardtotal();
+		int boardtotal = boardService.boardtotal(paging);
 		paging.setTotal(boardtotal);
 		List<Board> boardList = boardService.boardList(paging);
 		
@@ -67,7 +67,7 @@ public class BoardController {
 			model.addAttribute("m_type", m_type);
 		}
 		
-		int noticetotal = boardService.noticetotal();
+		int noticetotal = boardService.noticetotal(paging);
 		paging.setTotal(noticetotal);
 		List<Board> noticeList = boardService.noticeList(paging);
 		
@@ -77,7 +77,7 @@ public class BoardController {
 		return "board/boardList";
 	}
 	
-	//게시글 내용(공지사항, 일반게시판 공유)
+	//게시글 내용
 	@RequestMapping("boardContent")
 	public String boardContent(Board board, Paging paging, Model model, HttpSession session) {
 		
@@ -101,7 +101,7 @@ public class BoardController {
 		return "board/boardContent";
 		
 	}
-	//글등록 폼(공지, 일반 공유)
+	//글등록 폼
 	@RequestMapping("boardWriteForm")
 	public String boardWriteForm (Model model, Board board, HttpSession session) {
 		
@@ -115,7 +115,7 @@ public class BoardController {
 		return "board/boardWriteForm";
 	}
 	
-	//글등록 (공지, 일반 공유)
+	//글등록 
 	@RequestMapping(value="boardWrite", method=RequestMethod.POST)
 	public String boardWrite(Board board, Paging paging, Model model) {
 		
@@ -129,7 +129,7 @@ public class BoardController {
 		}
 	}
 	
-	//게시글 삭제(공지, 일반)
+	//게시글 삭제
 	@RequestMapping("boardDelete")
 	public String boardDelete(Board board, Paging paging, Model model) {
 		
@@ -150,7 +150,6 @@ public class BoardController {
 	@RequestMapping("boardUpdateForm")
 	public String boardUpdateForm(Board board, Paging paging, Model model) {
 		
-		System.out.println("b_type->" + board.getB_type());
 		board = boardService.boardContent(board.getB_num());
 		model.addAttribute("board",board);
 		model.addAttribute("paging",paging);
@@ -164,7 +163,6 @@ public class BoardController {
 	@RequestMapping("boardUpdate")
 	public String boardUpdate(Board board, Paging paging, Model model) {
 		
-		System.out.println("b_num->" + board.getB_num());
 		int update = boardService.boardUpdate(board);
 		model.addAttribute("paging",paging);
 		model.addAttribute("board",board);
@@ -203,7 +201,7 @@ public class BoardController {
 	//로그인 체크후 게시판으로 리턴
 	@RequestMapping(value="loginChk", method=RequestMethod.POST)
 	public String loginChk(Model model,Member member,HttpSession session,String error) {
-		System.out.println("MainController loginChk()...");
+		
 			Member members = memberService.login(member, session);
 			if(members != null) {
 				session.setAttribute("memberInfo", members);
@@ -216,7 +214,7 @@ public class BoardController {
 				model.addAttribute("msg","아이디 패스워드 오류입니다.");
 				return "main/loginForm";
 			}
-		}
+	}
 	
 }
 
