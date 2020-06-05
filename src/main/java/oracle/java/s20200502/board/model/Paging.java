@@ -10,6 +10,8 @@ public class Paging {
 	private boolean before;
 	private boolean next;
 	
+	private String keyword; 
+	
 	
 	public boolean isBefore() {
 		if(this.getStartPage() > PAGE_BLOCK) return true;

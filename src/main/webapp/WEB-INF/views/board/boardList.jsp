@@ -109,11 +109,17 @@
 			
 		</div>
 		<div>
-			<form action="#" id="icon">
-						<div style=text-align:right;>
-							<input type="text" name="keyword" required="required" placeholder="검색"> 
-							<i class="fa fa-search" onclick="submit();"></i>
-						</div>
+			<form action="boardSearch" id="boardSearch">
+				<div id="boardKeyword" style="text-align:right; display: none;">
+					<input type="text" name="keyword" required="required" placeholder="검색"> 
+					<i class="fa fa-search" onclick="searchBtn()"></i>
+				</div>
+			</form>
+			<form action="noticeSearch" id="noticeSearch">
+				<div id="noticeKeyword" style="text-align:right; display: none;">
+					<input type="text" name="keyword" required="required" placeholder="검색"> 
+					<i class="fa fa-search" onclick="searchBtn()"></i>
+				</div>
 			</form>
 		</div>
 		<div style="text-align: center;">
@@ -135,17 +141,20 @@
 		var loc = location.href.split("/")[5];
 		// 공지/스터디게시판 버튼 css 
 		// 글쓰기 버튼(공지/스터디)
-		//스터디게시판 좋아요 테이블
+		// 스터디게시판 좋아요 테이블
+		// 검색필터
 		$(document).ready(function() {
 			if(loc.indexOf('noticeList') === 0) {
 				$("#notice-btn").css("background", "#0652DD");
 				$("#WriteBtnDiv1").css("display", "inline");
 				$(".likes").hide();
+				$("#noticeKeyword").css("display", "block");
 			}
 			if(loc.indexOf('boardList') === 0) {
 				$("#board-btn").css("background", "#0652DD");
 				$("#WriteBtnDiv2").css("display", "inline");
 				$(".likes").show();
+				$("#boardKeyword").css("display", "block");
 				
 			}
 		})
@@ -182,6 +191,16 @@
 				location.href = "boardWriteForm?b_type=0";
 			}
 		}
+		//검색
+		function searchBtn() {
+			var formTag1 = document.getElementById("boardSearch");
+			var formTag2 = document.getElementById("noticeSearch");
+			if(loc.indexOf('boardList')==0) {
+				formTag1.submit();
+			} else {
+				formTag2.submit();
+			}
+		}		
 		
 	</script>
 		
