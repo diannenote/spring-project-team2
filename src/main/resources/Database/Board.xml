@@ -16,7 +16,7 @@
 			where 
 				b_type=1  
 				<if test="keyword != null and !keyword.equals('')">
-				and b_title like '%'||#{keyword}||'%' or b_content like '%'||#{keyword}||'%'
+				and (b_title like '%'||#{keyword}||'%' or b_content like '%'||#{keyword}||'%')
 			    </if> 
 			    order by rn)
 		where 
@@ -35,7 +35,7 @@
 			where 
 				b_type=0 
 				<if test="keyword != null and !keyword.equals('')">
-				and b_title like '%'||#{keyword}||'%' or b_content like '%'||#{keyword}||'%'
+				and (b_title like '%'||#{keyword}||'%' or b_content like '%'||#{keyword}||'%')
 			    </if>
 				order by rn)
 		where 
@@ -48,7 +48,7 @@
 		where 
 			b_type=1 
 			<if test="keyword != null and !keyword.equals('')">
-				and b_title like '%'||#{keyword}||'%' or b_content like '%'||#{keyword}||'%'
+				and (b_title like '%'||#{keyword}||'%' or b_content like '%'||#{keyword}||'%')
 			</if>
 	</select>
 	
@@ -58,7 +58,7 @@
 		where 
 			b_type=0
 			<if test="keywork != null and keyword.equals('')">
-				and b_title like '%'||#{keyword}||'%' or b_content like '%'||#{keyword}||'%'
+				and (b_title like '%'||#{keyword}||'%' or b_content like '%'||#{keyword}||'%')
 			</if>
 	</select>
 	

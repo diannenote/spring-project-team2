@@ -195,7 +195,7 @@
 		function searchBtn() {
 			var formTag1 = document.getElementById("boardSearch");
 			var formTag2 = document.getElementById("noticeSearch");
-			if(loc.indexOf('boardList')==0) {
+			if(loc.indexOf('boardList')===0) {
 				formTag1.submit();
 			} else {
 				formTag2.submit();
