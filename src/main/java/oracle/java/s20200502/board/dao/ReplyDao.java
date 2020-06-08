@@ -11,7 +11,6 @@ public interface ReplyDao {
 	Reply replyContent(Reply reply);
 	void replyUpdate(Reply reply);
 	void replyDelete(Reply reply);
-	void reReplyWrite(Reply reply);
 	void plusReplyCnt(Reply reply);
 	void minusReplyCnt(Reply reply);
 

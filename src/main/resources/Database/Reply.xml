@@ -18,7 +18,16 @@
 	<!-- 댓글 작성 -->
 	<insert id="replyWrite" parameterType="Reply">
 		insert into reply values (br_num.nextval, #{m_num}, #{b_num},
-								 	#{br_content}, sysdate, br_num.currval, 0)
+								 	#{br_content}, sysdate, 
+								 	<choose>
+								 		<when test="br_num == 0">
+											br_num.currval,								 		
+								 		</when>
+								 		<otherwise>
+								 			#{br_num},
+								 		</otherwise>
+								 	</choose>
+								 	 #{br_indent})
 	</insert>
 	
 	<!-- 댓글 내용/수정 폼 -->
@@ -41,13 +50,6 @@
 		delete from reply where br_num=#{br_num}
 	</delete>
 	
-	<!-- 대댓글 작성 -->
-	<insert id="reReplyWrite" parameterType="Reply">
-		insert into 
-			reply
-		values 
-			(br_num.nextval, #{m_num}, #{b_num}, #{br_content}, sysdate, #{br_num}, 70)
-	</insert>
 	
 	<!--댓글 갯수  -->
 	<insert id="plusReplyCnt" parameterType="Reply">

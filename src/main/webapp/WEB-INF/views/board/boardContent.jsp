@@ -78,13 +78,13 @@ left: 150px;
 		</div>
 		
 			<button onclick="listBtn(${board.b_type}, ${paging.currentPage} )">목록</button>
-			
-		<div id="replyList">
-			<c:if test="${board.b_type == 1 }">
-				<textarea rows="5" cols="180" id="replyComent"></textarea>
-				<input type="button" id="btn_write" class='btn-submit' value="댓글작성"  onclick="btnWriteReply()">
-			</c:if>
-		</div>
+		<div id="reply-container">
+				<c:if test="${board.b_type == 1 }">
+					<textarea rows="4" cols="100" id="replyComment"></textarea>
+					<input type="button" id="btn_write" class='btn-submit' value="댓글작성"  onclick="btnWriteReply()">
+				</c:if>
+			<div id="replyList"></div>
+		</div>	
 	
 	</div> <!--board end  -->
 	
@@ -137,10 +137,7 @@ left: 150px;
 			success : function(data) {
 				$('#replyList').children().remove();
 				var str = "<div id='reply-warp'>";
-				if(${board.b_type == 1}) {
-				    str += "	<textarea style='resize: none; width: 800px; height: 90px;' id='replyComent'></textarea>";
-					str += "	<input type='button' id='btn_write' class='btn-submit' value='댓글작성' onclick='btnWriteReply()'>";
-				}
+				
 				$(data).each(function() {
 					str += "	<div style ='margin-left:"+this.br_indent+"px'>";
 					str += "		<ul>"
@@ -155,7 +152,7 @@ left: 150px;
 					str += "			<li id='btnReReply"+this.br_num +"'><input type='button' id='btnReReply' class='btn-Reply' value='댓글' onclick='btnRereplyForm("+this.br_group+","+this.br_num+")'></li>";
 					str += "		</ul>"
 					str += "		 <ul><li id='replyCon"+this.br_num+"'>"+this.br_content+"</li>";
-					str += "			 <li id='reReplyComent"+this.br_num+"' class='reply-input'></li>";
+					str += "			 <li id='rereplyComment"+this.br_num+"' class='reply-input'></li>";
 					str += "		</ul>";
 					str += "	</div>";
 					
@@ -170,21 +167,30 @@ left: 150px;
 		});
 	}
 	//댓글 작성
-	function btnWriteReply(){
-		var content = $("#replyComent");
+	function btnWriteReply(br_num){
+		var content = $("#replyComment");
 		var br_content = content.val();
 		var b_num = ${board.b_num};
 		var m_num = "${memberInfo.m_num}";
+		var data = { 
+				br_content, 
+				b_num, 
+			 	m_num 
+			 	};
+		if (br_num != undefined) {
+			data.br_num = br_num
+			data.br_content = $("#reReplytext").val();
+			
+		}
 		
 		$.ajax({
 			url:"<%=context%>/reply/replyWrite",
-			data : { br_content, 
-					 b_num, 
-					 m_num },
+			data : data,
 					 
 			success : function(){
+				content.val("");
 				getReplyList();
-				content.val();
+				
 			},
 			error:function(request,status,error){
 		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); 
@@ -257,8 +263,8 @@ left: 150px;
 					 b_num },
 					 
 			success : function(data) {
-				$("#reReplyComent"+br_num).html("<textarea rows='2' cols='80' id='reReplytext' placeholder='대댓글을 작성해 주세요'></textarea>"
-											+ "<input type='button' value='입력' onclick='btnReReplyWrite("
+				$("#rereplyComment"+br_num).html("<textarea rows='2' cols='80' id='reReplytext' placeholder='대댓글을 작성해 주세요'></textarea>"
+											+ "<input type='button' value='입력' onclick='btnWriteReply("
 											+ br_group
 											+ ")'>"
 											+ "<input type='button' value='취소' onclick='getReplyList()'>");
@@ -268,29 +274,6 @@ left: 150px;
 		    }
 		});
 	}
-	
-	 //대댓글 작성
-	function btnReReplyWrite(br_num){
-		var b_num = ${board.b_num};
-		var content = $("#reReplytext");
-		var br_content = content.val();
-		var m_num = "${memberInfo.m_num}";
-		$.ajax({
-			url:"<%=context%>/reply/reReplyWrite",
-			data : { br_content,
-					 br_num,
-					 b_num,
-					 m_num },
-					 
-			success : function(result){
-				getReplyList();
-			},
-			error:function(request,status,error){
-		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-		    }
-		}); 
-	} 
-	
 	
 </script>
 

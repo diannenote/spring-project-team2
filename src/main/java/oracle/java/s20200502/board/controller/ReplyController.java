@@ -53,11 +53,4 @@ public class ReplyController {
 		replyService.minusReplyCnt(reply);
 	}
 	
-	@RequestMapping("reReplyWrite")
-	public void reReplyWrite (Reply reply) {
-		
-		replyService.reReplyWrite(reply);
-	}
-	
-	
 }

@@ -40,11 +40,6 @@ public class ReplyDaoImpl implements ReplyDao {
 	}
 
 	@Override
-	public void reReplyWrite(Reply reply) {
-		session.insert("reReplyWrite", reply);
-	}
-
-	@Override
 	public void plusReplyCnt(Reply reply) {
 		session.update("plusReplyCnt", reply);
 	}
