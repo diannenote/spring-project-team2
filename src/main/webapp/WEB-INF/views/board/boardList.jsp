@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="../header.jsp"%>
+<%@ include file="../header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 	String context = request.getContextPath();
 %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,41 +16,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <title>BoardList</title>
-
- 
-
- <style>
- 
- .board-con1 {
- text-align: center;
- margin-bottom: 50px;
- }
-
-.btn-group a {
-    background-color: #4CAF50; 
-    color: white;
-    padding: 10px 24px;
-    cursor: pointer;
-    float: left;
-}
-
-.btn-group a:not(:last-child) {
-    border-right: none;
-}
-
- .board-con1 {
- margin-top: 50px;
- }
- 
- #board-wrap {
- 	height: 100vh;
-	width: 65%;
-	margin: auto;
- }
- 
- 
-</style>
-
+<link rel="stylesheet" type="text/css" href= "../css/board-list.css"> 
 
 </head>
 

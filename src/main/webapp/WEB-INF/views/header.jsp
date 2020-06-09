@@ -2,10 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
 <html>
 <body>
 	<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
@@ -16,7 +17,7 @@
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 		<ul class="navbar-nav mr-auto ml-auto">
 			<li>
-				<form class="form-inline" action="listSearch" method="GET">
+				<form class="form-inline" action="/s20200502/listSearch" method="GET">
 					<input class="form-control" type="text" name="keyword" value="${keyword}" placeholder="검색어">
 					<input class="btn btn-success" type="submit" value="검색">
 				</form>

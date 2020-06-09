@@ -22,7 +22,7 @@
 			</tr>		
 			
 			<tr>
-				<td><textarea  id= "editor1" style="resize: none" rows="20" cols="105" name="b_content"
+				<td><textarea  id= "editor1" name="b_content"
 						required="required" placeholder="내용을 입력하세요"></textarea>
 						<script>
                			 CKEDITOR.replace( 'editor1' );

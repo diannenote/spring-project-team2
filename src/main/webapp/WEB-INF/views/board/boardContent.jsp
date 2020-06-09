@@ -4,39 +4,11 @@
 <%
 	String context = request.getContextPath();
 %>
-
+<%@ include file="../header.jsp" %>
 <!DOCTYPE>
 <html>
 <title>BoardContent</title>
-
-<%@ include file="../header.jsp" %>
-<style>
-#wrap {
-margin: auto;
-width : 80%;
-}
-#reply-warp {
-width : 70%;
-}  
-ul {
-list-style: none;
-
-}
-ul > li{
-display: inline-block;
-}
-textarea {
-resize: none;
-}
-.reply-input {
-display : block;
-}
-
-.btn-Reply {
-position: relative;
-left: 150px;
-} 
-</style>
+<link rel="stylesheet" type="text/css" href="../css/board-content.css">
 
 <body>
 
