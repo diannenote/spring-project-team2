@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../header.jsp" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <title>Board</title>
+<!-- include libraries(jQuery, bootstrap) --> 
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<!-- include summernote css/js--> 
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
-<%@ include file="../header.jsp" %>
-<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <body>
 	<div id="wrap">
 		<form action="boardWrite"method="post">
@@ -22,11 +28,11 @@
 			</tr>		
 			
 			<tr>
-				<td><textarea  id= "editor1" name="b_content"
-						required="required" placeholder="내용을 입력하세요"></textarea>
-						<script>
-               			 CKEDITOR.replace( 'editor1' );
-            			</script>
+				<td><textarea  id= "summernote" name="b_content"
+						required="required"></textarea>
+					
+
+
 				</td>
 			</tr>		
 					
@@ -40,6 +46,16 @@
 			</table>		
 		</form>
 	</div>
+<script>
+	$(document).ready(function() {
+		$('#summernote').summernote({
+			height: 300, 
+			lang : 'ko-KR', 
+			placeholder: '내용을 입력해주세요'
+		}); 
+	}); 
+</script>
+
 	
 </body>
 </html>	

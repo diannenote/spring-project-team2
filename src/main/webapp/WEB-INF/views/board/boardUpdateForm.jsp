@@ -5,10 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>update</title>
-<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <%@ include file="../header.jsp" %>
-<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-
+<!-- include libraries(jQuery, bootstrap) --> 
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<!-- include summernote css/js--> 
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 </head>
 <body>
 	<div id="wrap">
@@ -27,11 +31,9 @@
 				</tr>		
 				
 				<tr>
-					<td><textarea  id="editor1" style="resize: none" rows="20" cols="105" name="b_content"
-						required="required">${board.b_content }</textarea>
-						<script>
-               			 CKEDITOR.replace( 'editor1' );
-            			</script>
+					<td><textarea  id="summernote" name="b_content">
+						${board.b_content }
+						</textarea>
 					</td>
 				</tr>		
 						
@@ -45,6 +47,14 @@
 				</table>		
 			</form>
 	</div>
-
+<script>
+	$(document).ready(function() {
+		$('#summernote').summernote({
+			height: 300, 
+			lang : 'ko-KR',
+			placeholder: '내용을 입력해주세요'
+		}); 
+	}); 
+</script>
 </body>
 </html>

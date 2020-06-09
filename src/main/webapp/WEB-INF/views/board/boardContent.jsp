@@ -128,7 +128,6 @@
 					str += "		</ul>";
 					str += "	</div>";
 					
-					
 					});
 				$('#replyList').append(str);
 				
