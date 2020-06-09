@@ -46,7 +46,7 @@
 <script>
 	$(document).ready(function() {
 		$('#summernote').summernote({
-	        placeholder: '내용을 입력해라',
+	        placeholder: '내용을 입력해주세요',
 	        lang: 'ko-KR',
 	        tabsize: 2,
 	        height: 300,
