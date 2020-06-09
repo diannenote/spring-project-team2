@@ -5,7 +5,7 @@
 	String context = request.getContextPath();
 %>
 <%@ include file="../header.jsp" %>
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <title>BoardContent</title>
 <link rel="stylesheet" type="text/css" href="../css/board-content.css">
