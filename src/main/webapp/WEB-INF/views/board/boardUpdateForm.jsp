@@ -5,7 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>update</title>
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <%@ include file="../header.jsp" %>
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+
 </head>
 <body>
 	<div id="wrap">
@@ -24,8 +27,11 @@
 				</tr>		
 				
 				<tr>
-					<td><textarea  style="resize: none" rows="20" cols="105" name="b_content"
+					<td><textarea  id="editor1" style="resize: none" rows="20" cols="105" name="b_content"
 						required="required">${board.b_content }</textarea>
+						<script>
+               			 CKEDITOR.replace( 'editor1' );
+            			</script>
 					</td>
 				</tr>		
 						

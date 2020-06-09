@@ -78,7 +78,7 @@
 					<tr>
 						<th>NO.</th><th>제목</th><th>작성자</th>
 						<th>작성일</th><th>조회수</th>
-						<th class="likes">좋아요♥</th>
+						<th class="board-only">좋아요♥</th>
 						
 					</tr>
 					
@@ -86,11 +86,11 @@
 						<tr>
 							<td>${ boardList.rn} </td>
 							<td><a href='boardContent?b_num=${boardList.b_num }&currentPage=${paging.currentPage}&b_type=${boardList.b_type}'>${boardList.b_title}</a>
-							     &nbsp; [${boardList.b_replyCnt }] </td>
+							    <a style="display: none;" class="board-only"> &nbsp; [${boardList.b_replyCnt }] </a></td>
 							<td>${ boardList.m_nickname}</td>
 							<td>${ boardList.b_regDate}</td>				
 							<td>${ boardList.b_hit}</td>
-							<td style="display: none;" class="likes">${ boardList.b_likeCnt}</td>
+							<td style="display: none;" class="board-only">${ boardList.b_likeCnt}</td>
 						</tr>
 					</c:forEach>
 			</table>
@@ -147,13 +147,13 @@
 			if(loc.indexOf('noticeList') === 0) {
 				$("#notice-btn").css("background", "#0652DD");
 				$("#WriteBtnDiv1").css("display", "inline");
-				$(".likes").hide();
+				$(".board-only").hide();
 				$("#noticeKeyword").css("display", "block");
 			}
 			if(loc.indexOf('boardList') === 0) {
 				$("#board-btn").css("background", "#0652DD");
 				$("#WriteBtnDiv2").css("display", "inline");
-				$(".likes").show();
+				$(".board-only").show();
 				$("#boardKeyword").css("display", "block");
 				
 			}

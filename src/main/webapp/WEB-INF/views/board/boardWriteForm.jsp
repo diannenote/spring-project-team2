@@ -5,6 +5,7 @@
 <title>Board</title>
 
 <%@ include file="../header.jsp" %>
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <body>
 	<div id="wrap">
 		<form action="boardWrite"method="post">
@@ -21,8 +22,11 @@
 			</tr>		
 			
 			<tr>
-				<td><textarea  style="resize: none" rows="20" cols="105" name="b_content"
+				<td><textarea  id= "editor1" style="resize: none" rows="20" cols="105" name="b_content"
 						required="required" placeholder="내용을 입력하세요"></textarea>
+						<script>
+               			 CKEDITOR.replace( 'editor1' );
+            			</script>
 				</td>
 			</tr>		
 					
