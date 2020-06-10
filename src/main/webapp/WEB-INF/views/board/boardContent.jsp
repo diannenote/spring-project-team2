@@ -89,7 +89,7 @@
 	}; 
 	//게시글삭제시 확인창
 	function deleteChk() {
-		result = confirm('정말 삭제 하시겠습니까??');
+		result = confirm('삭제 하시겠습니까?');
 		if(result == true) {
 			location.href = "boardDelete?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}";
 
@@ -113,8 +113,9 @@
 				$(data).each(function() {
 					str += "	<div style ='margin-left:"+this.br_indent+"px'>";
 					str += "		<ul>"
-					str += "			<li class='reply-nickname'>"+this.m_nickname+"</li>";
-					str += "			<li class='reply-regdate'>" + this.br_regdate + "</li>";
+					str += " 			<input type='hidden' id='reply-nickname"+ this.br_num+"' value='"+this.m_nickname+"'>";
+					str += "			<li>"+this.m_nickname+"</li>";
+					str += "			<li>" + this.br_regdate + "</li>";
 					
 					if(m_num == this.m_num) {
 						str += "		<li id='btnModifyForm"+this.br_num+"'><input type='button' id='btnModifyForm' class='btn-Reply' value='수정' onclick='btnModifyReplyForm("+this.br_num+")'></li>";
@@ -228,13 +229,15 @@
 	// 대댓글 작성 폼
 	function btnRereplyForm(br_group, br_num){
 		var b_num = ${board.b_num};
+		var replyNick = $("#reply-nickname"+br_num);
+		var replyNickname = replyNick.val();
 		$.ajax({
 			url:"<%=context%>/reply/replyContent",
 			data : { br_num,				
 					 b_num },
 					 
 			success : function(data) {
-				$("#rereplyComment"+br_num).html("<textarea rows='2' cols='80' id='reReplytext' placeholder='대댓글을 작성해 주세요'></textarea>"
+				$("#rereplyComment"+br_num).html("<textarea rows='2' cols='80' id='reReplytext' placeholder='대댓글을 작성해 주세요'>@"+ replyNickname +"</textarea>"
 											+ "<input type='button' value='입력' onclick='btnWriteReply("
 											+ br_group
 											+ ")'>"
