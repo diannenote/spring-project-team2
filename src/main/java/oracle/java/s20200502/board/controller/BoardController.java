@@ -92,9 +92,10 @@ public class BoardController {
 			Cookie[] cookies = request.getCookies();
 			if(cookies != null){   
 				System.out.println("쿠키있음");
-				System.out.println(cookies);
-				for(Cookie c: cookies){   
-					if(c.getName().equals("cookie"+board.getB_num())){
+				for(int i =0; i < cookies.length; i++){  
+					System.out.println(i +"번째 쿠키이름" + cookies[i].getName());
+					System.out.println(i +"번째 쿠키값" + cookies[i].getValue());
+					if(cookies[i].getName().equals("cookie"+board.getB_num()+member.getM_num())){
 				    	isCookie = true; 
 					}
 				}
@@ -103,7 +104,7 @@ public class BoardController {
 			if(!isCookie) {
 				System.out.println("쿠키없음");
 				boardService.boardHitUp(board.getB_num());//조회수증가
-				Cookie addCookie = new Cookie("cookie" + board.getB_num(), String.valueOf(board.getB_num()));
+				Cookie addCookie = new Cookie("cookie" + board.getB_num()+member.getM_num(), String.valueOf(board.getB_num()));
 				System.out.println(addCookie);
 				addCookie.setMaxAge(1*24*60*60);//하루저장
 				response.addCookie(addCookie);    
