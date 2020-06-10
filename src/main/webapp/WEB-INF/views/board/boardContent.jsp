@@ -124,7 +124,7 @@
 					
 					str += "			<li id='btnReReply"+this.br_num +"'><input type='button' id='btnReReply' class='btn-Reply' value='댓글' onclick='btnRereplyForm("+this.br_group+","+this.br_num+")'></li>";
 					str += "		</ul>"
-					str += "		 <ul><li id='replyCon"+this.br_num+"'>"+this.br_content+"</li>";
+					str += "		 <ul><li id='replyCon"+this.br_num+"'><pre>"+this.br_content+"</pre></li>";
 					str += "			 <li id='rereplyComment"+this.br_num+"' class='reply-input'></li>";
 					str += "		</ul>";
 					str += "	</div>";
