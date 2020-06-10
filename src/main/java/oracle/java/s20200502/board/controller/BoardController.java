@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,12 +81,34 @@ public class BoardController {
 	
 	//게시글 내용
 	@RequestMapping("boardContent")
-	public String boardContent(Board board, Paging paging, Model model, HttpSession session) {
+	public String boardContent(Board board, Paging paging, Model model,
+			HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		
 		Member member = (Member) session.getAttribute("memberInfo");
 		if (member != null) {
 			int count = likeService.likeCount(board.getB_num(), member.getM_num());
 			int m_num = member.getM_num();
+			boolean isCookie = false;
+			Cookie[] cookies = request.getCookies();
+			if(cookies != null){   
+				System.out.println("쿠키있음");
+				System.out.println(cookies);
+				for(Cookie c: cookies){   
+					if(c.getName().equals("cookie"+board.getB_num())){
+				    	isCookie = true; 
+					}
+				}
+			}
+			System.out.println(isCookie);
+			if(!isCookie) {
+				System.out.println("쿠키없음");
+				boardService.boardHitUp(board.getB_num());//조회수증가
+				Cookie addCookie = new Cookie("cookie" + board.getB_num(), String.valueOf(board.getB_num()));
+				System.out.println(addCookie);
+				addCookie.setMaxAge(1*24*60*60);//하루저장
+				response.addCookie(addCookie);    
+			}
+				  
 			model.addAttribute("m_num",m_num);
 			model.addAttribute("likeCnt", count);
 		}
@@ -93,7 +117,6 @@ public class BoardController {
 		} 
 		
 		board = boardService.boardContent(board.getB_num());
-		boardService.boardHitUp(board.getB_num());
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("board", board);
