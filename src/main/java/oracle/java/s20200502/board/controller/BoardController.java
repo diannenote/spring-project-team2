@@ -163,7 +163,7 @@ public class BoardController {
 	@RequestMapping("boardUpdate")
 	public String boardUpdate(Board board, Paging paging, Model model) {
 		
-		int update = boardService.boardUpdate(board);
+		boardService.boardUpdate(board);
 		model.addAttribute("paging",paging);
 		model.addAttribute("board",board);
 		
