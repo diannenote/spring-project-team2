@@ -7,7 +7,8 @@
 <resultMap id="MemberResult" type="Member">
 	<result property="m_num" column="m_num"/>
 	<result property="m_email" column="m_email"/>
-	<result property="m_nickname" column="m_nickname"/> 
+	<result property="m_nickname" column="m_nickname"/>
+	<result property="m_name" column="m_name"/>
 	<result property="m_password" column="m_password"/> 
 	<result property="m_phone" column="m_phone"/> 
 	<result property="m_ban" column="m_ban"/> 
@@ -21,10 +22,11 @@
 	</select>
 	<insert id="memberShipInsert" parameterType="Member" statementType="CALLABLE">
 		{call NEWMEMBER(
+			#{m_name ,mode=IN, jdbcType=VARCHAR},
 			#{m_email ,mode=IN, jdbcType=VARCHAR},
 			#{m_password ,mode=IN, jdbcType=VARCHAR},
-			#{m_phone ,mode=IN, jdbcType=VARCHAR},
-			#{m_num ,mode=IN, jdbcType=INTEGER},
+			#{m_nickname ,mode=IN, jdbcType=VARCHAR},
+			#{m_phone, mode=IN, jdbcType=VARCHAR},
 			#{m_biznum ,mode=IN, jdbcType=INTEGER},
 			#{m_bizname ,mode=IN, jdbcType=VARCHAR},
 			#{m_type ,mode=IN, jdbcType=INTEGER},
@@ -49,4 +51,23 @@
 			#{m_bizname ,mode=IN, jdbcType=VARCHAR},
 			#{m_type ,mode=IN, jdbcType=INTEGER})}
 	</update>
+	<!-- 회원탈퇴 -->
+	<delete id="memberDelete" parameterType="Member" >
+		delete from member where m_num = #{m_num}
+	</delete>
+	<!-- 비밀번호 변경 -->
+	<update id="pwChange" parameterType="Member">
+		update member set m_password = #{m_password} where m_num = #{m_num} 
+	</update>
+	<!-- 찾는 이메일 비밀번호 넘버 -->
+	<select id="emailNumSearch" parameterType="Member" resultMap="MemberResult">
+		select m_num from member where m_email=#{m_email}
+	</select>
+	<!-- 아이디 찾기 검색 -->
+	<select id="idExistenceChk" parameterType="Member" resultMap="MemberResult">
+		select m_email from member where m_name=#{m_name} and m_phone = #{m_phone}
+	</select>
+	<select id="myInfoUpdate" parameterType="Member" resultMap="MemberResult">
+		select * from member where m_num = #{m_num}
+	</select>
 </mapper>

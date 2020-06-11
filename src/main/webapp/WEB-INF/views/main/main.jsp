@@ -55,51 +55,52 @@
 </div>
 
 <!-- 지역구 나누기 -->
-<div class="container">
-	<h1 class="text-center">어느 지역에서 찾으시나요?</h1>  
-	<div class="table-responsive">
-	  <table class="table">
-	      <tbody>
-	      <tr>
-		<td class="text-center">강남구</td>
-		<td class="text-center">강동구</td>
-		<td class="text-center">강북구</td>
-		<td class="text-center">강서구</td>
-		<td class="text-center">관악구</td>
-		  </tr>
-	      <tr>
-		<td class="text-center">광진구</td>
-		<td class="text-center">구로구</td>
-		<td class="text-center">금천구</td>
-		<td class="text-center">노원구</td>
-		<td class="text-center">도봉구</td>
-		 </tr>
-	      <tr>
-		<td class="text-center">동대문구</td>
-		<td class="text-center">동작구</td>
-		<td class="text-center">마포구</td>
-		<td class="text-center">서대문구</td>
-		<td class="text-center">서초구</td>
-		 </tr>
-		 <tr>
-		<td class="text-center">성동구</td>
-		<td class="text-center">성북구</td>
-		<td class="text-center">송파구</td>
-		<td class="text-center">양천구</td>
-		<td class="text-center">영등포구</td>
-		 </tr>
-		 <tr>
-		<td class="text-center">용산구</td>
-		<td class="text-center">은평구</td>
-		<td class="text-center">종로구</td>
-		<td class="text-center">중구</td>
-		<td class="text-center">중랑구</td>
-		 </tr>
-	    </tbody>
-	  </table>
+<div style="background-color:#faf2f8;">
+	<div class="container">
+		<h1 class="text-center">어느 지역에서 찾으시나요?</h1>  
+		<div class="table-responsive">
+		  <table class="table">
+		      <tbody>
+		      <tr>
+			<td class="text-center">강남구</td>
+			<td class="text-center">강동구</td>
+			<td class="text-center">강북구</td>
+			<td class="text-center">강서구</td>
+			<td class="text-center">관악구</td>
+			  </tr>
+		      <tr>
+			<td class="text-center">광진구</td>
+			<td class="text-center">구로구</td>
+			<td class="text-center">금천구</td>
+			<td class="text-center">노원구</td>
+			<td class="text-center">도봉구</td>
+			 </tr>
+		      <tr>
+			<td class="text-center">동대문구</td>
+			<td class="text-center">동작구</td>
+			<td class="text-center">마포구</td>
+			<td class="text-center">서대문구</td>
+			<td class="text-center">서초구</td>
+			 </tr>
+			 <tr>
+			<td class="text-center">성동구</td>
+			<td class="text-center">성북구</td>
+			<td class="text-center">송파구</td>
+			<td class="text-center">양천구</td>
+			<td class="text-center">영등포구</td>
+			 </tr>
+			 <tr>
+			<td class="text-center">용산구</td>
+			<td class="text-center">은평구</td>
+			<td class="text-center">종로구</td>
+			<td class="text-center">중구</td>
+			<td class="text-center">중랑구</td>
+			 </tr>
+		    </tbody>
+		  </table>
+		</div>
 	</div>
 </div>
-
 
 
 

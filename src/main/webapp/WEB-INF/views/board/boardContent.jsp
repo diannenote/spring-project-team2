@@ -50,12 +50,15 @@
 		</div>
 		
 			<button onclick="listBtn(${board.b_type}, ${paging.currentPage} )">목록</button>
+			<button id="replyView" onclick="">댓글보기</button>
 		<div id="reply-container">
-				<c:if test="${board.b_type == 1 }">
-					<textarea rows="4" cols="100" id="replyComment"></textarea>
-					<input type="button" id="btn_write" class='btn-submit' value="댓글작성"  onclick="btnWriteReply()">
-				</c:if>
-			<div id="replyList"></div>
+			<div id="reply-write">
+					<c:if test="${board.b_type == 1 }">
+						<textarea rows="4" placeholder="댓글을 작성하세요" id="replyComment"></textarea>
+						<input type="button" id="btn_write" class='btn-submit' value="댓글작성"  onclick="btnWriteReply()">
+					</c:if>
+				<div id="replyList" style="display:none;"></div>
+			</div>
 		</div>	
 	
 	</div> <!--board end  -->
@@ -95,6 +98,16 @@
 
 		} else return false;
 	}
+	//댓글 숨기기
+	$(document).ready(function(){ 
+		$("#replyView").click(function(){ 
+			if($("#replyList").is(":visible")){ 
+				$("#replyList").slideUp();
+			}else{ 
+				$("#replyList").slideDown();
+			} 
+			}); 
+		});
 	//댓글 리스트
 	window.onload = function() {
 		getReplyList();
@@ -112,17 +125,17 @@
 				
 				$(data).each(function() {
 					str += "	<div style ='margin-left:"+this.br_indent+"px'>";
-					str += "		<ul>"
+					str += "		<ul class='reply-info'>"
 					str += " 			<input type='hidden' id='reply-nickname"+ this.br_num+"' value='"+this.m_nickname+"'>";
-					str += "			<li>"+this.m_nickname+"</li>";
-					str += "			<li>" + this.br_regdate + "</li>";
+					str += "			<reply-writeli>"+this.m_nickname+"</li>";
+					str += "			<li reply-regdate>" + this.br_regdate + "</li>";
 					
 					if(m_num == this.m_num) {
-						str += "		<li id='btnModifyForm"+this.br_num+"'><input type='button' id='btnModifyForm' class='btn-Reply' value='수정' onclick='btnModifyReplyForm("+this.br_num+")'></li>";
-						str += "		<li id='btnDelete"+this.br_num+"'><input type='button' id='btnDelete' class='btn-Reply' value='삭제' onclick='btnDeleteReply("+this.br_num+")'></li>";
+						str += "		<li class='btn-li' id='btnModifyForm"+this.br_num+"'><input type='button' id='btnModifyForm' class='btn-Reply' value='수정' onclick='btnModifyReplyForm("+this.br_num+")'></li>";
+						str += "		<li class='btn-li' id='btnDelete"+this.br_num+"'><input type='button' id='btnDelete' class='btn-Reply' value='삭제' onclick='btnDeleteReply("+this.br_num+")'></li>";
 					}
 					
-					str += "			<li id='btnReReply"+this.br_num +"'><input type='button' id='btnReReply' class='btn-Reply' value='댓글' onclick='btnRereplyForm("+this.br_group+","+this.br_num+")'></li>";
+					str += "			<li class='btn-li' id='btnReReply"+this.br_num +"'><input type='button' id='btnReReply' class='btn-Reply' value='댓글' onclick='btnRereplyForm("+this.br_group+","+this.br_num+")'></li>";
 					str += "		</ul>"
 					str += "		 <ul><li id='replyCon"+this.br_num+"'><pre>"+this.br_content+"</pre></li>";
 					str += "			 <li id='rereplyComment"+this.br_num+"' class='reply-input'></li>";
@@ -180,8 +193,8 @@
 			success : function(data) {
 				$("#btnReReply"+br_num).remove();
 				$("#replyCon"+br_num).html("<input id='modfiyContent"+br_num+"' rows='10' cols='80' value='"+data.br_content+"'>");
-				$("#btnModifyForm"+br_num).html("<input type='button' id='btnModify' class='btnReply' value='수정' onclick='btnModifyReply("+br_num+")'>");
-				$("#btnDelete"+br_num).html("<input type='button' id='btnModifyCancel' class='btnReply' value='취소' onclick='getReplyList()'>");
+				$("#btnModifyForm"+br_num).html("<input type='button' id='btnModify' class='btn-reply' value='수정' onclick='btnModifyReply("+br_num+")'>");
+				$("#btnDelete"+br_num).html("<input type='button' id='btnModifyCancel' class='btn-reply' value='취소' onclick='getReplyList()'>");
 			},
 			error:function(request,status,error){
 		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); 

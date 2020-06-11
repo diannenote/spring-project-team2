@@ -9,6 +9,7 @@
 		<typeAlias alias="RoomImg" type="oracle.java.s20200502.room.model.RoomImg"/>
 		<typeAlias alias="RoomReservation" type="oracle.java.s20200502.room.model.Reservation"/>
 		<typeAlias alias="RoomReview" type="oracle.java.s20200502.room.model.Review"/>
+		<typeAlias alias="Payment" type="oracle.java.s20200502.room.model.Payment"/>
 		<!-- 보드 -->
 		<typeAlias alias="Board" type="oracle.java.s20200502.board.model.Board"/>
 		<typeAlias alias="Paging" type="oracle.java.s20200502.board.model.Paging"/>
@@ -29,7 +30,7 @@
 		<mapper resource="Database/Likes.xml"/>
 		<mapper resource="Database/Reply.xml"/>
 		<mapper resource="Database/Member.xml"/>
-		<mapper resource="Database/RoomList.xml"/>
 		<!-- 메인 -->
+		<mapper resource="Database/RoomList.xml"/>
 	</mappers>
 </configuration>

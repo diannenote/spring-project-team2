@@ -41,4 +41,20 @@
 	<update id="contentDown" parameterType="int">
 		update room set ro_level=2 where ro_num=#{ro_num}
 	</update>
+<!-- hyerin -->
+	<insert id="morningReserve" parameterType="RoomReservation">
+		insert into reservation values(re_num.nextval, #{ro_num}, #{m_num},
+										#{re_rvDate}, #{re_totalCost}, 1, 0, 0, sysdate)
+	</insert>
+	<insert id="afterReserve" parameterType="RoomReservation">
+		insert into reservation values(re_num.nextval, #{ro_num}, #{m_num},
+										#{re_rvDate}, #{re_totalCost}, 0, 1, 0, sysdate)
+	</insert>
+	<insert id="nightReserve" parameterType="RoomReservation">
+		insert into reservation values(re_num.nextval, #{ro_num}, #{m_num},
+										#{re_rvDate}, #{re_totalCost}, 0, 0, 1, sysdate)
+	</insert>
+	<insert id="payInsert" parameterType="Payment">
+		insert into payment values(p_seq.nextval, #{u_id}, #{t_id}, #{amount}, #{app_num})
+	</insert>
 </mapper>

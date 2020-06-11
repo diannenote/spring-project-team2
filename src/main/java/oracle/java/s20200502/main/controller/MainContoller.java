@@ -110,8 +110,8 @@ public class MainContoller {
 	@RequestMapping(value="logout")
 	public String logout(Model model,Member member,HttpSession session) {
 		System.out.println("MainController logout()...");
-			session.removeAttribute("memberinfo");
-			return "main/mainForm";
+			session.removeAttribute("memberInfo");
+			return "main/main";
 		}
 	//회원정보 수정 창
 	@RequestMapping(value="myInfo")
@@ -121,25 +121,52 @@ public class MainContoller {
 		}
 	//회원정보 수정 실행
 	@RequestMapping(value="myInfoSave", method=RequestMethod.POST)
-	public String myInfoSave(Model model,Member member) {
+	public String myInfoSave(Model model,Member member, HttpSession session,@RequestParam("m_reNum") String num) {
 			System.out.println("MainController myInfoSave()..");
 			System.out.println("myInfoSave=>" + member.getM_nickname());
 			System.out.println("myInfoSave=>" + member.getM_phone());
 			System.out.println("myInfoSave=>" + member.getM_bizname());
 			System.out.println("myInfoSave=>" + member.getM_biznum());
 			System.out.println("myInfoSave=>" + member.getM_num());
+			System.out.println("myInfoSave=>"  + num);
 			memberService.myInfoSave(member);
-			return "main/mainForm";
+			session.removeAttribute("memberInfo");
+			member.setM_num(Integer.parseInt(num));
+			Member members = memberService.myIfoUpdate(member,session);
+			session.setAttribute("memberInfo", members);
+			return "main/main";
 		}
+	//회원 비밀번호 변경창
+	@RequestMapping(value="pwChange")
+	public String pwChange(Model model,Member member) {
+			System.out.println("MainController pwChange()..");
+			return "main/pwChangeForm";
+	}
+	//비밀번호 변경 실행
+	@RequestMapping(value="pwChangeStart", method=RequestMethod.POST)
+		public String pwChangeStart(Model model,Member member,HttpSession session) {
+			System.out.println("MainController pwChangeStart()=>" + member.getM_password());
+			memberService.pwChange(member);
+			session.removeAttribute("memberInfo");
+			return "main/loginForm";
+	}
+	//회원정보 탈퇴
+	@RequestMapping(value="memberDelete", method=RequestMethod.POST)
+	public String memberDelete(Model model, Member member) {
+		System.out.println("MainController memberDelete()=>" + member.getM_num());
+		memberService.memberDelete(member);
+		return "main/loginForm";
+	}
 	//회원가입 폼
 	@RequestMapping(value="memberShip")
 	public String memberShipForm(Model model) {
 		System.out.println("MainController login()...");
+		model.addAttribute("actionPass", "memberInsert");
 		return "main/memberShipForm";
 	}
 	//회원가입 인증 처리
 	@RequestMapping(value="sertification", method=RequestMethod.POST)
-	public String sertification(Model model, Member member,String m_email) {
+	public String sertification(Model model, Member member,String m_email,@RequestParam("actionPass") String actionPass) {
 		//리스트 및 랜덤선언
 		HashSet<Integer> number = new HashSet<Integer>();
 		String numberStr = "";
@@ -156,7 +183,7 @@ public class MainContoller {
 		String tomail = m_email;
 		System.out.println(tomail);
 		String setfrom = m_email;
-		String title = "공부하랑 회원가입 인증번호입니다.";
+		String title = "공부하랑 인증번호입니다.";
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"UTF-8");
@@ -172,25 +199,66 @@ public class MainContoller {
 			model.addAttribute("check",2);
 		}
 		model.addAttribute("sertificationNum",numberStr);
+		if(actionPass.equals("memberInsert")) {
+			model.addAttribute("actionPass", "memberInsert");
+			model.addAttribute("member",member);
+		}else {
+			model.addAttribute("actionPass", "PassSearch");
+			model.addAttribute("member",member);
+		}
 		return "main/sertification";
 	}
 	//회원가입 처리
-		@RequestMapping(value="memberInsert", method=RequestMethod.POST)
-		public String memberShip(Model model,Member member,
-				@RequestParam("m_bizname") String m_bizname,
-				@RequestParam("m_biznum") String m_biznum) {
-				System.out.println("MainController memberShip()=>" + member.getM_email());
-				System.out.println("MainController memberShip()=>" + member.getM_bizname());
-				System.out.println("MainController memberShip()=>" + member.getM_biznum());
-		try {
-			if(m_bizname.equals("") && m_biznum.equals("")){member.setM_type(0);}
-			else if(m_bizname != null && m_biznum != null){member.setM_type(1);}
-				memberService.memberShip(member);
-				System.out.println("member.m_membership result=>" + member.getM_newMemberResult());
-				return "main/loginForm";
-		}catch(Exception e) {
-				e.printStackTrace();
-				return "main/loginForm";
+			@RequestMapping(value="memberInsert", method=RequestMethod.POST)
+			public String memberShip(Model model,Member member,
+					@RequestParam("m_bizname") String m_bizname,
+					@RequestParam("m_biznum") String m_biznum) {
+					System.out.println("MainController memberShip()=>" + member.getM_email());
+					System.out.println("MainController memberShip()=>" + member.getM_bizname());
+					System.out.println("MainController memberShip()=>" + member.getM_biznum());
+			try {
+				if(m_bizname.equals("") && m_biznum.equals("")){member.setM_type(0);}
+				else if(m_bizname != null && m_biznum != null){member.setM_type(1);}
+					memberService.memberShip(member);
+					System.out.println("member.m_membership result=>" + member.getM_newMemberResult());
+					return "main/loginForm";
+			}catch(Exception e) {
+					e.printStackTrace();
+					return "main/loginForm";
+				}
 			}
+	//비밀번호 찾기 폼 이동
+		@RequestMapping(value="PassSearchForm")
+		public String PassSearchForm(Model model, Member member) {
+			System.out.println("MainController PassSearchForm()..");
+			model.addAttribute("actionPass","PassSearch");
+			model.addAttribute("resultNum","0");
+			return "main/PassSearchForm";
+		}
+	//비밀번호 재설정창이동
+	@RequestMapping(value="PassSearch", method=RequestMethod.POST)
+	public String PassSearch(Model model, Member member) {
+		System.out.println("MainController PassSearch()=>" + member.getM_num());
+		model.addAttribute("member",member);
+		model.addAttribute("resultNum","1");
+		return "main/PassSearchForm";
+	}
+	//패스워드 변경 실행
+	@RequestMapping(value="PassSearchStart", method=RequestMethod.POST)
+	public String PassSearchStart(Model model, Member member) {
+		System.out.println("MainController PassSearch()..");
+		try {
+		memberService.PassSearch(member);
+		return "main/mainForm";
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			return "main/mainForm";
+		}
+	}
+	//아이디 찾기 폼 이동
+		@RequestMapping(value="idSearchForm")
+		public String idSearchForm(Model model, Member member) {
+			System.out.println("MainController idSearchForm()..");
+			return "main/idSearchForm";
 		}
 }

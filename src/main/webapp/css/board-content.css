@@ -1,27 +1,70 @@
 @charset "UTF-8";
 
 #wrap {
-margin: auto;
-width : 80%;
+	margin: auto;
+	width : 80%;
 }
+.btn-boardcontent{
+	border-radius: 4px;
+}
+
+/* 댓글 css */
 #reply-warp {
-width : 70%;
-}  
+	margin: auto;
+	width : 70%;
+}
+#reply-write{
+	margin: auto;
+	margin-bottom: 10px;
+	width : 70%;
+}    
 ul {
-list-style: none;
+	list-style: none;
 
 }
 ul > li{
-display: inline-block;
+	display: inline-block;
+}
+#replyComment{
+	resize: none;
+	vertical-align: middle;
+	width: 91%;
 }
 textarea {
-resize: none;
-}
-.reply-input {
-display : block;
+	resize: none;
+	vertical-align: middle;
+	width: 88%;
+	border-radius: 4px;
 }
 
-.btn-Reply {
-position: relative;
-left: 150px;
-} 
+.reply-input {
+	display : block;
+}
+
+.btn-submit{
+	border-radius: 4px;
+	vertical-align: middle;
+	height: 104px;
+}
+.reply-info{
+	background-color: #e0e0e0;
+	border-radius: 4px;
+}
+
+.reply-regdate{
+	float: right;
+	padding: 0 5 0 0px;
+	margin-right: 3px;
+}
+.btn-li{
+	float: right;
+	vertical-align: middle;
+	margin-right: 3px;
+}
+.btn-reply{
+	font-size: 8px;
+	border-radius: 4px;
+	background-color: #e0e0e0;
+	vertical-align: middle;
+	margin: 0 5 0 0px;
+}

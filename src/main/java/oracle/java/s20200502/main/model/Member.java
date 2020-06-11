@@ -8,7 +8,7 @@ public class Member {
 	private String m_nickname; private String m_phone;
 	private int m_ban; private Date m_regdate;
 	private String m_biznum; private String m_bizname;
-	private int m_type;
+	private int m_type;	private String m_name;
 	//회원가입 결과값을 가져오기위함
 	private int m_newMemberResult;
 	
@@ -34,6 +34,9 @@ public class Member {
 	public void setM_password(String m_password) {this.m_password = m_password;}
 	public int getM_newMemberResult() {return m_newMemberResult;}
 	public void setM_newMemberResult(int m_newMemberResult) {this.m_newMemberResult = m_newMemberResult;}
+	public String getM_name() {return m_name;}
+	public void setM_name(String m_name) {this.m_name = m_name;}
+	
 	
 	
 }
