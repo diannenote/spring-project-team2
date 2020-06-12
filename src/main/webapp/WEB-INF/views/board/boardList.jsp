@@ -16,6 +16,13 @@
  
 
  <style>
+ #wrap {
+ 	margin: auto;
+	width : 80%;
+	height: 100vh;
+	margin-top: 5vw;
+	margin-bottom: 5vw;
+ }
  
  .board-con1 {
 	 text-align: center;
@@ -51,7 +58,7 @@
 <body>
 
 	
-	<div id="board-wrap">
+	<div id="wrap">
 		<div class="board-con1">
 			<div class="btn-group btn-group-lg">
 	   			<a class="btn btn-primary" href="noticeList" id="notice-btn">공지사항</a>

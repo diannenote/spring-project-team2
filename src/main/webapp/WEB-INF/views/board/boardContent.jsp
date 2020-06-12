@@ -10,6 +10,7 @@
 <title>BoardContent</title>
 <link rel="stylesheet" type="text/css" href="../css/board-content.css">
 <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
 <body>
 
 	<div id="wrap">
@@ -22,13 +23,13 @@
 				<c:choose>
 					<c:when test="${likeCnt == 1}">
 						<input type="image"
-							src="<%=context%>/resources/boardImg/full-heart.png" width="20"
-							height="20" onclick="btnLike(${board.b_num})" id="likeBtn">
+							src="<%=context%>/resources/boardImg/full-heart.png" width="30"
+							height="30" onclick="btnLike(${board.b_num})" id="likeBtn">
 					</c:when>
 					<c:otherwise>
 						<input type="image"
-							src="<%=context%>/resources/boardImg/empty-heart.png" width="20"
-							height="20" onclick="btnLike(${board.b_num})" id="likeBtn">
+							src="<%=context%>/resources/boardImg/empty-heart.png" width="30"
+							height="30" onclick="btnLike(${board.b_num})" id="likeBtn">
 					</c:otherwise>
 				</c:choose>
 				<span id="likeCount">${board.b_likeCnt }</span>
@@ -46,7 +47,7 @@
 
 
 		<div>
-			<div>${board.m_nickname }</div>
+			<div id="nickname">작성자: ${board.m_nickname }</div>
 		</div>
 		<div style="text-align: right">
 			<button class="blue-btn" onclick="listBtn(${board.b_type}, ${paging.currentPage} )">목록</button>
@@ -55,7 +56,7 @@
 		<div id="reply-container">
 			<div id="reply-write">
 				<c:if test="${board.b_type == 1 }">
-					<textarea rows="4" id="replyComment" placeholder="댓글을 작성하세요"></textarea>
+					<textarea rows="3" id="replyComment" placeholder="댓글을 작성하세요"></textarea>
 					<input type="button" id="btn_write" class='btn-submit' value="댓글작성"
 						onclick="btnWriteReply()">
 				</c:if>
