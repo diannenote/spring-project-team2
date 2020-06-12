@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+#wrap {
+ 	margin: auto;
+	width : 80%;
+	height: 100vh;
+	margin-top: 5vw;
+	margin-bottom: 5vw;
+ }
+ #board-nav{
+ 	position: relative;
+ 	left: 30%
+ 	
+ }
+ #board-nav button {
+ 	color: #ffffff;
+ 	font-size: 30px;
+ 	background-color: 0e0e0e;
+ 	
+ }
+ .board-con1 {
+	 text-align: center;
+	 margin: 50px 0px;
+	 
+ }
+ 
+/*  .btn-group a {
+    background-color: #4CAF50; 
+    color: white;
+    padding: 10px 24px;
+    cursor: pointer;
+    float: left;
+}
+
+.btn-group a:not(:last-child) {
+    border-right: none;
+}
+ */
+
+ https://www.w3schools.com/w3css/w3css_buttons.asp
+ https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_buttons_bar_size

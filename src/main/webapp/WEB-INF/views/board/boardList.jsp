@@ -11,48 +11,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../css/board-list.css">
+
 <title>BoardList</title>
-
- 
-
- <style>
- #wrap {
- 	margin: auto;
-	width : 80%;
-	height: 100vh;
-	margin-top: 5vw;
-	margin-bottom: 5vw;
- }
- 
- .board-con1 {
-	 text-align: center;
-	 margin: 50px 0px;
-	 
- }
-
-.btn-group a {
-    background-color: #4CAF50; 
-    color: white;
-    padding: 10px 24px;
-    cursor: pointer;
-    float: left;
-}
-
-.btn-group a:not(:last-child) {
-    border-right: none;
-}
-
-
- #board-wrap {
- 	height: 100vh;
-	width: 65%;
-	margin: auto;
- }
- 
- 
-</style>
-
-
 </head>
 
 <body>
