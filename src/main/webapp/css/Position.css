@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@charset "UTF-8";
 
 .FormDiv{
 	position: relative;
@@ -38,7 +37,6 @@ h5{
 .myInfoForm{
 	top:3vw;
 }
-
 .mhyInfoErrorMsg{
 	padding-left:3vw;
 }
@@ -78,7 +76,7 @@ h5{
 }
 /*memberShipForm*/
 .memberShipFormDiv{
-	top:1vw;
+	top:5vw;
 }
 .memberShipPass{
 	padding-right:2vw;
@@ -100,9 +98,6 @@ h5{
 }
 .memberShipNicMsg{
 	padding-left:3.5vw;
-}
-.member-null {
-	height: 30px;	
 }
 /*pwChangeForm*/
 .pwChangeFormDiv{

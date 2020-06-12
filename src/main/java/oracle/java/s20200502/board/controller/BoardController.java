@@ -198,7 +198,7 @@ public class BoardController {
 		
 		Member member = (Member) session.getAttribute("memberInfo");
 		
-		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<String, Object>();
 		boolean isLike;
 		int count = likeService.likeCount(b_num, member.getM_num());
 		System.out.println(count);

@@ -51,5 +51,6 @@
 		<input type="button" value="아이디 찾기"class="btn-primary" onclick="idEx()">&nbsp;&nbsp;&nbsp; 
 		<input type="reset" value="다시쓰기" class="btn-primary">
 	</div><br/>
+
 </body>
 </html>

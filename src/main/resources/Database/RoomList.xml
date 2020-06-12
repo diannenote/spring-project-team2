@@ -3,7 +3,6 @@
 <mapper namespace="RoomList">
 <!-- id=매퍼내에서 쿼리를 구분짓는 고유한 이름, resultType=쿼리의 결과의 형태 -->
 
-
 <!-- 게시물 총 갯수 -->
 <select resultType="int" id="total">
 	select count(*) from room 
@@ -12,24 +11,35 @@
 <!-- 리스트 -->
 <!-- id(listAll) from RoomListDaoImpl  -->
 <!-- parameterType 과 resultType from configuration.xml -->
-<select id="listAll" parameterType="RoomList" resultType="RoomList">
+<!-- <select id="listAll" parameterType="RoomList" resultType="RoomList">
 	select * from (select rownum rn, a.* from (select *from room
-		order by ro_num) a) where rn between #{start} and #{end}
-</select>
+		order by ro_num) a) where rn between 1 and 10
+</select> -->
 
-
-<!-- 검색쿼리 -->
+<!-- 룸 검색쿼리 -->
 <select id="listSearch" parameterType="SearchRoomList" resultType="SearchRoomList">
-select ro_num, ro_title, ro_content, m_num 
+select ro_num, ro_title, ro_content, m_num, ro_img
   		from(
-       	select ro_num, ro_title, ro_content, m_num,
+       	select ro_num, ro_title, ro_content, m_num, ro_img,
            	row_number() over(order by ro_num desc) as rn
        	from room
        		<!-- where ro_title like '%제목%' --> 
        		<include refid="search"></include>
        	)ro
-       	where rn between 1 and 10
+       	where rn between #{start1} and #{end1}
        	order by ro_num desc
+</select>
+
+<select id="getST" parameterType="SearchRoomList" resultType="int">
+select count(*) from (select ro_num, ro_title, ro_content, m_num 
+				  		from(
+				       	select ro_num, ro_title, ro_content, m_num,
+				           	row_number() over(order by ro_num desc) as rn
+				       	from room
+				       		<!-- where ro_title like '%제목%' --> 
+				       		<include refid="search"></include>
+				       	)ro
+				       	order by ro_num desc)
 </select>
 
 <sql id="search">
@@ -40,14 +50,44 @@ select ro_num, ro_title, ro_content, m_num
 	</if>
 </sql> 
 
-<!-- <select id="countSearch" resultType="int">
-	select count(ro_num)
-		from room
-			<include refid="search"></include>
-<![CDATA[
-	and ro_num > 0
-]]>
-</select>  -->
+<!-- 보드 검색쿼리 -->
+<select id="boardSearchList" parameterType="SearchRoomList" resultType="Board">
+select b_num, b_title, m_num, b_regdate, b_hit
+  		from(
+       	select b_num, b_title, m_num, b_regdate, b_hit,
+           	row_number() over(order by b_num desc) as rn
+       	from board
+       		<!-- where b_title like '%제목%' --> 
+       		<include refid="search1"></include>
+       	)ro
+       	where rn between #{start2} and #{end2}
+       	order by b_num desc
+</select>
 
-	
+<select id="getBT" parameterType="SearchRoomList" resultType="int">
+select count(*) from (select b_num, b_title, m_num, b_regdate, b_hit
+				  		from(
+				       	select b_num, b_title, m_num, b_regdate, b_hit,
+				           	row_number() over(order by b_num desc) as rn
+				       	from board
+				       		<!-- where ro_title like '%제목%' --> 
+				       		<include refid="search1"></include>
+				       	)ro
+				       	order by b_num desc)
+</select>
+
+<sql id="search1">
+	<!-- where ro_title like '%제목%' -->
+	<if test="searchType !=null">
+	<!-- <if test="searchType =='t'.toString()">where ro_title like '%' ||#{keyword}|| '%'</if> --> 
+	<if test="searchType == 'SearchRoomList'">where b_title like '%'||#{keyword}||'%'</if>
+	</if>
+</sql> 
+<select id="getBestList" resultType="Room">
+	select * from (select rownum rn, a.* from (select * from room
+    	 order by ro_hit desc) a) where rn between 1 and 8
+</select>
+
+
+
 </mapper>

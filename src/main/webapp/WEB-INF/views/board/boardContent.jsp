@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String context = request.getContextPath();
 %>
-<%@ include file="../header.jsp" %>
+<%@ include file="../header.jsp"%>
 <!DOCTYPE html>
 <html>
 <title>BoardContent</title>
@@ -16,54 +16,56 @@
 		<div>${board.b_title }
 			<div style="float: right">${board.b_regDate }</div>
 		</div>
-	<hr>	
+		<hr>
 		<section>
-			<article>
-				${board.b_content }
-			</article>
+			<article>${board.b_content }</article>
 		</section>
-		
-		<div style=text-align:right>
+
+		<div style="text-align: right">
 			<c:if test="${board.b_type == 1 }">
 				<c:choose>
 					<c:when test="${likeCnt == 1}">
-						<input type="image" src="<%=context%>/resources/boardImg/full-heart.png" width="20" height="20" onclick="btnLike(${board.b_num})" id="likeBtn">
+						<input type="image"
+							src="<%=context%>/resources/boardImg/full-heart.png" width="20"
+							height="20" onclick="btnLike(${board.b_num})" id="likeBtn">
 					</c:when>
 					<c:otherwise>
-						<input type="image" src="<%=context%>/resources/boardImg/empty-heart.png" width="20" height="20" onclick="btnLike(${board.b_num})" id="likeBtn">
+						<input type="image"
+							src="<%=context%>/resources/boardImg/empty-heart.png" width="20"
+							height="20" onclick="btnLike(${board.b_num})" id="likeBtn">
 					</c:otherwise>
-				</c:choose>			
-					<span id="likeCount">${board.b_likeCnt }</span>
+				</c:choose>
+				<span id="likeCount">${board.b_likeCnt }</span>
 			</c:if>
 			<c:if test="${m_num ne null && m_num eq board.m_num}">
-				<button onclick="location.href='boardUpdateForm?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
-				           수정
-				 </button>           
-				<button onclick="deleteChk()">
-				            삭제
-				</button>
-			</c:if>			
+				<button class="btn-boardcontent"
+					onclick="location.href='boardUpdateForm?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
+					수정</button>
+				<button class="btn-boardcontent" onclick="deleteChk()">삭제</button>
+			</c:if>
 		</div>
-			
+
 		<div>
 			<div>${board.m_nickname }</div>
 		</div>
-		
-			<button onclick="listBtn(${board.b_type}, ${paging.currentPage} )">목록</button>
-			<button id="replyView" onclick="">댓글보기</button>
+
+		<button class="btn-boardcontent" onclick="listBtn(${board.b_type}, ${paging.currentPage} )">목록</button>
+		<button id="replyView" class="btn-boardcontent" onclick="">댓글보기[${board.b_replyCnt }]</button>
 		<div id="reply-container">
 			<div id="reply-write">
-					<c:if test="${board.b_type == 1 }">
-						<textarea rows="4" placeholder="댓글을 작성하세요" id="replyComment"></textarea>
-						<input type="button" id="btn_write" class='btn-submit' value="댓글작성"  onclick="btnWriteReply()">
-					</c:if>
-				<div id="replyList" style="display:none;"></div>
+				<c:if test="${board.b_type == 1 }">
+					<textarea rows="4" id="replyComment" placeholder="댓글을 작성하세요"></textarea>
+					<input type="button" id="btn_write" class='btn-submit' value="댓글작성"
+						onclick="btnWriteReply()">
+				</c:if>
 			</div>
-		</div>	
-	
-	</div> <!--board end  -->
-	
-<script type="text/javascript">
+			<div id="replyList" style="display:none;"></div>
+		</div>
+
+	</div>
+	<!--board end  -->
+
+	<script type="text/javascript">
 	
 	//목록버튼
 	function listBtn(type, pageNum) {
@@ -108,6 +110,7 @@
 			} 
 			}); 
 		});
+
 	//댓글 리스트
 	window.onload = function() {
 		getReplyList();
@@ -124,20 +127,21 @@
 				var str = "<div id='reply-warp'>";
 				
 				$(data).each(function() {
+					$("#replyView").html("댓글보기["+ this.r_replyCnt +"]");
 					str += "	<div style ='margin-left:"+this.br_indent+"px'>";
 					str += "		<ul class='reply-info'>"
 					str += " 			<input type='hidden' id='reply-nickname"+ this.br_num+"' value='"+this.m_nickname+"'>";
-					str += "			<reply-writeli>"+this.m_nickname+"</li>";
-					str += "			<li reply-regdate>" + this.br_regdate + "</li>";
+					str += "			<li class='reply-nickname'>"+this.m_nickname+"</li>";
 					
 					if(m_num == this.m_num) {
-						str += "		<li class='btn-li' id='btnModifyForm"+this.br_num+"'><input type='button' id='btnModifyForm' class='btn-Reply' value='수정' onclick='btnModifyReplyForm("+this.br_num+")'></li>";
-						str += "		<li class='btn-li' id='btnDelete"+this.br_num+"'><input type='button' id='btnDelete' class='btn-Reply' value='삭제' onclick='btnDeleteReply("+this.br_num+")'></li>";
+						str += "		<li class='btn-li' id='btnDelete"+this.br_num+"'><input type='button' id='btnDelete' class='btn-reply' value='삭제' onclick='btnDeleteReply("+this.br_num+")'></li>";
+						str += "		<li class='btn-li' id='btnModifyForm"+this.br_num+"'><input type='button' id='btnModifyForm' class='btn-reply' value='수정' onclick='btnModifyReplyForm("+this.br_num+")'></li>";
 					}
 					
-					str += "			<li class='btn-li' id='btnReReply"+this.br_num +"'><input type='button' id='btnReReply' class='btn-Reply' value='댓글' onclick='btnRereplyForm("+this.br_group+","+this.br_num+")'></li>";
+					str += "			<li class='btn-li' id='btnReReply"+this.br_num +"'><input type='button' id='btnReReply' class='btn-reply' value='댓글' onclick='btnRereplyForm("+this.br_group+","+this.br_num+")'></li>";
+					str += "			<li class='reply-regdate'>" + this.br_regdate + "</li>";
 					str += "		</ul>"
-					str += "		 <ul><li id='replyCon"+this.br_num+"'><pre>"+this.br_content+"</pre></li>";
+					str += "		 <ul ><li id='replyCon"+this.br_num+"'><pre>"+this.br_content+"</pre></li>";
 					str += "			 <li id='rereplyComment"+this.br_num+"' class='reply-input'></li>";
 					str += "		</ul>";
 					str += "	</div>";
@@ -174,11 +178,12 @@
 					 
 			success : function(){
 				content.val("");
+				$("#replyList").slideDown();
 				getReplyList();
 				
 			},
 			error:function(request,status,error){
-		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); 
+		        alert("내용을 입력해주세요"); 
 		    }
 		}); 
 	}
@@ -192,7 +197,7 @@
 					 
 			success : function(data) {
 				$("#btnReReply"+br_num).remove();
-				$("#replyCon"+br_num).html("<input id='modfiyContent"+br_num+"' rows='10' cols='80' value='"+data.br_content+"'>");
+				$("#replyCon"+br_num).html("<textarea id='modfiyContent"+br_num+"' rows='4' cols='150' placeholder='대댓글을 작성해주세요'>"+data.br_content+"</textarea>");
 				$("#btnModifyForm"+br_num).html("<input type='button' id='btnModify' class='btn-reply' value='수정' onclick='btnModifyReply("+br_num+")'>");
 				$("#btnDelete"+br_num).html("<input type='button' id='btnModifyCancel' class='btn-reply' value='취소' onclick='getReplyList()'>");
 			},
@@ -250,11 +255,11 @@
 					 b_num },
 					 
 			success : function(data) {
-				$("#rereplyComment"+br_num).html("<textarea rows='2' cols='80' id='reReplytext' placeholder='대댓글을 작성해 주세요'>@"+ replyNickname +"</textarea>"
-											+ "<input type='button' value='입력' onclick='btnWriteReply("
+				$("#rereplyComment"+br_num).html("<textarea rows='4' id='reReplytext' placeholder='대댓글을 작성해 주세요'>@"+ replyNickname +" &nbsp; &nbsp; &nbsp;</textarea>"
+											+ "<input type='button' value='입력' class='btn-submit' onclick='btnWriteReply("
 											+ br_group
 											+ ")'>"
-											+ "<input type='button' value='취소' onclick='getReplyList()'>");
+											+ "<input type='button' value='취소' class='btn-submit' onclick='getReplyList()'>");
 			},	
 			error:function(request,status,error){
 		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
@@ -265,8 +270,3 @@
 </script>
 
 </body>
-
-
-
-
-

@@ -1,3 +1,5 @@
+<%@page import="oracle.java.s20200502.room.model.Room"%>
+<%@page import="oracle.java.s20200502.main.model.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -195,8 +197,15 @@ th, td {
 
  			}
 		});
-	}  
-
+	}
+	//삭제 확인
+	function delete_confirm(){
+		if(confirm("정말 삭제하시겠습니까?") == true){
+			location.href='roomDelete?ro_num=${room.ro_num}';
+		}else {
+			return;
+		}
+	}
   
 </script>
 <title>스터디룸 상세페이지</title>
@@ -303,6 +312,25 @@ th, td {
 							</c:forEach>
 						</div>
 						<div id="map" style="width: 450px; height: 500px;"></div>
+						<c:if test="${memberInfo != null }">
+							<% 
+							Member member = (Member)session.getAttribute("memberInfo"); 
+							Room room = (Room)request.getAttribute("room");
+							int m_num1 = member.getM_num();
+							int m_num2 = room.getM_num();
+							int m_type = member.getM_type();
+							
+							if(m_num1 == m_num2 || m_type == 2) { %>
+								<button class="btn btn-primary" type="button" onclick="location.href='roomUpdateGo?ro_num=${room.ro_num}'">수정하기</button>
+								<button class="btn btn-primary" type="button" onclick="delete_confirm()">삭제하기</button>						
+							<%
+							}
+							%>							
+						</c:if>
+						<c:if test="${memberInfo.m_type == 2 }">
+							<button class="btn btn-primary" type="button" onclick="location.href='contentUp?ro_num=${room.ro_num}'">방승인하기</button>
+							<button class="btn btn-primary" type="button" onclick="location.href='contentDown?ro_num=${room.ro_num}'">방블라인드</button>
+						</c:if>
 					</div>
 					<!-- 왼쪽닫기 -->
 
@@ -418,7 +446,6 @@ th, td {
 			map.setSize(getMapSize());
 	});
 	</script>
-
 </html>
 
 

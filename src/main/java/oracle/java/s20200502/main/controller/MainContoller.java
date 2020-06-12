@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import oracle.java.s20200502.board.model.Board;
 import oracle.java.s20200502.main.model.Member;
 import oracle.java.s20200502.main.model.RoomList;
 import oracle.java.s20200502.main.model.SearchRoomList;
 import oracle.java.s20200502.main.service.MemberService;
 import oracle.java.s20200502.main.service.Paging;
 import oracle.java.s20200502.main.service.RoomListService;
+import oracle.java.s20200502.room.model.Room;
 
 @Controller
 public class MainContoller {
@@ -37,50 +39,73 @@ public class MainContoller {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	//리스트
-	@RequestMapping(value="list")
-	public String list(RoomList roomlist, String currentPage, Model model) throws Exception {
-		System.out.println("maincontroller list Start...");
-		int total = ls.total();
-		System.out.println("total=>" + total);
-		Paging pg = new Paging(total, currentPage);
-		System.out.println("currentPage=>" + currentPage);
-		roomlist.setStart(pg.getStart());
-		roomlist.setEnd(pg.getEnd());
-		System.out.println("체크1");
-		
-		List<RoomList> list = ls.list(roomlist);
-		model.addAttribute("list", list);
-		model.addAttribute("pg", pg);
-		System.out.println("체크2");
-		return "main/list";
-	}
 	//리스트 + 검색   ■■■■■■■■■■■■■■■■■■■■■■■■■■■ 페이징 처리 해야 함.	
 	@RequestMapping(value="listSearch")
-	public String listSearch(@ModelAttribute("srl") SearchRoomList srl, String currentPage, Model model)
-			throws Exception{
-		logger.info("get list search");
+	public String listSearch(@ModelAttribute("srl") SearchRoomList srl, String currentPage, String currentBlock, Model model) {
+		System.out.println("listSearch start... ");
+		System.out.println("listSearch currentPage->"+ currentPage);
+		System.out.println("listSearch currentBlock->"+ currentBlock);
 
-		srl.setSearchType("SearchRoomList");
-		System.out.println(srl.toString());
-		
-		
-		int total = ls.total();
-		System.out.println("total=>" + total);
-		Paging pg = new Paging(total, currentPage);
-		System.out.println("currentPage=>" + currentPage);
-		/*int total = ls.total();*/
-		/*Paging pg = new Paging(total, currentPage);*/
-		/*pg.setRoomList(srl);*/
-		
-		
+	    int searchTotal = ls.getST(srl);
+		int bSearchTotal = ls.getBT(srl);
+		String calPage1 = null;
+		String calPage2 = null;
+		if (currentBlock == null) {
+			currentBlock = "1";
+		}
+		// currentBlock1,  currentPage2
+
+		if (currentBlock.equalsIgnoreCase("1")) {
+			calPage1 = currentPage;
+			calPage2 = "1";
+
+		}else {
+			calPage1 = "1";
+			calPage2 = currentPage;
+		}
+		System.out.println("나는 리스트서치의 srl.getKeyword() -> " +  srl.getKeyword());
+		System.out.println("나는 리스트서치의 서치토탈 -> " +  searchTotal);
+		System.out.println("나는 리스트서치의 보드토탈 -> " +  bSearchTotal);
+		System.out.println("나는 리스트서치의 currentPage -> " +  calPage1);
+
+		// 1번 페이지
+		Paging roomListPG = new Paging(searchTotal, calPage1);
+		System.out.println("나는 리스트서치의 roomListPG 수행.. ");
+	
+		srl.setStart1(roomListPG.getStart());
+		srl.setEnd1(roomListPG.getEnd());
+		// 1번 사진
+		System.out.println("나는 리스트서치의  ls.listSearch 수행전.. ");
 		List<RoomList> list = ls.listSearch(srl);
-		model.addAttribute("list", list);
+		System.out.println("나는 리스트서치의  ls.listSearch 수행후.. ");
+		for(int i =0; i<list.size(); i++) {
+			list.get(i).setKeyword(srl.getKeyword());
+		}
+		
+		
+		// 2번 커뮤니티 게시판
+		// 2번 커뮤니티 페이지
+		Paging boardListPG = new Paging(bSearchTotal, calPage2);
+		srl.setStart2(boardListPG.getStart());
+		srl.setEnd2(boardListPG.getEnd());
+
+		
+		List<Board> boardSearchList = ls.boardSearchList(srl);
+		
+		model.addAttribute("keyword", srl.getKeyword());
+		model.addAttribute("listSearch", list);
+		model.addAttribute("boardSearchList", boardSearchList);
+		model.addAttribute("roomListPG", roomListPG);  		//1번 페이징
+		model.addAttribute("boardListPG", boardListPG);		//2번 페이징
+		
 		return "main/listSearch";
 	}	
 	@RequestMapping("main")
 	public String main(Model model) {
 		System.out.println("Open Main");
+		List<Room> bestList = ls.getBestList();
+		
+		model.addAttribute("bestList", bestList);
 		return "main/main";
 	}
 	//로그인폼

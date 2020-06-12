@@ -109,5 +109,6 @@
 <form action="memberDelete" name="memberDelete" method="post">
 	<input type="hidden" name="m_num" value="${memberInfo.m_num }">
 </form>
+
 </body>
 </html>

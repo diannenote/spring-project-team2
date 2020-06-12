@@ -16,6 +16,12 @@
 	<select id="roomTotal" resultType="int">
 		select count(*) FROM room
 	</select>
+	<select id="locTotal" resultType="int" parameterType="java.lang.String">
+		select count(*) FROM room where ro_loc=#{ro_loc}
+	</select>
+	<select id="levelTotal" resultType="int" parameterType="java.lang.String">
+		select count(*) FROM room where ro_level=0
+	</select>
 	<select id="getRoomList" parameterType="Room" resultType="Room">
 		select * from (select rownum rn, a.* from (select * from room
     	 order by ro_num desc) a) where rn between #{start} and
@@ -57,4 +63,9 @@
 	<insert id="payInsert" parameterType="Payment">
 		insert into payment values(p_seq.nextval, #{u_id}, #{t_id}, #{amount}, #{app_num})
 	</insert>
+	<select id="getListLoc" parameterType="Room" resultType="Room">
+		select * from (select rownum rn, a.* from (select * from room where ro_loc=#{ro_loc}
+    	 order by ro_num desc) a) where rn between #{start} and
+    	 #{end}
+	</select>
 </mapper>

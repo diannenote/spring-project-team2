@@ -18,7 +18,8 @@ public class RoomList {
 	//조회용
 	private String search;		private String keyword;
 	private String pageNum;
-	private int start;			private int end;
+	private int start1;			private int end1;
+	private int start2;			private int end2;
 	
 	
 	public String getSearch() {
@@ -39,17 +40,30 @@ public class RoomList {
 	public void setPageNum(String pageNum) {
 		this.pageNum = pageNum;
 	}
-	public int getStart() {
-		return start;
+	
+	public int getStart1() {
+		return start1;
 	}
-	public void setStart(int start) {
-		this.start = start;
+	public void setStart1(int start1) {
+		this.start1 = start1;
 	}
-	public int getEnd() {
-		return end;
+	public int getEnd1() {
+		return end1;
 	}
-	public void setEnd(int end) {
-		this.end = end;
+	public void setEnd1(int end1) {
+		this.end1 = end1;
+	}
+	public int getStart2() {
+		return start2;
+	}
+	public void setStart2(int start2) {
+		this.start2 = start2;
+	}
+	public int getEnd2() {
+		return end2;
+	}
+	public void setEnd2(int end2) {
+		this.end2 = end2;
 	}
 	public int getRo_num() {
 		return ro_num;

@@ -26,4 +26,7 @@ public interface RoomDao {
 	int nightReserve(Reservation reservation);
 	Reservation getRervationContent(int re_num);
 	int payInsert(Payment pm);
+	List<Room> getListLoc(Room room);
+	int locTotal(String ro_loc);
+	int levelTotal();
 }

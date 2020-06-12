@@ -7,6 +7,17 @@
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
+<!-- 제이쿼리 (부트스트랩보다 위로) -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- 부트스트랩 -->
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
 <style>
 th, td {
 	text-align: center;
@@ -22,7 +33,22 @@ position: relative;
 bottom: 30px;
 left: 800px;
 }
+
 </style>
+<!-- <script>
+	$(function() {
+		$("#pw1, #pw2").keyup(function() {
+			var pw1Value = $("#pw1").val();
+			var pw2Value = $("#pw2").val();
+
+			if (pw1Value != pw2Value) {
+				$("#message").text("패스워드가 일치하지 않습니다.");
+			} else {
+				$("#message").text("패스워드가 일치합니다.");
+			}
+		})
+	});
+</script> -->
 <title>관리자 사이트</title>
 </head>
 <body> 
@@ -52,13 +78,13 @@ left: 800px;
 				</div>
 			</div>
 			<c:if test="${pg.startPage > pg.pageBlock }">
-				<a href="roomList?currentPage=${pg.startPage-pg.pageBlock}">[이전]</a>
+				<a href="roomListLoc?currentPage=${pg.startPage-pg.pageBlock}&ro_loc=${room.ro_loc}">[이전]</a>
 			</c:if>
 			<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage }">
-				<a href="roomList?currentPage=${i}">[${i}]</a>
+				<a href="roomListLoc?currentPage=${i}&ro_loc=${room.ro_loc}">[${i}]</a>
 			</c:forEach>
 			<c:if test="${pg.endPage < pg.totalPage }">
-				<a href="roomList?currentPage=${pg.startPage+pg.pageBlock}">[다음]</a>
+				<a href="roomListLoc?currentPage=${pg.startPage+pg.pageBlock}&ro_loc=${room.ro_loc}">[다음]</a>
 			</c:if>
 		</div>
 		<div class="room_box">

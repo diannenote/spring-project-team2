@@ -89,12 +89,22 @@ public class RoomDaoImpl implements RoomDao {
 	}
 	@Override
 	public Reservation getRervationContent(int re_num) {
-		// TODO Auto-generated method stub
 		return session.selectOne("getMemberContent",re_num);
 	}
 	@Override
 	public int payInsert(Payment pm) {
-		// TODO Auto-generated method stub
 		return session.insert("payInsert", pm);
+	}
+	@Override
+	public List<Room> getListLoc(Room room) {
+		return session.selectList("getListLoc", room);
+	}
+	@Override
+	public int locTotal(String ro_loc) {
+		return session.selectOne("locTotal", ro_loc);
+	}
+	@Override
+	public int levelTotal() {
+		return session.selectOne("levelTotal");
 	}
 }

@@ -90,12 +90,22 @@ public class RoomServiceImpl implements RoomService {
 	}
 	@Override
 	public Reservation getReservationContent(int re_num) {
-		// TODO Auto-generated method stub
 		return rd.getRervationContent(re_num);
 	}
 	@Override
 	public int payInsert(Payment pm) {
-		// TODO Auto-generated method stub
 		return rd.payInsert(pm);
+	}
+	@Override
+	public List<Room> getListLoc(Room room) {
+		return rd.getListLoc(room);
+	}
+	@Override
+	public int locTotal(String ro_loc) {
+		return rd.locTotal(ro_loc);
+	}
+	@Override
+	public int levelTotal() {
+		return rd.levelTotal();
 	}
 }

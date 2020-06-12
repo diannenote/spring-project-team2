@@ -249,6 +249,22 @@ public class dubinController {
 		return "room/list";
 	}
 	
+	@RequestMapping("RoomListLoc")
+	public String listLoc(Model model, Room room, String currentPage, String ro_loc) {	
+		System.out.println("dubinController list Start...");
+		System.out.println("나는 위치 -> " + ro_loc);
+		int total = rs.locTotal(ro_loc);
+		Paging pg = new Paging(total, currentPage);
+		room.setStart(pg.getStart());
+		room.setEnd(pg.getEnd());
+		room.setRo_loc(ro_loc);
+		List<Room> listAll = rs.getListLoc(room);
+		
+		model.addAttribute("list", listAll);
+		model.addAttribute("pg", pg);
+		return "room/list2";
+	}
+	
 //	@RequestMapping("roomList")
 //	public String locList(Model model, Room room, String currentPage) {	
 //		System.out.println("dubinController locList Start...");
@@ -266,7 +282,7 @@ public class dubinController {
 	@RequestMapping("levelList")
 	public String levelList(Model model, Room room, String currentPage) {	
 		System.out.println("dubinController levelList Start...");
-		int total = rs.total();
+		int total = rs.levelTotal();
 		Paging pg = new Paging(total, currentPage);
 		room.setStart(pg.getStart());
 		room.setEnd(pg.getEnd());
@@ -278,10 +294,12 @@ public class dubinController {
 	}
 	
 	@RequestMapping("roomReview")
-	public String reviewInsert(Model model, String currentPage, HttpServletRequest request) {	
+	public String reviewInsert(Model model, String currentPage, HttpServletRequest request, HttpSession session) {	
 		System.out.println("dubinController reviewInsert Start...");
+		Member member = (Member)session.getAttribute("memberInfo");
+		
 		int ro_num = Integer.parseInt(request.getParameter("ro_num"));
-		int m_num = 1;
+		int m_num = member.getM_num();
 		int rv_score = Integer.parseInt(request.getParameter("star"));
 		String rv_userReview = request.getParameter("review");
 		String rv_bizReview = request.getParameter("review");
@@ -340,7 +358,7 @@ public class dubinController {
 	}
 	
 	@RequestMapping(value="roomInsert", method=RequestMethod.POST)
-	public String roomInsert(MultipartHttpServletRequest mtfRequest, Model model) {	
+	public String roomInsert(MultipartHttpServletRequest mtfRequest, Model model, HttpSession session) {	
 		
 		// 대표이미지
 		MultipartFile file = mtfRequest.getFile("file2");
@@ -374,11 +392,11 @@ public class dubinController {
 			}
 			pathList.add(savedName);
 		}
-		
+		Member member = (Member)session.getAttribute("memberInfo");
 		// dto set
 		Room room = new Room();
 //		room.setM_num(Integer.parseInt(mtfRequest.getParameter("m_num")));
-		room.setM_num(1);
+		room.setM_num(member.getM_num());
 		String ro_title = mtfRequest.getParameter("ro_title");
 		room.setRo_title(ro_title);
 		room.setRo_content(mtfRequest.getParameter("ro_content"));

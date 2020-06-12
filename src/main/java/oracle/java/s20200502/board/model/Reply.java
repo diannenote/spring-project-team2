@@ -3,7 +3,7 @@ package oracle.java.s20200502.board.model;
 public class Reply {
 	private int br_num, b_num, m_num;
 	private String br_content, br_regdate;
-	private int br_group, br_indent, br_step;
+	private int br_group, br_indent, br_step, r_replyCnt;
 	private String m_nickname;
 	
 	public String getM_nickname() {
@@ -59,6 +59,12 @@ public class Reply {
 	}
 	public void setBr_step(int br_step) {
 		this.br_step = br_step;
+	}
+	public int getR_replyCnt() {
+		return r_replyCnt;
+	}
+	public void setR_replyCnt(int r_replyCnt) {
+		this.r_replyCnt = r_replyCnt;
 	}
 	
 	

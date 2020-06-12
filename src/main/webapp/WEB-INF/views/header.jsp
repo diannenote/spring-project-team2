@@ -12,18 +12,18 @@
 width: 40vw;
 }
 #gongback {
-height: 80px;
+height: 70px;
 }
+#navbg {
+	background-color: white;
+}
+
 /* .navbar {
 	border-bottom: solid 1px #0275d8;
 } */
-#nav{
-background-color: #fff;
-}
 </style>
 <body>
-
-	<nav class="navbar fixed-top navbar-expand-lg navbar-light" id="nav">
+	<nav class="navbar fixed-top navbar-expand-lg navbar-light" id="navbg">
 		<a class="navebar-brand" href="/s20200502/main"><img class="logoimg" alt="brand" src="/s20200502/resources/Image/harang5.png"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 			<span class="navbar-toggler-icon"></span>
@@ -41,28 +41,29 @@ background-color: #fff;
 			<ul class="navbar-nav navbar-dark">
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">메뉴</a>
-					<div class="dropdown-menu ml-auto dropdown-menu-right">
-													<!-- dropdown-menu-right 화면밖으로 안나감-->
+					<div class="dropdown-menu ml-auto dropdown-menu-right"><!-- dropdown-menu-right 화면밖으로 안나감-->
 						<c:if test="${memberInfo.m_num == null }">
-							<a class="dropdown-item" href="/s20200502/loginForm">로그인/회원가입</a>
+							<a class="dropdown-item" href="/s20200502/loginForm">로그인 / 회원가입</a>
 						</c:if>
+						<a class="dropdown-item" href="/s20200502/roomList">스터디룸 검색</a>
+						<a class="dropdown-item" href="/s20200502/board/boardList">공지사항 & 스터디그룹</a>
 						<c:if test="${memberInfo.m_num != null }">
 							<a class="dropdown-item" href="/s20200502/logout">로그아웃</a>
 							<a class="dropdown-item" href="/s20200502/myInfo">마이페이지</a>
-							<c:if test="${memberInfo.m_type ==  1}">
-								<a class="dropdown-item" href="/s20200502/roomInsertGo">방등록하기(사업자)</a>
-								<a class="dropdown-item" href="/s20200502/levelList">방승인(사업자)</a>
+							<c:if test="${memberInfo.m_type != 0 }">
+								--------------------------------
+								<a class="dropdown-item" href="/s20200502/roomInsertGo">스터디룸 등록</a>
+							</c:if>
+							<c:if test="${memberInfo.m_type == 2}">
+								--------------------------------
+								<a class="dropdown-item" href="/s20200502/levelList">등록 승인(관리자)</a>
 							</c:if>
 						</c:if>
-						<a class="dropdown-item" href="/s20200502/roomList">방 검색</a>
-						<a class="dropdown-item" href="/s20200502/board/boardList">공지사항&스터디그룹</a>
-						
 					</div>
 				</li>
 			</ul>
 		</div>
 	</nav>
 	<div id="gongback"></div>
-
 </body>
 </html>

@@ -26,4 +26,7 @@ public interface RoomService {
 	int nightReserve(Reservation reservation);
 	Reservation getReservationContent(int re_num);
 	int payInsert(Payment pm);
+	List<Room> getListLoc(Room room);
+	int locTotal(String ro_loc);
+	int levelTotal();
 }

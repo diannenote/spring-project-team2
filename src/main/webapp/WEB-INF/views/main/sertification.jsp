@@ -54,5 +54,6 @@ function sertificationChk(){
 		<input type="hidden" name=m_biznum value="${member.m_biznum }">
 	</form>
 </div>
+
 </body>
 </html>

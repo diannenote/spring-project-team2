@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../header.jsp" %>    
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <title>Board</title>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="lang/summernote-ko-KR.js"></script>
 
+<%@ include file="../header.jsp" %>
 <body>
 	<div id="wrap">
 		<form action="boardWrite"method="post">
@@ -25,11 +21,8 @@
 			</tr>		
 			
 			<tr>
-				<td><textarea  id= "summernote" name="b_content"
-						required="required"></textarea>
-					
-
-
+				<td><textarea  style="resize: none" rows="20" cols="105" name="b_content"
+						required="required" placeholder="내용을 입력하세요"></textarea>
 				</td>
 			</tr>		
 					
@@ -43,27 +36,6 @@
 			</table>		
 		</form>
 	</div>
-<script>
-	$(document).ready(function() {
-		$('#summernote').summernote({
-	        placeholder: '내용을 입력해주세요',
-	        lang: 'ko-KR',
-	        tabsize: 2,
-	        height: 300,
-	        toolbar: [
-	          ['style', ['style']],
-	          ['font', ['bold', 'underline', 'clear', 'color']],
-	          ['fontname', ['fontname']],
-	          ['para', ['ul', 'ol', 'paragraph']],
-	          ['table', ['table']],
-	          ['insert', ['link', 'picture', 'video']],
-	          ['view', ['fullscreen', 'codeview', 'help']]
-	        ]
-	      });
-	}); 
-</script>
-
-	
+<%@ include file="../footer.jsp"%>	
 </body>
 </html>	
-	<%-- <%@ include file="../footer.jsp" %> --%>
