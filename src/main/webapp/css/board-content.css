@@ -2,10 +2,14 @@
 
 #wrap {
 	margin: auto;
-	width : 80%;
+	width : 70%;
+	height: 100vh;
+	margin-top: 10vw;
 }
 .btn-boardcontent{
 	border-radius: 4px;
+	border-color: #e0e0e0;
+	padding: 5px 10px;
 }
 
 /* 댓글 css */
@@ -45,10 +49,15 @@ textarea {
 	border-radius: 4px;
 	vertical-align: middle;
 	height: 104px;
+	border-color: #e0e0e0;
 }
 .reply-info{
-	background-color: #e0e0e0;
-	border-radius: 4px;
+	border-bottom: 1px solid gray;
+	padding: 5px; 
+	font-family: 'Gugi', cursive;
+	font-weight: bold;
+	font-size: 20px;
+	
 }
 
 .reply-regdate{
@@ -67,4 +76,11 @@ textarea {
 	background-color: #e0e0e0;
 	vertical-align: middle;
 	margin: 0 5 0 0px;
+}
+.blue-btn{
+	background-color: #007bff;
+	color: #ffffff;
+	border-radius: 4px;
+	border-color: #007bff;
+	padding: 5px 10px;
 }

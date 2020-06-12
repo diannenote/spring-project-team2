@@ -18,8 +18,9 @@
  <style>
  
  .board-con1 {
- text-align: center;
- margin-bottom: 50px;
+	 text-align: center;
+	 margin: 50px 0px;
+	 
  }
 
 .btn-group a {
@@ -34,10 +35,7 @@
     border-right: none;
 }
 
- .board-con1 {
- margin-top: 50px;
- }
- 
+
  #board-wrap {
  	height: 100vh;
 	width: 65%;

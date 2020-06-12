@@ -9,7 +9,7 @@
 <html>
 <title>BoardContent</title>
 <link rel="stylesheet" type="text/css" href="../css/board-content.css">
-
+<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 <body>
 
 	<div id="wrap">
@@ -17,10 +17,6 @@
 			<div style="float: right">${board.b_regDate }</div>
 		</div>
 		<hr>
-		<section>
-			<article>${board.b_content }</article>
-		</section>
-
 		<div style="text-align: right">
 			<c:if test="${board.b_type == 1 }">
 				<c:choose>
@@ -44,13 +40,18 @@
 				<button class="btn-boardcontent" onclick="deleteChk()">삭제</button>
 			</c:if>
 		</div>
+		<section>
+			<article>${board.b_content }</article>
+		</section>
+
 
 		<div>
 			<div>${board.m_nickname }</div>
 		</div>
-
-		<button class="btn-boardcontent" onclick="listBtn(${board.b_type}, ${paging.currentPage} )">목록</button>
-		<button id="replyView" class="btn-boardcontent" onclick="">댓글보기[${board.b_replyCnt }]</button>
+		<div style="text-align: right">
+			<button class="blue-btn" onclick="listBtn(${board.b_type}, ${paging.currentPage} )">목록</button>
+			<button id="replyView" class="btn-boardcontent" onclick="">댓글보기[${board.b_replyCnt }]</button>
+		</div>
 		<div id="reply-container">
 			<div id="reply-write">
 				<c:if test="${board.b_type == 1 }">
@@ -268,5 +269,4 @@
 	}
 	
 </script>
-
 </body>
