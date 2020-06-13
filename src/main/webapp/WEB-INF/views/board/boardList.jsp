@@ -1,27 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../header.jsp"%>
+    <%@ include file="../header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 	String context = request.getContextPath();
 %>
-
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../css/board-list.css">
 
 <title>BoardList</title>
-<link rel="stylesheet" type="text/css" href= "../css/board-list.css"> 
-
 </head>
 
 <body>
 
 	
-	<div id="board-wrap">
+	<div id="wrap">
 		<div class="board-con1">
 			<div class="btn-group btn-group-lg">
 	   			<a class="btn btn-primary" href="noticeList" id="notice-btn">공지사항</a>
@@ -43,7 +41,7 @@
 					<tr>
 						<th>NO.</th><th>제목</th><th>작성자</th>
 						<th>작성일</th><th>조회수</th>
-						<th class="board-only">좋아요♥</th>
+						<th class="likes">좋아요♥</th>
 						
 					</tr>
 					
@@ -51,11 +49,11 @@
 						<tr>
 							<td>${ boardList.rn} </td>
 							<td><a href='boardContent?b_num=${boardList.b_num }&currentPage=${paging.currentPage}&b_type=${boardList.b_type}'>${boardList.b_title}</a>
-							    <a style="display: none;" class="board-only"> &nbsp; [${boardList.b_replyCnt }] </a></td>
+							     &nbsp; [${boardList.b_replyCnt }] </td>
 							<td>${ boardList.m_nickname}</td>
 							<td>${ boardList.b_regDate}</td>				
 							<td>${ boardList.b_hit}</td>
-							<td style="display: none;" class="board-only">${ boardList.b_likeCnt}</td>
+							<td style="display: none;" class="likes">${ boardList.b_likeCnt}</td>
 						</tr>
 					</c:forEach>
 			</table>
@@ -112,13 +110,13 @@
 			if(loc.indexOf('noticeList') === 0) {
 				$("#notice-btn").css("background", "#0652DD");
 				$("#WriteBtnDiv1").css("display", "inline");
-				$(".board-only").hide();
+				$(".likes").hide();
 				$("#noticeKeyword").css("display", "block");
 			}
 			if(loc.indexOf('boardList') === 0) {
 				$("#board-btn").css("background", "#0652DD");
 				$("#WriteBtnDiv2").css("display", "inline");
-				$(".board-only").show();
+				$(".likes").show();
 				$("#boardKeyword").css("display", "block");
 				
 			}
@@ -169,7 +167,7 @@
 		
 	</script>
 		
-	
+<%@ include file="../footer.jsp"%>	
 </body>
 	
 </html>
