@@ -1,27 +1,93 @@
-@charset "UTF-8";
-
 #wrap {
-margin: auto;
-width : 80%;
+	margin: auto;
+	width : 80%;
+	height: auto;
+	margin-top: 5vw;
+	margin-bottom: 5vw;
+	border-radius: 20px;
+	border-width: 5px;  
+    border-style: ridge;
+    padding: 50px;
+    font-size: 20px;
 }
+.btn-boardcontent{
+	border-radius: 4px;
+	border-color: #e0e0e0;
+	padding: 5px 10px;
+}
+
+/* 댓글 css */
 #reply-warp {
-width : 70%;
-}  
+	width : 70%;
+	margin: 25px;
+}
+#reply-write{
+	margin: 20px;
+	width : 60%;
+}    
 ul {
-list-style: none;
+	list-style: none;
 
 }
 ul > li{
-display: inline-block;
+	display: inline-block;
+}
+#replyComment{
+	resize: none;
+	vertical-align: middle;
+	width: 80%;
 }
 textarea {
-resize: none;
-}
-.reply-input {
-display : block;
+	resize: none;
+	vertical-align: middle;
+	width: 88%;
+	border-radius: 4px;
 }
 
-.btn-Reply {
-position: relative;
-left: 150px;
-} 
+.reply-input {
+	display : block;
+}
+
+.btn-submit{
+	border-radius: 4px;
+	height: 98px;
+	border-color: #e0e0e0;
+	vertical-align: middle;
+}
+.reply-info{
+	border-bottom: 1px solid gray;
+	padding: 5px; 
+	font-family: 'Gugi', cursive;
+	font-weight: bold;
+	
+}
+
+.reply-regdate{
+	float: right;
+	padding: 0 5 0 0px;
+	margin-right: 3px;
+}
+.btn-li{
+	float: right;
+	vertical-align: middle;
+	margin-right: 3px;
+}
+.btn-reply{
+	border-radius: 4px;
+	background-color: #e0e0e0;
+	vertical-align: middle;
+	margin: 0 5 0 0px;
+}
+.blue-btn{
+	background-color: #007bff;
+	color: #ffffff;
+	border-radius: 4px;
+	border-color: #007bff;
+	padding: 5px 10px;
+}
+#nickname {
+	font-family: 'Single Day', cursive;
+	font-weight: bolder;
+	margin-top: 20px;
+	
+}
