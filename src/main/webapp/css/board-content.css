@@ -1,29 +1,33 @@
+button {
+	all:unset;
+}
 #wrap {
 	margin: auto;
-	width : 80%;
+	width : 65%;
 	height: auto;
 	margin-top: 5vw;
 	margin-bottom: 5vw;
-	border-radius: 20px;
-	border-width: 5px;  
-    border-style: ridge;
-    padding: 50px;
     font-size: 20px;
 }
-.btn-boardcontent{
-	border-radius: 4px;
-	border-color: #e0e0e0;
+.btn-reply-top{
 	padding: 5px 10px;
 }
-
+#reply-container{
+	border-top: solid 1px #e0e0e0;
+	padding-top: 20px;
+	margin-top: 20px;
+	
+}
+.board-content {
+	min-height: 30vh;
+}
 /* 댓글 css */
 #reply-warp {
-	width : 70%;
-	margin: 25px;
+	margin-top: 50px;
 }
 #reply-write{
-	margin: 20px;
-	width : 60%;
+	width : 80%;
+	
 }    
 ul {
 	list-style: none;
@@ -48,6 +52,16 @@ textarea {
 	display : block;
 }
 
+.btn-boardcontent {
+	font-size: 15px;
+	color: #e0e0e0;	
+}
+.btn-boardcontent:hover {
+	color: black;
+	font-weight: bolder;
+	font-size: 1.5em;
+	transition: 0.5s;
+}
 .btn-submit{
 	border-radius: 4px;
 	height: 98px;
@@ -55,8 +69,8 @@ textarea {
 	vertical-align: middle;
 }
 .reply-info{
-	border-bottom: 1px solid gray;
-	padding: 5px; 
+	border-bottom: 1px solid #e0e0e0;
+	padding: 15px;
 	font-family: 'Gugi', cursive;
 	font-weight: bold;
 	

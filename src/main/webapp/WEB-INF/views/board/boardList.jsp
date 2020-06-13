@@ -1,10 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
@@ -22,22 +15,21 @@ Explore
 
 <title>BoardList</title>
 <link rel="stylesheet" type="text/css" href= "../css/board-list.css"> 
+<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
 	
-	<div id="board-wrap">
-		<div class="board-con1">
-			<div class="btn-group btn-group-lg">
-	   			<a class="btn btn-primary" href="noticeList" id="notice-btn">공지사항</a>
-			    <a class="btn btn-primary" href="boardList" id="board-btn">스터디그룹</a>
-			</div>
-			
+	<div id="wrap">
+		<div id="board-nav">
+			<a href="noticeList" id="notice-btn" style="width:20%">공지사항
+			<a href="boardList"  id="board-btn"style="width:20%">스터디그룹</a></a>
 		</div>
-		<div class="board-con2">
-			<table class="board-tb">
+		
+		<div class="board-con1">
+			<table>
 				<colgroup>
 					<col width="5%">
 					<col width="40%">
@@ -53,12 +45,14 @@ Explore
 						<th class="board-only">좋아요♥</th>
 						
 					</tr>
-					
+					<hr>
 					<c:forEach items="${boardList}" var="boardList">
 						<tr>
 							<td>${ boardList.rn} </td>
-							<td><a href='boardContent?b_num=${boardList.b_num }&currentPage=${paging.currentPage}&b_type=${boardList.b_type}'>${boardList.b_title}</a>
-							    <a style="display: none;" class="board-only"> &nbsp; [${boardList.b_replyCnt }] </a></td>
+							<td>
+								<a href='boardContent?b_num=${boardList.b_num }&currentPage=${paging.currentPage}&b_type=${boardList.b_type}'>${boardList.b_title}</a>
+							    <a style="display: none;" class="board-only"> &nbsp; [${boardList.b_replyCnt }] </a>
+							</td>
 							<td>${ boardList.m_nickname}</td>
 							<td>${ boardList.b_regDate}</td>				
 							<td>${ boardList.b_hit}</td>
@@ -68,15 +62,15 @@ Explore
 			</table>
 			
 		</div>
-		<div class="board-con3">
+		<div class="baord-con2">
 		
 			<div id="WriteBtnDiv1" style="display: none;">
 			 	<c:if test="${m_type == 2 }">
-					<a onclick="boardType()" class="write-btn">글쓰기</a>
+					<a onclick="boardType()" class="blue-btn">글쓰기</a>
 			 	</c:if>
 			</div>
 			<div id="WriteBtnDiv2" style="display: none;">
-				<a onclick="boardType()" class="write-btn">글쓰기</a>
+				<a onclick="boardType()" class="blue-btn">글쓰기</a>
 			</div>
 			
 		</div>
@@ -117,13 +111,13 @@ Explore
 		// 검색필터
 		$(document).ready(function() {
 			if(loc.indexOf('noticeList') === 0) {
-				$("#notice-btn").css("background", "#0652DD");
+				$("#notice-btn").css("background", "#704de4");
 				$("#WriteBtnDiv1").css("display", "inline");
 				$(".board-only").hide();
 				$("#noticeKeyword").css("display", "block");
 			}
 			if(loc.indexOf('boardList') === 0) {
-				$("#board-btn").css("background", "#0652DD");
+				$("#board-btn").css("background", "#704de4");
 				$("#WriteBtnDiv2").css("display", "inline");
 				$(".board-only").show();
 				$("#boardKeyword").css("display", "block");
@@ -176,7 +170,7 @@ Explore
 		
 	</script>
 		
-	
+<%@ include file="../footer.jsp"%>
 </body>
 	
 </html>

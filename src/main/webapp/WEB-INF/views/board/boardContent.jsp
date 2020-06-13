@@ -34,24 +34,25 @@
 				</c:choose>
 				<span id="likeCount">${board.b_likeCnt }</span>
 			</c:if>
-			<c:if test="${m_num ne null && m_num eq board.m_num}">
-				<button class="btn-boardcontent"
-					onclick="location.href='boardUpdateForm?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
-					수정</button>
-				<button class="btn-boardcontent" onclick="deleteChk()">삭제</button>
-			</c:if>
 		</div>
-		<section>
+		<section class="board-content">
 			<article>${board.b_content }</article>
 		</section>
 
-
 		<div>
 			<div id="nickname">작성자: ${board.m_nickname }</div>
+			<div style="text-align: right;">
+				<c:if test="${m_num ne null && m_num eq board.m_num}">
+					<button class="btn-boardcontent"
+						onclick="location.href='boardUpdateForm?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
+						수정</button>
+					<button class="btn-boardcontent" onclick="deleteChk()">삭제</button>
+				</c:if>
+			</div>
 		</div>
 		<div style="text-align: right">
 			<button class="blue-btn" onclick="listBtn(${board.b_type}, ${paging.currentPage} )">목록</button>
-			<button id="replyView" class="btn-boardcontent" onclick="">댓글보기[${board.b_replyCnt }]</button>
+			<button id="replyView" class="btn-reply-top" onclick="">댓글보기[${board.b_replyCnt }]</button>
 		</div>
 		<div id="reply-container">
 			<div id="reply-write">
