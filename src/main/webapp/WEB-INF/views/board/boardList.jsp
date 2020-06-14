@@ -29,19 +29,19 @@
 		</div>
 		
 		<div class="board-con1">
-			<table>
+			<table class="board-tb">
 				<colgroup>
-					<col width="5%">
-					<col width="40%">
 					<col width="10%">
-					<col width="8%">
-					<col width="5%">
-					<col width="7%">
+					<col width="50%">
+					<col width="10%">
+					<col width="10%">
+					<col width="10%">
+					<col width="10%">
 				</colgroup>	
 			
 					<tr>
-						<th>NO.</th><th>제목</th><th>작성자</th>
-						<th>작성일</th><th>조회수</th>
+						<th>NO.</th><th>제목</th><th class="board-only">작성자</th>
+						<th>등록일</th><th class="board-only">조회수</th>
 						<th class="board-only">좋아요♥</th>
 						
 					</tr>
@@ -49,13 +49,13 @@
 					<c:forEach items="${boardList}" var="boardList">
 						<tr>
 							<td>${ boardList.rn} </td>
-							<td>
+							<td class="board-title">
 								<a href='boardContent?b_num=${boardList.b_num }&currentPage=${paging.currentPage}&b_type=${boardList.b_type}'>${boardList.b_title}</a>
-							    <a style="display: none;" class="board-only"> &nbsp; [${boardList.b_replyCnt }] </a>
+							    <a class="board-only"> &nbsp; [${boardList.b_replyCnt }] </a>
 							</td>
-							<td>${ boardList.m_nickname}</td>
+							<td class="board-only">${ boardList.m_nickname}</td>
 							<td>${ boardList.b_regDate}</td>				
-							<td>${ boardList.b_hit}</td>
+							<td class="board-only">${ boardList.b_hit}</td>
 							<td style="display: none;" class="board-only">${ boardList.b_likeCnt}</td>
 						</tr>
 					</c:forEach>
@@ -66,11 +66,11 @@
 		
 			<div id="WriteBtnDiv1" style="display: none;">
 			 	<c:if test="${m_type == 2 }">
-					<a onclick="boardType()" class="blue-btn">글쓰기</a>
+					<a onclick="boardType()" class="write-btn" style="color: white;">글쓰기</a>
 			 	</c:if>
 			</div>
 			<div id="WriteBtnDiv2" style="display: none;">
-				<a onclick="boardType()" class="blue-btn">글쓰기</a>
+				<a onclick="boardType()" class="write-btn"  style="color: white;">글쓰기</a>
 			</div>
 			
 		</div>

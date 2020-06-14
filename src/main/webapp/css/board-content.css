@@ -10,7 +10,7 @@ button {
     font-size: 20px;
 }
 .btn-reply-top{
-	padding: 5px 10px;
+	padding: 3px 10px;
 }
 #reply-container{
 	border-top: solid 1px #e0e0e0;
@@ -44,7 +44,7 @@ ul > li{
 textarea {
 	resize: none;
 	vertical-align: middle;
-	width: 88%;
+	width: 80%;
 	border-radius: 4px;
 }
 
@@ -97,7 +97,8 @@ textarea {
 	color: #ffffff;
 	border-radius: 4px;
 	border-color: #007bff;
-	padding: 5px 10px;
+	padding: 3px 10px;
+	font-weight: bold;
 }
 #nickname {
 	font-family: 'Single Day', cursive;
