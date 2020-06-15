@@ -9,7 +9,7 @@
          reply.b_num, reply.br_num, reply.br_content, 
          (case when to_char( reply.br_regdate, 'yyyy.mm.dd' ) = to_char( sysdate, 'yyyy.mm.dd' ) then to_char( reply.br_regdate, 'HH24:mi:ss') else to_char( reply.br_regdate, 'yyyy.mm.dd') end) as br_regdate, 
          reply.br_group, reply.br_indent, member.m_num, member.m_nickname,
-         (select count(reply.br_num) from reply join board on reply.b_num = board.b_num where board.b_num=#{b_num}) as r_replyCnt
+         (select count(reply.br_num) from reply join board on reply.b_num = board.b_num where board.b_num=#{b_num}) as br_replyCnt
       from 
          reply join board on reply.b_num = board.b_num join member on reply.m_num = member.m_num
       where 

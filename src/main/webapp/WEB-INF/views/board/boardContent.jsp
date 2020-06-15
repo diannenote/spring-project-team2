@@ -9,8 +9,6 @@
 <html>
 <title>BoardContent</title>
 <link rel="stylesheet" type="text/css" href="../css/board-content.css">
-<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
 <body>
 
 	<div id="wrap">
@@ -133,9 +131,9 @@
 				var str = "<div id='reply-warp'>";
 				
 				$(data).each(function() {
-					$("#replyView").html("댓글보기["+ this.r_replyCnt +"]");
+					$("#replyView").html("댓글보기["+ this.br_replyCnt +"]");
 					str += "	<div style ='margin-left:"+this.br_indent+"px'>";
-					str += "		<ul class='reply-info'>"
+					str += "		<ul>"
 					str += " 			<input type='hidden' id='reply-nickname"+ this.br_num+"' value='"+this.m_nickname+"'>";
 					str += "			<li class='reply-nickname'>"+this.m_nickname+"</li>";
 					

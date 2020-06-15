@@ -16,24 +16,19 @@
 		<form action="boardWrite"method="post">
 			<input type="hidden" name="b_type" value="${board.b_type }">
 			<input type="hidden" name="m_num" value="${board.m_num }">
-	
-		<table>
+		
 			<h3>게시판 글쓰기</h3>
 			<hr>
-			<tr>
-				<td>		
-					<input type="text" name="b_title" required="required" placeholder="게시글 제목을 입력해주세요" 
-						size="140">
-				</td>
-			</tr>		
+				<div class="title-div">
+					<input type="text" name="b_title" required="required" 
+						placeholder="게시글 제목을 입력해주세요" class="title-input">
+				</div>		
 			
-			<tr>
-				<td><textarea  id= "summernote" name="b_content"
-						required="required"></textarea>
-				</td>
-			</tr>		
-					
-		</table>		
+				<div>
+					<textarea id= "summernote" name="b_content"
+							required="required"></textarea>
+				</div>		
+				
 			<div class="insert-btn">
 				<input class="submit-btn" type="submit" value="확인">
 				<input class="cnxl-btn" type="button" value="취소" onclick="history.back()">
@@ -46,7 +41,7 @@
 	        placeholder: '내용을 입력해주세요',
 	        lang: 'ko-KR',
 	        tabsize: 2,
-	        height: 400,
+	        height: 600,
 	        toolbar: [
 	          ['style', ['style']],
 	          ['font', ['bold', 'underline', 'clear', 'color']],

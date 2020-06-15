@@ -21,6 +21,7 @@ button {
 .board-content {
 	min-height: 30vh;
 }
+
 /* 댓글 css */
 #reply-warp {
 	margin-top: 50px;
@@ -54,7 +55,7 @@ textarea {
 
 .btn-boardcontent {
 	font-size: 15px;
-	color: #e0e0e0;	
+	color: #666;	
 }
 .btn-boardcontent:hover {
 	color: black;
@@ -68,12 +69,9 @@ textarea {
 	border-color: #e0e0e0;
 	vertical-align: middle;
 }
-.reply-info{
-	border-bottom: 1px solid #e0e0e0;
-	padding: 15px;
-	font-family: 'Gugi', cursive;
+.reply-nickname{
+	font-family: 'JALNAN';
 	font-weight: bold;
-	
 }
 
 .reply-regdate{
@@ -89,19 +87,22 @@ textarea {
 .btn-reply{
 	border-radius: 4px;
 	background-color: #e0e0e0;
+	border-color: #e0e0e0;
 	vertical-align: middle;
 	margin: 0 5 0 0px;
+	font-size: 15px;
 }
 .blue-btn{
 	background-color: #007bff;
 	color: #ffffff;
 	border-radius: 4px;
 	border-color: #007bff;
-	padding: 1px 10px 5px 10px;
-	font-family: 'Single Day', cursive;
+	padding: 5px 10px;
+	font-family:'BMDOHYEON';
+	font-weight: bolder;
 }
 #nickname {
-	font-family: 'Single Day', cursive;
+	font-family: 'JALNAN';
 	font-weight: bolder;
 	margin-top: 20px;
 	

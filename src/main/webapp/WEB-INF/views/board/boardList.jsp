@@ -15,7 +15,6 @@
 
 <title>BoardList</title>
 <link rel="stylesheet" type="text/css" href= "../css/board-list.css"> 
-<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 
 </head>
 
@@ -94,7 +93,7 @@
 				<a onclick="goBefore(${paging.startPage - 1})"> ◀ PREV</a>
 			</c:if>
 			<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
-				<a onclick="goPage(${i})">[${i}]</a>
+				<a onclick="goPage(${i})" class="paging-num">&nbsp;${i}&nbsp;</a>
 			</c:forEach>
 			<c:if test="${paging.next eq true}">
 				<a onclick="goNext(${paging.endPage + 1})"> NEXT ▶</a>

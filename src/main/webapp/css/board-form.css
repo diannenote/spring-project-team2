@@ -30,3 +30,9 @@
 	color: white;
 	background-color: #666;
 }
+.title-input {
+	width: 100%
+}
+.title-div {
+	margin-bottom: 5px;
+}

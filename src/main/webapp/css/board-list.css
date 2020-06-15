@@ -1,6 +1,6 @@
 #wrap {
  	margin: auto;
-	width : 65%;
+	width : 60%;
 	height: 100vh;
 	margin-top: 5vw;
 	margin-bottom: 5vw;
@@ -12,7 +12,7 @@
  	background-color:#e0e0e0;
  	color: #ffffff;
  	font-size: 25px;
- 	font-family: 'Gugi', cursive;
+ 	font-family:'BMDOHYEON';
 	font-weight: bold;
  	text-align: center;
  	padding: 10px 100px;
@@ -42,7 +42,7 @@
 	cursor: pointer;
 	border-radius: 4px;
 	margin-top: 10px;
-	font-family: 'Gugi', cursive;
+	font-family:'BMDOHYEON';
 	font-weight: bold;
 }
 
@@ -62,14 +62,14 @@
 	padding-top: 12px;
 	padding-bottom: 12px;
 }
-
 .board-tb tr:not(:first-child):hover {
 	background-color: #ddd;
 }
-
-
 .board-tb td {
 	padding: 15px;
+}
+.paging-num {
+	cursor: pointer;
 }
  
  

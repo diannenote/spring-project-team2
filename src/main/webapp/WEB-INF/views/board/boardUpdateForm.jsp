@@ -19,28 +19,22 @@
 			<input type="hidden" name="b_num" value="${board.b_num }">
 			<input type="hidden" name="currentPage" value="${paging.currentPage }">
 			
-			<table>
-				<h3>게시글수정</h3>
-				<hr>
-					<tr>
-						<td>		
-							<input type="text" name="b_title" required="required" 
-								size="140" value="${board.b_title }" >
-						</td>
-					</tr>		
-					
-					<tr>
-						<td><textarea  id="summernote" name="b_content">
+			<h3>게시글수정</h3>
+			<hr>
+				<div class="title-div">
+					<input type="text" name="b_title" required="required" 
+						value="${board.b_title }"  class="title-input">
+				</div>		
+				
+				<div>
+					<textarea  id="summernote" name="b_content">
 						${board.b_content }
 						</textarea>
-						</td>
-					</tr>		
-			</table>		
+				</tr>		
 			<div class="insert-btn">
 				<input class="submit-btn" type="submit" value="수정">
 				<input class="cnxl-btn" type="button" value="취소" onclick="history.back()">
 			</div>	
-					
 		</form>
 	</div>
 <script>
@@ -49,7 +43,7 @@
 	        placeholder: '내용을 입력해주세요',
 	        lang: 'ko-KR',
 	        tabsize: 2,
-	        height: 400,
+	        height: 600,
 	        toolbar: [
 	          ['style', ['style']],
 	          ['font', ['bold', 'underline', 'clear', 'color']],
