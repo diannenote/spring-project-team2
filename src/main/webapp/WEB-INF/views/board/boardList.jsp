@@ -46,11 +46,11 @@
 					</tr>
 					<hr>
 					<c:forEach items="${boardList}" var="boardList">
-						<tr>
+						<tr class="board-body">
 							<td>${ boardList.rn} </td>
 							<td class="board-title">
 								<a href='boardContent?b_num=${boardList.b_num }&currentPage=${paging.currentPage}&b_type=${boardList.b_type}'>${boardList.b_title}</a>
-							    <a class="board-only"> &nbsp; [${boardList.b_replyCnt }] </a>
+							    <a class="board-only" style="font-weight: bolder;">&nbsp;<img src="<%=context%>/resources/boardImg/reply-view.png" alt="reply">${boardList.b_replyCnt }</a>
 							</td>
 							<td class="board-only">${ boardList.m_nickname}</td>
 							<td>${ boardList.b_regDate}</td>				
@@ -62,7 +62,6 @@
 			
 		</div>
 		<div class="baord-con2">
-		
 			<div id="WriteBtnDiv1" style="display: none;">
 			 	<c:if test="${m_type == 2 }">
 					<a onclick="boardType()" class="write-btn" style="color: white;">글쓰기</a>
@@ -71,7 +70,6 @@
 			<div id="WriteBtnDiv2" style="display: none;">
 				<a onclick="boardType()" class="write-btn"  style="color: white;">글쓰기</a>
 			</div>
-			
 		</div>
 		<div>
 			<form action="boardList" id="boardSearch">
@@ -87,13 +85,13 @@
 				</div>
 			</form>
 		</div>
-		<div style="text-align: center;">
+		<div class="paging-div">
 		
 			<c:if test="${paging.before eq true }">
 				<a onclick="goBefore(${paging.startPage - 1})"> ◀ PREV</a>
 			</c:if>
 			<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
-				<a onclick="goPage(${i})" class="paging-num">&nbsp;${i}&nbsp;</a>
+				<a onclick="goPage(${i})" id="paging-num">&nbsp;${i}&nbsp;</a>
 			</c:forEach>
 			<c:if test="${paging.next eq true}">
 				<a onclick="goNext(${paging.endPage + 1})"> NEXT ▶</a>

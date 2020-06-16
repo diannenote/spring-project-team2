@@ -16,6 +16,9 @@
                     board join member on board.m_num = member.m_num 
                 where 
                     b_type=1  
+                    <if test="keyword != null and !keyword.equals('')">
+					and (b_title like '%'||#{keyword}||'%' or b_content like '%'||#{keyword}||'%')
+			    	</if> 
 			    order by rn desc) a )
             where 
                 rnum between #{start} and #{end}
@@ -33,6 +36,9 @@
                     board join member on board.m_num = member.m_num 
                 where 
                     b_type=0  
+                    <if test="keyword != null and !keyword.equals('')">
+					and (b_title like '%'||#{keyword}||'%' or b_content like '%'||#{keyword}||'%')
+			    	</if> 
 			    order by rn desc) a )
             where 
                 rnum between #{start} and #{end}
