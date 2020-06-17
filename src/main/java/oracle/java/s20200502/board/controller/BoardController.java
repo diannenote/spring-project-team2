@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.helper.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +56,7 @@ public class BoardController {
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("paging", paging);
+		model.addAttribute("total", boardtotal);
 		
 		return "board/boardList";
 	}
@@ -68,13 +71,13 @@ public class BoardController {
 			System.out.println("m_type->>>" + m_type);
 			model.addAttribute("m_type", m_type);
 		}
-		
 		int noticetotal = boardService.noticetotal(paging);
 		paging.setTotal(noticetotal);
 		List<Board> noticeList = boardService.noticeList(paging);
 		
 		model.addAttribute("boardList", noticeList);
 		model.addAttribute("paging", paging);
+		model.addAttribute("total",noticetotal);
 
 		return "board/boardList";
 	}
@@ -127,7 +130,7 @@ public class BoardController {
 		
 		Member member = (Member) session.getAttribute("memberInfo");
 		if(member == null) {
-			return "main/loginForm";
+			return "redirect:/loginForm";
 		}
 		board.setM_num(member.getM_num());
 		model.addAttribute("board", board);

@@ -45,6 +45,9 @@
 						
 					</tr>
 					<hr>
+					<c:if test="${total == 0}">
+						<tr><td colspan="6"><b>일치하는 검색 결과가 없습니다.</b></td></tr>
+					</c:if>
 					<c:forEach items="${boardList}" var="boardList">
 						<tr class="board-body">
 							<td>${ boardList.rn} </td>
