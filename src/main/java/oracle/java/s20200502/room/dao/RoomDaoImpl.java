@@ -107,4 +107,16 @@ public class RoomDaoImpl implements RoomDao {
 	public int levelTotal() {
 		return session.selectOne("levelTotal");
 	}
+	@Override
+	public List<Room> getList0(Room room) {
+		return session.selectList("getRoomList0", room);
+	}
+	@Override
+	public Reservation getReservation(Member member) {
+		return session.selectOne("getReservation", member);
+	}
+	@Override
+	public List<Reservation> getReservationList(Member member) {
+		return session.selectList("getReservationList", member);
+	}
 }

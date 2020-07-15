@@ -6,6 +6,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style>
+body {
+	font-family: BMDOHYEON_TTF; 
+}
+.hangang {
+	font-family: SEOULHANGANGB;
+}
+.jalnan {
+	font-family: JALNAN;
+}
+</style>
 <%
 	String context = request.getContextPath();
 %>
@@ -109,6 +120,5 @@
 <form action="memberDelete" name="memberDelete" method="post">
 	<input type="hidden" name="m_num" value="${memberInfo.m_num }">
 </form>
-
 </body>
 </html>

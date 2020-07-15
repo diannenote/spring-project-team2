@@ -47,11 +47,15 @@ public class dubinController {
 	@Autowired
 	private MemberService ms;
 	
-//  hyerin controller@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	@RequestMapping("map")
-	public String map(Model model) {		
-		return "room/map";
+	@RequestMapping("myReservation")
+	public String myReservation(HttpSession session, Model model) {
+		Member member = (Member)session.getAttribute("memberInfo");
+		List<Reservation> reservation = rs.getReservationList(member);
+		model.addAttribute("reservation", reservation);
+		
+		return "room/myReservation";
 	}
+//  hyerin controller@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@RequestMapping("calendar")
 	public String calendar(Model model, HttpServletRequest request) {
 		String ro_loc = request.getParameter("ro_loc");
@@ -118,6 +122,7 @@ public class dubinController {
 		int ro_num = Integer.parseInt(request.getParameter("ro_num"));
 		Member member = (Member)session.getAttribute("memberInfo");
 		String ro_title = request.getParameter("ro_title");
+		String ro_img = request.getParameter("ro_img");
 		//가격
 		int ro_mReservation = Integer.parseInt(request.getParameter("ro_mReservation"));
 		int ro_aftReservation = Integer.parseInt(request.getParameter("ro_aftReservation"));
@@ -131,6 +136,7 @@ public class dubinController {
 		reservation.setM_num(member.getM_num());
 		reservation.setRe_rvDate(re_rvDate);
 		reservation.setRe_when(re_when);
+		reservation.setRo_img(ro_img);
 		
 		if(re_when.equals("morning")) {
 			reservation.setRe_totalCost(ro_mReservation);
@@ -150,12 +156,14 @@ public class dubinController {
 	}
 	@RequestMapping("getPayment")
 	public String payment(HttpServletRequest request, Model model, String u_id, String t_id, int amount,
-							String app_num, int ro_num) {
+							String app_num, int ro_num, HttpSession session) {
+		Member member = (Member) session.getAttribute("memberInfo");
 		Payment pm = new Payment();
 		pm.setU_id(u_id);
 		pm.setT_id(t_id);
 		pm.setAmount(amount);
 		pm.setApp_num(app_num);
+		pm.setM_num(member.getM_num());
 		
 //		Reservation res = new Reservation();
 //		res.setRo_num(ro_num);
@@ -189,30 +197,33 @@ public class dubinController {
 	public String roomContent(Model model, HttpServletRequest request, HttpSession session) {
 		int ro_num = Integer.parseInt(request.getParameter("ro_num"));
 		Member member = (Member)session.getAttribute("memberInfo");
-		
-//		Reservation reservation = rs.getReservationContent(re_num);
-		Room room = rs.getRoomContent(ro_num);
-		List<String> roomImg = ris.getRoomImg(ro_num);
-		List<String> roomReview = rrs.getRoomReview(ro_num);
-		List<String> roomBizReview = rrs.getRoomBizReview(ro_num);
-		int reviewTotal = rrs.getReviewTotal(ro_num);
-		double scoreAvg;
+		if(member != null) {
+			member.setRo_num(ro_num);
+//			Reservation reservation = rs.getReservationContent(re_num);
+			Room room = rs.getRoomContent(ro_num);
+			List<String> roomImg = ris.getRoomImg(ro_num);
+			List<String> roomReview = rrs.getRoomReview(ro_num);
+			Reservation reservation = rs.getReservation(member);
+			int reviewTotal = rrs.getReviewTotal(ro_num);
+			double scoreAvg;
 		if(reviewTotal == 0) {
 			scoreAvg = 0;
 		}else {
 			scoreAvg = rrs.getScoreAvg(ro_num);						
 		}
-		rs.upHit(ro_num);
+			rs.upHit(ro_num);
 		
-		model.addAttribute("room", room);
-		model.addAttribute("member", member);
-		model.addAttribute("roomImg", roomImg);
-		model.addAttribute("roomReview", roomReview);
-		model.addAttribute("roomBizReview", roomBizReview);
-		model.addAttribute("scoreAvg", scoreAvg);
-//		model.addAttribute("reservation",reservation);
+			model.addAttribute("room", room);
+			model.addAttribute("member", member);
+			model.addAttribute("roomImg", roomImg);
+			model.addAttribute("roomReview", roomReview);
+			model.addAttribute("scoreAvg", scoreAvg);
+			model.addAttribute("reservation",reservation);
 		
-		return "room/roomContent";
+			return "room/roomContent";
+		}else {
+			return "redirect:loginForm";
+		}
 	}
 	
 	/*@RequestMapping(value="calendar")
@@ -242,9 +253,9 @@ public class dubinController {
 		Paging pg = new Paging(total, currentPage);
 		room.setStart(pg.getStart());
 		room.setEnd(pg.getEnd());
-		List<Room> listAll = rs.getList(room);
+		List<Room> list1 = rs.getList(room);
 		
-		model.addAttribute("list", listAll);
+		model.addAttribute("list", list1);
 		model.addAttribute("pg", pg);
 		return "room/list";
 	}
@@ -258,11 +269,11 @@ public class dubinController {
 		room.setStart(pg.getStart());
 		room.setEnd(pg.getEnd());
 		room.setRo_loc(ro_loc);
-		List<Room> listAll = rs.getListLoc(room);
+		List<Room> list1 = rs.getListLoc(room);
 		
-		model.addAttribute("list", listAll);
+		model.addAttribute("list", list1);
 		model.addAttribute("pg", pg);
-		return "room/list2";
+		return "room/list3";
 	}
 	
 //	@RequestMapping("roomList")
@@ -286,9 +297,9 @@ public class dubinController {
 		Paging pg = new Paging(total, currentPage);
 		room.setStart(pg.getStart());
 		room.setEnd(pg.getEnd());
-		List<Room> listAll = rs.getList(room);
+		List<Room> list0 = rs.getList0(room);
 		
-		model.addAttribute("list", listAll);
+		model.addAttribute("list", list0);
 		model.addAttribute("pg", pg);
 		return "room/levelList";
 	}
@@ -302,14 +313,12 @@ public class dubinController {
 		int m_num = member.getM_num();
 		int rv_score = Integer.parseInt(request.getParameter("star"));
 		String rv_userReview = request.getParameter("review");
-		String rv_bizReview = request.getParameter("review");
 		
 		Review rv = new Review();
 		rv.setRo_num(ro_num);
 		rv.setM_num(m_num);
 		rv.setRv_score(rv_score);
 		rv.setRv_userReview(rv_userReview);
-		rv.setRv_bizReview(rv_bizReview);
 		
 		int result = rrs.reviewInsert(rv);
 		

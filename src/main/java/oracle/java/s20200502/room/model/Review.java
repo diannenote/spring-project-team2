@@ -7,7 +7,14 @@ public class Review {
 	private String rv_userReview;
 	private String rv_bizReview;
 	private int rv_score;
+	private String m_nickname;
 	
+	public String getM_nickname() {
+		return m_nickname;
+	}
+	public void setM_nickname(String m_nickname) {
+		this.m_nickname = m_nickname;
+	}
 	public int getRv_num() {
 		return rv_num;
 	}

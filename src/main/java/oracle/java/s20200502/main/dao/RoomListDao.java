@@ -23,6 +23,8 @@ public interface RoomListDao {
 	public int getBT(SearchRoomList srl);
 
 	public List<Room> getBestList();
+
+	public List<Room> getAllList();
 	
 	
 }

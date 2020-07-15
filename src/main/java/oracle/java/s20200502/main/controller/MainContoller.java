@@ -1,8 +1,10 @@
 package oracle.java.s20200502.main.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
@@ -27,6 +29,7 @@ import oracle.java.s20200502.main.service.MemberService;
 import oracle.java.s20200502.main.service.Paging;
 import oracle.java.s20200502.main.service.RoomListService;
 import oracle.java.s20200502.room.model.Room;
+import oracle.java.s20200502.room.service.RoomService;
 
 @Controller
 public class MainContoller {
@@ -35,6 +38,8 @@ public class MainContoller {
 	private MemberService memberService;
 	@Autowired
 	private	RoomListService ls;
+	@Autowired
+	private RoomService rs;
 	//메일 셋팅
 	@Autowired
 	private JavaMailSender mailSender;
@@ -103,6 +108,7 @@ public class MainContoller {
 	@RequestMapping("main")
 	public String main(Model model) {
 		System.out.println("Open Main");
+		int total = rs.total();
 		List<Room> bestList = ls.getBestList();
 		
 		model.addAttribute("bestList", bestList);
@@ -125,7 +131,7 @@ public class MainContoller {
 					model.addAttribute("msg","정지된 계정입니다.");
 					return "main/loginForm";
 				}
-				return "main/main";
+				return "redirect:main";
 			}else {
 				model.addAttribute("msg","아이디 패스워드 오류입니다.");
 				return "main/loginForm";
@@ -177,9 +183,10 @@ public class MainContoller {
 	}
 	//회원정보 탈퇴
 	@RequestMapping(value="memberDelete", method=RequestMethod.POST)
-	public String memberDelete(Model model, Member member) {
+	public String memberDelete(Model model, Member member, HttpSession session) {
 		System.out.println("MainController memberDelete()=>" + member.getM_num());
 		memberService.memberDelete(member);
+		session.invalidate();
 		return "main/loginForm";
 	}
 	//회원가입 폼
@@ -274,10 +281,10 @@ public class MainContoller {
 		System.out.println("MainController PassSearch()..");
 		try {
 		memberService.PassSearch(member);
-		return "main/mainForm";
+		return "main/main";
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
-			return "main/mainForm";
+			return "main/main";
 		}
 	}
 	//아이디 찾기 폼 이동

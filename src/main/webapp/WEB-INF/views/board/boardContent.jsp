@@ -7,10 +7,8 @@
 <%@ include file="../header.jsp"%>
 <!DOCTYPE html>
 <html>
-<title>BoardContent</title>
+<title>커뮤니티 게시판</title>
 <link rel="stylesheet" type="text/css" href="../css/board-content.css">
-<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
 <body>
 
 	<div id="wrap">
@@ -34,24 +32,28 @@
 				</c:choose>
 				<span id="likeCount">${board.b_likeCnt }</span>
 			</c:if>
-			<c:if test="${m_num ne null && m_num eq board.m_num}">
-				<button class="btn-boardcontent"
-					onclick="location.href='boardUpdateForm?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
-					수정</button>
-				<button class="btn-boardcontent" onclick="deleteChk()">삭제</button>
-			</c:if>
 		</div>
-		<section>
+		<section class="board-content">
 			<article>${board.b_content }</article>
 		</section>
 
-
 		<div>
 			<div id="nickname">작성자: ${board.m_nickname }</div>
+			<div>
+				<c:if test="${m_num ne null && m_num eq board.m_num}">
+					<button class="btn-boardcontent"
+						onclick="location.href='boardUpdateForm?b_num=${board.b_num}&currentPage=${paging.currentPage}&b_type=${board.b_type}'">
+						수정</button>
+					<button class="btn-boardcontent" onclick="deleteChk()">삭제</button>
+				</c:if>
+			</div>
 		</div>
 		<div style="text-align: right">
 			<button class="blue-btn" onclick="listBtn(${board.b_type}, ${paging.currentPage} )">목록</button>
-			<button id="replyView" class="btn-boardcontent" onclick="">댓글보기[${board.b_replyCnt }]</button>
+			<c:if test="${board.b_type == 1}">
+				<button id="replyView" class="btn-reply-top">댓글보기[${board.b_replyCnt }]</button>
+			</c:if>
+			
 		</div>
 		<div id="reply-container">
 			<div id="reply-write">
@@ -129,9 +131,9 @@
 				var str = "<div id='reply-warp'>";
 				
 				$(data).each(function() {
-					$("#replyView").html("댓글보기["+ this.r_replyCnt +"]");
+					$("#replyView").html("댓글보기["+ this.br_replyCnt +"]");
 					str += "	<div style ='margin-left:"+this.br_indent+"px'>";
-					str += "		<ul class='reply-info'>"
+					str += "		<ul>"
 					str += " 			<input type='hidden' id='reply-nickname"+ this.br_num+"' value='"+this.m_nickname+"'>";
 					str += "			<li class='reply-nickname'>"+this.m_nickname+"</li>";
 					
@@ -199,7 +201,7 @@
 					 
 			success : function(data) {
 				$("#btnReReply"+br_num).remove();
-				$("#replyCon"+br_num).html("<textarea id='modfiyContent"+br_num+"' rows='4' cols='150' placeholder='대댓글을 작성해주세요'>"+data.br_content+"</textarea>");
+				$("#replyCon"+br_num).html("<textarea id='modfiyContent"+br_num+"' rows='4' cols='100' placeholder='대댓글을 작성해주세요'>"+data.br_content+"</textarea>");
 				$("#btnModifyForm"+br_num).html("<input type='button' id='btnModify' class='btn-reply' value='수정' onclick='btnModifyReply("+br_num+")'>");
 				$("#btnDelete"+br_num).html("<input type='button' id='btnModifyCancel' class='btn-reply' value='취소' onclick='getReplyList()'>");
 			},
@@ -257,7 +259,7 @@
 					 b_num },
 					 
 			success : function(data) {
-				$("#rereplyComment"+br_num).html("<textarea rows='4' id='reReplytext' placeholder='대댓글을 작성해 주세요'>@"+ replyNickname +" &nbsp; &nbsp; &nbsp;</textarea>"
+				$("#rereplyComment"+br_num).html("<textarea rows='3' id='reReplytext' placeholder='대댓글을 작성해 주세요'>@"+ replyNickname +" &nbsp; &nbsp; &nbsp;</textarea>"
 											+ "<input type='button' value='입력' class='btn-submit' onclick='btnWriteReply("
 											+ br_group
 											+ ")'>"
@@ -267,6 +269,7 @@
 		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 		    }
 		});
+		
 	}
 	
 </script>

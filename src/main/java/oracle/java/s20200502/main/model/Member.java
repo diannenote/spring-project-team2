@@ -3,6 +3,9 @@ package oracle.java.s20200502.main.model;
 import java.sql.Date;
 
 public class Member {
+	//예약 불러오기용
+	private int ro_num;
+	//멤버
 	private int m_num;	private String m_email;
 	private String m_password;
 	private String m_nickname; private String m_phone;
@@ -12,6 +15,12 @@ public class Member {
 	//회원가입 결과값을 가져오기위함
 	private int m_newMemberResult;
 	
+	public int getRo_num() {
+		return ro_num;
+	}
+	public void setRo_num(int ro_num) {
+		this.ro_num = ro_num;
+	}
 	public int getM_num() {return m_num;}
 	public void setM_num(int m_num) {this.m_num = m_num;}
 	public String getM_email() {return m_email;}

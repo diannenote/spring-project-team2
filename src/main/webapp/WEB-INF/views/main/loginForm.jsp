@@ -8,7 +8,18 @@
 <% String context = request.getContextPath(); %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="css/Position.css">
-<title>공부하랑\(^ㅁ^)/ 로그인페이지</title>
+<title>로그인 페이지</title>
+<style>
+body {
+	font-family: BMDOHYEON_TTF; 
+}
+.hangang {
+	font-family: SEOULHANGANGB;
+}
+.jalnan {
+	font-family: JALNAN;
+}
+</style>
 </head>
 <body>
 <div class="loginFont"><h5>공부하랑 로그인</h5></div>
@@ -31,6 +42,5 @@
 			<p>아직 회원이 아니신가요?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="memberShip">회원가입</a></p> 
 		</form>
 	</div>
-
 </body>
 </html>

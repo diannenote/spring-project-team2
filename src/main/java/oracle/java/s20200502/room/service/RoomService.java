@@ -13,6 +13,7 @@ public interface RoomService {
 	int titleToNum(String ro_title);
 	int total();
 	List<Room> getList(Room room);
+	List<Room> getList0(Room room);
 	Room getRoomContent(int ro_num);
 	void upHit(int ro_num);
 	int update(Room room);
@@ -29,4 +30,6 @@ public interface RoomService {
 	List<Room> getListLoc(Room room);
 	int locTotal(String ro_loc);
 	int levelTotal();
+	Reservation getReservation(Member member);
+	List<Reservation> getReservationList(Member member);
 }

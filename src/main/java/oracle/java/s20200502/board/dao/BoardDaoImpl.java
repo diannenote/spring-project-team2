@@ -29,12 +29,12 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public int boardtotal(Paging paging) {
-		return session.selectOne("boardtotal");
+		return session.selectOne("boardtotal", paging);
 	}
 
 	@Override
 	public int noticetotal(Paging paging) {
-		return session.selectOne("noticetotal");
+		return session.selectOne("noticetotal", paging);
 	}
 
 	@Override

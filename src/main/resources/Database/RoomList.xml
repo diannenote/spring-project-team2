@@ -88,6 +88,10 @@ select count(*) from (select b_num, b_title, m_num, b_regdate, b_hit
     	 order by ro_hit desc) a) where rn between 1 and 8
 </select>
 
+	<select id="getRandomList" parameterType="Room" resultType="Room">
+	select rownum rn, a.* from (select * from room
+    	 order by ro_num desc) a
+	</select>
 
 
 </mapper>

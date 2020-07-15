@@ -13,30 +13,52 @@
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <link rel="stylesheet" href="css/roomcontent.css">
+<link rel="stylesheet" href="css/reservationchk.css">
 <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 <style type="text/css">
 #check_module {
 	position: relative;
 	top: 600px;
 }
+li {
+	list-style: none;
+}
 </style>
 
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap"
+	rel="stylesheet">
 <title>스터디룸 상세페이지</title>
 </head>
 
 <body>
-<div>
-	<p>아임 서포트 결제 모듈 테스트 해보기</p>
-	<button id="check_module" type="button" onclick="pay()">아임 서포트 결제 모듈 테스트 해보기</button><br>
-	방번호 : ${reservation.ro_num }<br>
-	멤버번호 : ${reservation.m_num }<br>
-	방제목 :${reservation.ro_title }<br>
-	예약자 이름 :${memberInfo.m_nickname }<br>
-	예약자 이메일 :${memberInfo.m_email }<br>
-	예약자 전화번호 : ${memberInfo.m_phone }<br>
+<div id="wrap">
+
+	<h2 id="payment">예약 및 결제</h2><br>
+<div class="reserve_container">
+	
+	<a id="reservation_space">예약 할 스터디룸</a><div id="line1"></div><p id="cover1"><a id="payment_plan" >결제 예정금액<br></a><div id="line2">
+	<a id="font1">
 	예약날짜 :${reservation.re_rvDate }<br>
-	예약가격 : ${reservation.re_totalCost }<br>
-	예약타임 : ${reservation.re_when }
+	<br>
+	예약타임 : ${reservation.re_when }<br>
+	<br>
+	예약가격 : ${reservation.re_totalCost }</div></p>
+	</a>
+	<img src="${pageContext.request.contextPath }/upload/${reservation.ro_img }" alt="방이미지" id="pay_img">
+	<a id="btn1">
+	<button id="check_module" type="button" onclick="pay()" class="btn btn-primary">결제하기</button><br>
+	</a>
+	<br>
+	<br>
+		<a id="font1">
+	<li>멤버번호 : ${reservation.m_num }<br></li>
+	<li>방제목 :${reservation.ro_title }<br></li>
+	<li>예약자 이름 :${memberInfo.m_nickname }<br></li>
+	<li>예약자 이메일 :${memberInfo.m_email }<br></li>
+	<li>예약자 전화번호 : ${memberInfo.m_phone }<br></li>
+		</a>
+</div>
 </div>
 <script>
 	function pay() {

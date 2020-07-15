@@ -6,6 +6,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style>
+body {
+	font-family: BMDOHYEON_TTF; 
+}
+.hangang {
+	font-family: SEOULHANGANGB;
+}
+.jalnan {
+	font-family: JALNAN;
+}
+</style>
 <% String context = request.getContextPath(); %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -51,6 +62,5 @@
 		<input type="button" value="아이디 찾기"class="btn-primary" onclick="idEx()">&nbsp;&nbsp;&nbsp; 
 		<input type="reset" value="다시쓰기" class="btn-primary">
 	</div><br/>
-
 </body>
 </html>

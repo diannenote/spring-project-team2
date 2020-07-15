@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>공부하랑 달력</title>
 <link rel="stylesheet" href="css/reset.css">
 <link rel="stylesheet" href="css/reserve.css">
 <link rel="stylesheet" href="css/header.css">
@@ -17,7 +17,15 @@
 <style>
 * {	font-size: 11px;
 }
-
+body {
+	font-family: BMDOHYEON_TTF; 
+}
+.hangang {
+	font-family: SEOULHANGANGB;
+}
+.jalnan {
+	font-family: JALNAN;
+}
 
 
 .header-nav-wrapper {

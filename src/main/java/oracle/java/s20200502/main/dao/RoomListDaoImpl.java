@@ -60,5 +60,9 @@ public class RoomListDaoImpl implements RoomListDao {
 	public List<Room> getBestList() {
 		return session.selectList("getBestList");
 	}
+	@Override
+	public List<Room> getAllList() {
+		return session.selectList("getRandomList");
+	}
 
 }

@@ -10,6 +10,7 @@
 		<typeAlias alias="RoomReservation" type="oracle.java.s20200502.room.model.Reservation"/>
 		<typeAlias alias="RoomReview" type="oracle.java.s20200502.room.model.Review"/>
 		<typeAlias alias="Payment" type="oracle.java.s20200502.room.model.Payment"/>
+		<typeAlias alias="Reservation" type="oracle.java.s20200502.room.model.Reservation"/>
 		<!-- 보드 -->
 		<typeAlias alias="Board" type="oracle.java.s20200502.board.model.Board"/>
 		<typeAlias alias="Paging" type="oracle.java.s20200502.board.model.Paging"/>

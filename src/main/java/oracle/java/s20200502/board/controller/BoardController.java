@@ -54,6 +54,7 @@ public class BoardController {
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("paging", paging);
+		model.addAttribute("total", boardtotal);
 		
 		return "board/boardList";
 	}
@@ -75,6 +76,7 @@ public class BoardController {
 		
 		model.addAttribute("boardList", noticeList);
 		model.addAttribute("paging", paging);
+		model.addAttribute("total", noticetotal);
 
 		return "board/boardList";
 	}
@@ -127,7 +129,7 @@ public class BoardController {
 		
 		Member member = (Member) session.getAttribute("memberInfo");
 		if(member == null) {
-			return "main/loginForm";
+			return "redirect:/loginForm";
 		}
 		board.setM_num(member.getM_num());
 		model.addAttribute("board", board);

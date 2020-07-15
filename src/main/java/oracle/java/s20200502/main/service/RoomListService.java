@@ -19,6 +19,7 @@ public interface RoomListService {
 	int getBT(SearchRoomList srl);
 	List<Board> boardSearchList(SearchRoomList srl);
 	List<Room> getBestList();
+	List<Room> getAllList();
 
 
 }

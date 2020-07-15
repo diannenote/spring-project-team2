@@ -45,5 +45,9 @@ public class RoomListServiceImpl implements RoomListService {
 	public List<Room> getBestList() {
 		return dao.getBestList();
 	}
+	@Override
+	public List<Room> getAllList() {
+		return dao.getAllList();
+	}
 
 }

@@ -5,7 +5,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>리스트 검색</title>
+<style>
+body {
+	font-family: BMDOHYEON_TTF; 
+}
+.hangang {
+	font-family: SEOULHANGANGB;
+}
+.jalnan {
+	font-family: JALNAN;
+}
+</style>
 </head>
 <body>
 <!-- 방 게시판 검색 결과 -->

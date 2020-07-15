@@ -8,10 +8,19 @@
 <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 <!-- 뷰포트 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>관리자 사이트</title>
+<title>공부하랑 방 수정</title>
 
 <!-- jquery 이미지 미리보기 -->
 <style type="text/css">
+body {
+	font-family: BMDOHYEON_TTF; 
+}
+.hangang {
+	font-family: SEOULHANGANGB;
+}
+.jalnan {
+	font-family: JALNAN;
+}
 	.imgs_wrap {
 		width: 300px;
 		margin-top: 30px;
@@ -227,4 +236,24 @@
 	<div id="message"></div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

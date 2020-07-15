@@ -10,21 +10,36 @@
 <style>
 .form-inline .form-control {
 width: 40vw;
+height: 5vh;
+
 }
 #gongback {
 height: 70px;
 }
 #navbg {
 	background-color: white;
+	height: 8%;
 }
 
 /* .navbar {
 	border-bottom: solid 1px #0275d8;
 } */
+body {
+	font-family: BMDOHYEON_TTF; 
+}
+.hangang {
+	font-family: SEOULHANGANGB;
+}
+.jalnan {
+	font-family: JALNAN;
+}
+#search {
+	height: 5vh;
+}
 </style>
 <body>
 	<nav class="navbar fixed-top navbar-expand-lg navbar-light" id="navbg">
-		<a class="navebar-brand" href="/s20200502/main"><img class="logoimg" alt="brand" src="/s20200502/resources/Image/harang5.png"></a>
+		<a class="navebar-brand" href="/s20200502/main"><img class="logoimg" alt="brand" src="/s20200502/resources/Image/harang6.png"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -33,7 +48,7 @@ height: 70px;
 			<li>
 				<form class="form-inline" action="/s20200502/listSearch" method="GET">
 					<input class="form-control" type="text" name="keyword" value="${keyword}" placeholder="검색어">
-					<input class="btn btn-primary" type="submit" value="검색">
+					<input class="btn btn-primary" id="search" type="submit" value="검색" >
 				</form>
 			</li>
 		</ul>
@@ -50,6 +65,7 @@ height: 70px;
 						<c:if test="${memberInfo.m_num != null }">
 							<a class="dropdown-item" href="/s20200502/logout">로그아웃</a>
 							<a class="dropdown-item" href="/s20200502/myInfo">마이페이지</a>
+							<a class="dropdown-item" href="/s20200502/myReservation">나의 예약 현황</a>
 							<c:if test="${memberInfo.m_type != 0 }">
 								--------------------------------
 								<a class="dropdown-item" href="/s20200502/roomInsertGo">스터디룸 등록</a>

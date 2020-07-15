@@ -108,4 +108,16 @@ public class RoomServiceImpl implements RoomService {
 	public int levelTotal() {
 		return rd.levelTotal();
 	}
+	@Override
+	public List<Room> getList0(Room room) {
+		return rd.getList0(room);
+	}
+	@Override
+	public Reservation getReservation(Member member) {
+		return rd.getReservation(member);
+	}
+	@Override
+	public List<Reservation> getReservationList(Member member) {
+		return rd.getReservationList(member);
+	}
 }

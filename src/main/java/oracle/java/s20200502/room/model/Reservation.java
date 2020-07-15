@@ -14,7 +14,21 @@ public class Reservation {
 	private Date re_date;
 	private String ro_title;
 	private String re_when;
+	private String m_nickname;
+	private String ro_img;
 	
+	public String getRo_img() {
+		return ro_img;
+	}
+	public void setRo_img(String ro_img) {
+		this.ro_img = ro_img;
+	}
+	public String getM_nickname() {
+		return m_nickname;
+	}
+	public void setM_nickname(String m_nickname) {
+		this.m_nickname = m_nickname;
+	}
 	public String getRe_when() {
 		return re_when;
 	}

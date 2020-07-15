@@ -29,4 +29,7 @@ public interface RoomDao {
 	List<Room> getListLoc(Room room);
 	int locTotal(String ro_loc);
 	int levelTotal();
+	List<Room> getList0(Room room);
+	Reservation getReservation(Member member);
+	List<Reservation> getReservationList(Member member);
 }
