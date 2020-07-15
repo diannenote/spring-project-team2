@@ -8,10 +8,7 @@
 		insert into review (rv_num, ro_num, m_num, rv_userReview, rv_score) values (rv_num.nextval, #{ro_num}, #{m_num}, #{rv_userReview}, #{rv_score})
 	</insert>
 	<select id="getRoomReview" parameterType="int" resultType="RoomReview">
-		select rv_num, m_num, rv_userreview, rv_score from review where ro_num=#{ro_num}
-	</select>
-	<select id="getRoomBizReview" parameterType="int" resultType="RoomReview">
-		select rv_num, m_num, rv_Bizreview from review where ro_num=#{ro_num}
+		select rv_num, m_nickName, rv_userreview, rv_score from review join member on review.m_num=member.m_num where ro_num=#{ro_num}
 	</select>
 	<select id="getScoreAvg" parameterType="int" resultType="double">
 		select round(avg(rv_score),1) from (select rv_score from review where ro_num=#{ro_num})

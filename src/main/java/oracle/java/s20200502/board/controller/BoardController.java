@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,7 @@ public class BoardController {
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("paging", paging);
+		model.addAttribute("total", boardtotal);
 		
 		return "board/boardList";
 	}
@@ -73,27 +76,46 @@ public class BoardController {
 		
 		model.addAttribute("boardList", noticeList);
 		model.addAttribute("paging", paging);
+		model.addAttribute("total", noticetotal);
 
 		return "board/boardList";
 	}
 	
 	//게시글 내용
 	@RequestMapping("boardContent")
-	public String boardContent(Board board, Paging paging, Model model, HttpSession session) {
+	public String boardContent(Board board, Paging paging, Model model,
+			HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		
 		Member member = (Member) session.getAttribute("memberInfo");
 		if (member != null) {
 			int count = likeService.likeCount(board.getB_num(), member.getM_num());
 			int m_num = member.getM_num();
+			boolean isCookie = false;
+			Cookie[] cookies = request.getCookies();
+			if(cookies != null){   
+				System.out.println("쿠키있음");
+				for(int i =0; i < cookies.length; i++){  
+					if(cookies[i].getName().equals("cookie"+board.getB_num()+member.getM_num())){
+				    	isCookie = true; 
+					}
+				}
+			}
+			if(!isCookie) {
+				System.out.println("쿠키없음");
+				boardService.boardHitUp(board.getB_num());//조회수증가
+				Cookie addCookie = new Cookie("cookie" + board.getB_num()+member.getM_num(), String.valueOf(board.getB_num()));
+				addCookie.setMaxAge(1*24*60*60);//하루저장
+				response.addCookie(addCookie);    
+			}
+				  
 			model.addAttribute("m_num",m_num);
 			model.addAttribute("likeCnt", count);
 		}
 		if(member == null && board.getB_type() == 1) {
-			return "main/loginForm";
+			return "redirect:/loginForm";
 		} 
 		
 		board = boardService.boardContent(board.getB_num());
-		boardService.boardHitUp(board.getB_num());
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("board", board);
@@ -107,7 +129,7 @@ public class BoardController {
 		
 		Member member = (Member) session.getAttribute("memberInfo");
 		if(member == null) {
-			return "main/loginForm";
+			return "redirect:/loginForm";
 		}
 		board.setM_num(member.getM_num());
 		model.addAttribute("board", board);
@@ -163,7 +185,7 @@ public class BoardController {
 	@RequestMapping("boardUpdate")
 	public String boardUpdate(Board board, Paging paging, Model model) {
 		
-		int update = boardService.boardUpdate(board);
+		boardService.boardUpdate(board);
 		model.addAttribute("paging",paging);
 		model.addAttribute("board",board);
 		
@@ -178,7 +200,7 @@ public class BoardController {
 		
 		Member member = (Member) session.getAttribute("memberInfo");
 		
-		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<String, Object>();
 		boolean isLike;
 		int count = likeService.likeCount(b_num, member.getM_num());
 		System.out.println(count);
@@ -197,23 +219,6 @@ public class BoardController {
 		result.put("likeCnt", likeCnt);
 		
 		return result;
-	}
-	//로그인 체크후 게시판으로 리턴
-	@RequestMapping(value="loginChk", method=RequestMethod.POST)
-	public String loginChk(Model model,Member member,HttpSession session,String error) {
-		
-			Member members = memberService.login(member, session);
-			if(members != null) {
-				session.setAttribute("memberInfo", members);
-				if(members.getM_ban() == 1) {
-					model.addAttribute("msg","정지된 계정입니다.");
-					return "main/loginForm";
-				}
-				return "redirect:boardList";
-			}else {
-				model.addAttribute("msg","아이디 패스워드 오류입니다.");
-				return "main/loginForm";
-			}
 	}
 	
 }

@@ -1,8 +1,8 @@
 package oracle.java.s20200502.room.service;
 public class Paging {
 	private int currentPage = 1;	
-	private int rowPage     = 10;
-	private int pageBlock   = 5;		
+	private int rowPage     = 16;
+	private int pageBlock   = 10;		
 	private int start;		    private int end;
 	private int startPage;	    private int endPage;
 	private int total;		    private int totalPage;

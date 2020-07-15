@@ -1,27 +1,109 @@
-@charset "UTF-8";
-
-#wrap {
-margin: auto;
-width : 80%;
+button {
+	all:unset;
 }
+#wrap {
+	margin: auto;
+	width : 65%;
+	height: auto;
+	margin-top: 5vw;
+	margin-bottom: 5vw;
+    font-size: 20px;
+}
+.btn-reply-top{
+	padding: 3px 10px;
+}
+#reply-container{
+	border-top: solid 1px #e0e0e0;
+	padding-top: 20px;
+	margin-top: 20px;
+	
+}
+.board-content {
+	min-height: 30vh;
+}
+
+/* 댓글 css */
 #reply-warp {
-width : 70%;
-}  
+	margin-top: 50px;
+}
+#reply-write{
+	width : 80%;
+	
+}    
 ul {
-list-style: none;
+	list-style: none;
 
 }
 ul > li{
-display: inline-block;
+	display: inline-block;
+}
+#replyComment{
+	resize: none;
+	vertical-align: middle;
+	width: 80%;
 }
 textarea {
-resize: none;
-}
-.reply-input {
-display : block;
+	resize: none;
+	vertical-align: middle;
+	width: 80%;
+	border-radius: 4px;
 }
 
-.btn-Reply {
-position: relative;
-left: 150px;
-} 
+.reply-input {
+	display : block;
+}
+
+.btn-boardcontent {
+	font-size: 15px;
+	color: #666;	
+}
+.btn-boardcontent:hover {
+	color: black;
+	font-weight: bolder;
+	font-size: 1.5em;
+	transition: 0.5s;
+}
+.btn-submit{
+	border-radius: 4px;
+	height: 98px;
+	border-color: #e0e0e0;
+	vertical-align: middle;
+}
+.reply-nickname{
+	font-family: 'JALNAN';
+	font-weight: bold;
+}
+
+.reply-regdate{
+	float: right;
+	padding: 0 5 0 0px;
+	margin-right: 3px;
+}
+.btn-li{
+	float: right;
+	vertical-align: middle;
+	margin-right: 3px;
+}
+.btn-reply{
+	border-radius: 4px;
+	background-color: #e0e0e0;
+	border-color: #e0e0e0;
+	vertical-align: middle;
+	margin: 0 5 0 0px;
+	font-size: 15px;
+}
+.blue-btn{
+	background-color: #007bff;
+	color: #ffffff;
+	border-radius: 4px;
+	border-color: #007bff;
+	padding: 5px 10px;
+	font-family:'BMDOHYEON';
+	font-weight: bolder;
+}
+#nickname {
+	font-family: 'JALNAN';
+	font-weight: bolder;
+	margin-top: 20px;
+	
+}

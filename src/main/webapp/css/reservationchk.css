@@ -1,0 +1,77 @@
+@charset "UTF-8";
+#payment{
+font-family: 'Noto Sans KR', sans-serif;
+position: relative;
+left:500px;
+top:40px;
+text-align: justify;
+	
+}
+#payment_plan{
+font-family: 'Noto Sans KR', sans-serif;
+	font-size: 20px;
+float:right;
+position: relative;
+right:450px;
+bottom: 30px;
+
+	
+}
+#reservation_space{
+font-family: 'Noto Sans KR', sans-serif;
+	font-size: 20px;
+position: relative;
+left:50px;
+	
+}
+#pay_img{
+	width: 140px;
+	height: 140px;
+	
+}
+.reserve_container{
+	padding-left: 100px;
+	position: relative;
+	top: 50px;
+	
+}
+#line1{
+	border-top: 3px solid purple;
+	width: 60%;
+}
+#line2{
+	border-top: 4px solid purple;
+	width: 22%;
+	position:relative;
+	right:100px;
+	bottom:20px;
+	float: right;
+}
+#line3{
+	border-top: 4px solid purple;
+	width: 22%;
+	position:relative;
+	left:260px;
+	top:150px;
+	float: right;
+}
+#cover1{
+	position: relative;
+}
+#font1{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 20px;
+}
+#btn1{
+	position: relative;
+	bottom: 450px;
+	left: 1100px;
+
+}
+#check_module{
+	padding:10px 170px;
+	
+}
+#wrap{
+	padding-top:70px;
+}

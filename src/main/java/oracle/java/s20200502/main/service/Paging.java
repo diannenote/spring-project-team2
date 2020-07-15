@@ -1,8 +1,8 @@
 package oracle.java.s20200502.main.service;
 public class Paging {
 	private int currentPage = 1;	
-	private int rowPage     = 10;
-	private int pageBlock   = 10;		
+	private int rowPage     = 6;
+	private int pageBlock   = 6;		
 	private int start;		    private int end;
 	private int startPage;	    private int endPage;
 	private int total;		    private int totalPage;
@@ -25,7 +25,11 @@ public class Paging {
 			endPage = totalPage;                                 // 시작 2
 		}
 	}
-
+	
+	public Paging(int searchTotal, String currentPage2, int bSearchTotal) {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public int getCurrentPage() {	return currentPage;	}
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;

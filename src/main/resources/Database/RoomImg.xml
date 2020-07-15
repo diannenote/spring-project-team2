@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="RoomImg">
-	<select id="getRoomImg" parameterType="int" resultType="java.lang.String">
-		select i_contentimg from roomImg where ro_num=#{ro_num} order by i_seq
+	<select id="getRoomImg" parameterType="int" resultType="RoomImg">
+		select ROWNUM i_seq, i_contentimg from roomImg where ro_num=#{ro_num} order by i_seq
 	</select>
 	<delete id="deleteRoomImg" parameterType="int">
 		delete roomImg where ro_num=#{ro_num}

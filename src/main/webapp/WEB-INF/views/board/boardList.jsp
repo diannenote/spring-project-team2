@@ -7,15 +7,13 @@
 	String context = request.getContextPath();
 %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<title>BoardList</title>
+
+<title>커뮤니티 게시판</title>
 <link rel="stylesheet" type="text/css" href= "../css/board-list.css"> 
 
 </head>
@@ -23,55 +21,56 @@
 <body>
 
 	
-	<div id="board-wrap">
-		<div class="board-con1">
-			<div class="btn-group btn-group-lg">
-	   			<a class="btn btn-primary" href="noticeList" id="notice-btn">공지사항</a>
-			    <a class="btn btn-primary" href="boardList" id="board-btn">스터디그룹</a>
-			</div>
-			
+	<div id="wrap">
+		<div id="board-nav">
+			<a href="noticeList" id="notice-btn" style="width:20%">공지사항
+			<a href="boardList"  id="board-btn"style="width:20%">스터디그룹</a></a>
 		</div>
-		<div class="board-con2">
+		
+		<div class="board-con1">
 			<table class="board-tb">
 				<colgroup>
-					<col width="5%">
-					<col width="40%">
 					<col width="10%">
-					<col width="8%">
-					<col width="5%">
-					<col width="7%">
+					<col width="50%">
+					<col width="10%">
+					<col width="10%">
+					<col width="10%">
+					<col width="10%">
 				</colgroup>	
 			
 					<tr>
-						<th>NO.</th><th>제목</th><th>작성자</th>
-						<th>작성일</th><th>조회수</th>
+						<th>NO.</th><th>제목</th><th class="board-only">작성자</th>
+						<th>등록일</th><th class="board-only">조회수</th>
 						<th class="board-only">좋아요♥</th>
-						
 					</tr>
-					
+					<c:if test="${total == 0 }">
+						<tr><td colspan="6"><b>일치하는 검색결과가 없습니다.</b></td></tr>
+					</c:if>					
 					<c:forEach items="${boardList}" var="boardList">
-						<tr>
+						<tr class="board-body">
 							<td>${ boardList.rn} </td>
-							<td><a href='boardContent?b_num=${boardList.b_num }&currentPage=${paging.currentPage}&b_type=${boardList.b_type}'>${boardList.b_title}</a>
-							    <a style="display: none;" class="board-only"> &nbsp; [${boardList.b_replyCnt }] </a></td>
-							<td>${ boardList.m_nickname}</td>
+							<td class="board-title">
+								<a href='boardContent?b_num=${boardList.b_num }&currentPage=${paging.currentPage}&b_type=${boardList.b_type}'>${boardList.b_title}</a>
+							    <a class="board-only" style="font-weight: bolder;">&nbsp;<img src="<%=context%>/resources/boardImg/reply-view.png" alt="reply">${boardList.b_replyCnt }</a>
+							</td>
+							<td class="board-only">${ boardList.m_nickname}</td>
 							<td>${ boardList.b_regDate}</td>				
-							<td>${ boardList.b_hit}</td>
+							<td class="board-only">${ boardList.b_hit}</td>
 							<td style="display: none;" class="board-only">${ boardList.b_likeCnt}</td>
 						</tr>
 					</c:forEach>
 			</table>
 			
 		</div>
-		<div class="board-con3">
+		<div class="baord-con2">
 		
 			<div id="WriteBtnDiv1" style="display: none;">
 			 	<c:if test="${m_type == 2 }">
-					<a onclick="boardType()" class="write-btn">글쓰기</a>
+					<a onclick="boardType()" class="write-btn" style="color: white;">글쓰기</a>
 			 	</c:if>
 			</div>
 			<div id="WriteBtnDiv2" style="display: none;">
-				<a onclick="boardType()" class="write-btn">글쓰기</a>
+				<a onclick="boardType()" class="write-btn"  style="color: white;">글쓰기</a>
 			</div>
 			
 		</div>
@@ -83,19 +82,19 @@
 				</div>
 			</form>
 			<form action="noticeList" id="noticeSearch">
-				<div id="noticeKeyword" style="text-align:right; display: none;">
+				<div id="noticeKeyword" style="text-align:right; display: none; margin-top: 30px;">
 					<input type="text" name="keyword" required="required" placeholder="검색"> 
 					<i class="fa fa-search" onclick="searchBtn()"></i>
 				</div>
 			</form>
 		</div>
-		<div style="text-align: center;">
+		<div class="paging-div">
 		
 			<c:if test="${paging.before eq true }">
 				<a onclick="goBefore(${paging.startPage - 1})"> ◀ PREV</a>
 			</c:if>
 			<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
-				<a onclick="goPage(${i})">[${i}]</a>
+				<a onclick="goPage(${i})" class="paging-num">&nbsp;${i}&nbsp;</a>
 			</c:forEach>
 			<c:if test="${paging.next eq true}">
 				<a onclick="goNext(${paging.endPage + 1})"> NEXT ▶</a>
@@ -112,13 +111,13 @@
 		// 검색필터
 		$(document).ready(function() {
 			if(loc.indexOf('noticeList') === 0) {
-				$("#notice-btn").css("background", "#0652DD");
+				$("#notice-btn").css("background", "#704de4");
 				$("#WriteBtnDiv1").css("display", "inline");
 				$(".board-only").hide();
 				$("#noticeKeyword").css("display", "block");
 			}
 			if(loc.indexOf('boardList') === 0) {
-				$("#board-btn").css("background", "#0652DD");
+				$("#board-btn").css("background", "#704de4");
 				$("#WriteBtnDiv2").css("display", "inline");
 				$(".board-only").show();
 				$("#boardKeyword").css("display", "block");
@@ -170,8 +169,7 @@
 		}		
 		
 	</script>
-		
-	
+<%@ include file="../footer.jsp"%>
 </body>
-	
 </html>
+

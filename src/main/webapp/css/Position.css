@@ -1,0 +1,128 @@
+@charset "UTF-8";
+@charset "UTF-8";
+
+.FormDiv{
+	position: relative;
+	top:10vw;
+    margin : auto;
+    width :45vw;
+    height : auto;
+    left:auto;
+    overflow:hidden;
+    text-align:center;
+    border: 3px solid #dae0e5;
+    font-size:17px;
+    font-weight: 600;
+}
+.ErrorMsg{
+	font-size:13px;
+}
+
+h5{
+	font-size:3em;
+	text-align:center;
+	padding-left:1vw;
+}
+.loginFont{
+	padding-right:3em;
+	margin-top : 3em;
+}
+.LoginTextBar{
+	width:30em;
+	height:2.5em;
+	border: 1px solid #dae0e5;
+	margin-top:1em;
+}
+
+/*myinfoForm*/
+.myInfoForm{
+	top:3vw;
+}
+.mhyInfoErrorMsg{
+	padding-left:3vw;
+}
+.myInfoTextBar{
+	width:300px;
+	height:50px;
+	border: 1.5px solid #dae0e5;
+	margin-top:1em;
+	font-size:initial;
+}
+.myInfobottom{
+	padding-left:5.7em
+}
+.phone{
+	width:300px;
+	height:50px;
+	border: 1.5px solid #dae0e5;
+	margin-top:1em;
+}
+/*idSearchForm*/
+.idSearchFont{
+	padding-top:5vw;
+}
+.idSearchBottom{
+	padding-left:5vw;
+}
+.idErrorMSG{
+	padding-left:5vw;
+}
+/*PassSearchForm*/
+.PassSearchFont{
+	padding-top:5vw;
+}
+/*Sertification*/
+.SertificationBottom{
+	padding-left:7vw
+}
+/*memberShipForm*/
+.memberShipFormDiv{
+	top:5vw;
+}
+.memberShipPass{
+	padding-right:2vw;
+}
+.memberShipNcik{
+	padding-left:0.8vw;
+}
+.memberShipName{
+	padding-left:2vw;
+}
+.memberShipPhone{
+	padding-right:0.3vw;
+}
+.memberShipBizName{
+	padding-left:1.3vw;
+}
+.memberShipBizNum{
+	padding-right:0.3vw;
+}
+.memberShipNicMsg{
+	padding-left:3.5vw;
+}
+/*pwChangeForm*/
+.pwChangeFormDiv{
+	 top:5vw;
+}
+.pwChangeFormFont{
+	padding-left:6vw;
+}
+.pwChangeRePassBar{
+	padding-right:2vw;
+}
+.pwChangePassBar{
+	padding-right: 0.2vw;
+}
+.pwChangeBottom{
+	padding-left:6.5vw;
+}
+.pwChangeFont{
+	padding-left:7vw;
+}
+
+
+
+
+
+
+

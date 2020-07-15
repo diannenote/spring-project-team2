@@ -5,9 +5,9 @@
   
 <mapper namespace="Room">
 	<insert id="roomInsert" parameterType="Room" >
-		insert into room values(ro_num.nextval, #{m_num}, #{ro_title}, #{ro_content}, 0,
+		insert into room values(ro_num.nextval, #{m_num}, #{ro_title}, #{ro_content}, 0, #{ro_loc},
 								#{ro_spot1}, #{ro_spot2}, #{ro_img}, #{ro_mReservation}, #{ro_aftReservation},
-								#{ro_nitReservation}, #{ro_loc}, '0')
+								#{ro_nitReservation}, '0')
 	</insert>
 	
 	<select id="titleToNum" resultType="int" parameterType="java.lang.String">
@@ -16,9 +16,20 @@
 	<select id="roomTotal" resultType="int">
 		select count(*) FROM room
 	</select>
+	<select id="locTotal" resultType="int" parameterType="java.lang.String">
+		select count(*) FROM room where ro_loc=#{ro_loc}
+	</select>
+	<select id="levelTotal" resultType="int" parameterType="java.lang.String">
+		select count(*) FROM room where ro_level=0
+	</select>
 	<select id="getRoomList" parameterType="Room" resultType="Room">
 		select * from (select rownum rn, a.* from (select * from room
-    	 order by ro_num desc) a) where rn between #{start} and
+    	 where ro_level=1 order by ro_num desc) a) where rn between #{start} and
+    	 #{end}
+	</select>
+	<select id="getRoomList0" parameterType="Room" resultType="Room">
+		select * from (select rownum rn, a.* from (select * from room
+    	 where ro_level=0 order by ro_num desc) a) where rn between #{start} and
     	 #{end}
 	</select>
 	<select id="getRoomContent" parameterType="int" resultType="Room">
@@ -41,4 +52,32 @@
 	<update id="contentDown" parameterType="int">
 		update room set ro_level=2 where ro_num=#{ro_num}
 	</update>
+<!-- hyerin -->
+	<insert id="morningReserve" parameterType="RoomReservation">
+		insert into reservation values(re_num.nextval, #{ro_num}, #{m_num},
+										#{re_rvDate}, #{re_totalCost}, 1, 0, 0, sysdate)
+	</insert>
+	<insert id="afterReserve" parameterType="RoomReservation">
+		insert into reservation values(re_num.nextval, #{ro_num}, #{m_num},
+										#{re_rvDate}, #{re_totalCost}, 0, 1, 0, sysdate)
+	</insert>
+	<insert id="nightReserve" parameterType="RoomReservation">
+		insert into reservation values(re_num.nextval, #{ro_num}, #{m_num},
+										#{re_rvDate}, #{re_totalCost}, 0, 0, 1, sysdate)
+	</insert>
+	<insert id="payInsert" parameterType="Payment">
+		insert into payment(p_num, m_num, u_id, t_id, amount, app_num) values(p_seq.nextval, #{m_num }, #{u_id}, #{t_id}, #{amount}, #{app_num})
+	</insert>
+	<select id="getListLoc" parameterType="Room" resultType="Room">
+		select * from (select rownum rn, a.* from (select * from room where ro_loc=#{ro_loc} and ro_level=1
+    	 order by ro_num desc) a) where rn between #{start} and
+    	 #{end}
+	</select>
+	<select id="getReservation" parameterType="Member" resultType="Reservation">
+		select * from reservation where m_num=#{m_num} and ro_num=#{ro_num}
+	</select>
+	<select id="getReservationList" parameterType="Member" resultType="Reservation">
+		select a.*, m_nickname from (select reservation.*, room.ro_title from reservation 
+		join room on reservation.ro_num=room.ro_num and reservation.m_num=#{m_num}) a join member on a.m_num=member.m_num			
+	</select>
 </mapper>

@@ -39,4 +39,24 @@ public class RestMainController {
 			return "0";
 		}
 	}
+	//비밃번호 찾기
+	@RequestMapping(value="emailNumSearch",produces = "application/text;charset=UTF-8")
+	@ResponseBody
+	public String emailNumSearch(Model model,Member member){
+		member = memberService.emailNumSearch(member);
+		System.out.println("RestMainController emailNumSearch() num =>" + member.getM_num());
+		return Integer.toString(member.getM_num());
+		
+			
+	}
+	//아이디 찾기
+	@RequestMapping(value="idExistenceChk",produces = "application/text;charset=UTF-8")
+	@ResponseBody
+	public String idExistenceChk(Model model,Member member) {
+		System.out.println("RestMainContoller idExistenceChk()=>" + member.getM_name());
+		System.out.println("RestMainContoller idExistenceChk()=>" + member.getM_phone());
+		Member members = memberService.idExistenceChk(member);
+		return members.getM_email();
+	}	
+		
 }

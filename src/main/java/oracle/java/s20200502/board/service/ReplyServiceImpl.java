@@ -21,7 +21,7 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public void replyWrite(Reply reply) {
-		if(reply.getBr_num() != 0 ) reply.setBr_indent(70);
+		if(reply.getBr_num() != 0 ) reply.setBr_indent(50);
 		replyDao.replyWrite(reply);
 	}
 
